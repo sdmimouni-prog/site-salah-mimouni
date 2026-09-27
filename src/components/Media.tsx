@@ -11,7 +11,7 @@ export function Media() {
       <SectionReveal className="intervention-grid">
         <div className="section-reveal-item" data-reveal="visible">
           <article className="conference-card card">
-            <div className="conference-image"><img src={home.conference.image} alt="Salah-Eddine Mimouni en studio" loading="lazy"/></div>
+            <div className="conference-image"><img src={home.conference.image} alt="Salah-Eddine MIMOUNI en studio" loading="lazy"/></div>
             <div className="conference-copy">
               <p className="category category-pill"><span/>Conférence</p>
               <h3>{home.conference.title.split(" : ").map((line, index) => <span key={line}>{line}{index === 0 ? "\u00a0:" : ""}</span>)}</h3><p className="muted">{home.conference.description}</p>

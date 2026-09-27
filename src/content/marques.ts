@@ -1,8 +1,10 @@
+const confirmedPrice = 145;
+
 export const marques = {
-  id: 'quand-les-marques-pensent', title: 'Quand les marques pensent', author: 'Salah Eddine Mimouni',
+  id: 'quand-les-marques-pensent', title: 'Quand les marques pensent', author: 'Salah-Eddine MIMOUNI',
   subtitle: 'La révolution de l’IA qui bouleverse le marketing et l’influence.',
   cover: '/assets/books/marques-front.webp', logo: '/assets/books/editions-actuelles.png', portrait: '/assets/photos/portrait.jpeg',
-  commerce: { mode: 'demo', price: null as number | null, currency: 'MAD', delivery: 'À confirmer', payment: 'Aucun paiement demandé à cette étape.', recipient: 'sd.mimouni@richmedia.ma' },
+  commerce: { mode: 'demo', price: confirmedPrice, currency: 'MAD', delivery: 'À confirmer', payment: 'Aucun paiement demandé à cette étape.', recipient: 'sd.mimouni@richmedia.ma' },
   navigation: [['Le livre','#le-livre'],['Sommaire','#sommaire'],['Extraits','#extraits'],['L’auteur','#auteur'],['L’éditeur','#editeur']],
   facts: [['10','chapitres','Pour repenser le marketing'],['3','actes','Comprendre, s’adapter, anticiper'],['FR','Un livre en français','Stratégie, terrain et réflexion'],['↗','Maroc & Afrique','Un regard ancré dans le terrain']],
   intro: 'Ni manuel académique, ni catalogue d’outils : ce livre croise l’expérience du chercheur et celle du praticien pour explorer le passage du marketing planifié au marketing augmenté par l’IA.',
@@ -20,7 +22,7 @@ export const marques = {
   faq: [
     ['À qui s’adresse ce livre ?', 'Aux professionnels du marketing, entrepreneurs, créateurs de contenu et lecteurs qui souhaitent comprendre comment l’IA transforme les marques et l’influence, tout en préservant la place de l’humain.'],
     ['Puis-je découvrir un extrait avant de commander ?', 'Oui. Les deux passages de la section Extraits permettent de découvrir le propos du livre. Ils sont issus des chapitres 1 et 4 ; le manuscrit complet n’est pas publié sur ce site.'],
-    ['Comment connaître le prix et les modalités de livraison ?', 'Le prix, les frais et les modalités de livraison restent à confirmer. Le formulaire est actuellement en démonstration et n’envoie aucune demande. Vous pouvez contacter directement sd.mimouni@richmedia.ma.'],
+    ['Comment connaître le prix et les modalités de livraison ?', `Le livre coûte ${confirmedPrice} Dhs l’exemplaire, hors livraison. Les frais et les modalités de livraison restent à confirmer. Le formulaire est actuellement en démonstration et n’envoie aucune demande. Vous pouvez contacter directement sd.mimouni@richmedia.ma.`],
   ],
 };
 export type MarquesRequest = { book: string; name: string; phone: string; email: string; city: string; address: string; quantity: string; consent: boolean };

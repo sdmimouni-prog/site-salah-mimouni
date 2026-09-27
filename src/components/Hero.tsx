@@ -8,14 +8,14 @@ export function Hero() {
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-visual">
         <picture>
-          <img className="hero-portrait" src="/assets/photos/hero-retouched.png" alt="Portrait de Salah-Eddine Mimouni, en costume bleu" fetchPriority="high" />
+          <img className="hero-portrait" src="/assets/photos/hero-retouched.png" alt="Portrait de Salah-Eddine MIMOUNI, en costume bleu" fetchPriority="high" />
         </picture>
 
       </div>
       <div className="hero-inner">
         <div className="hero-copy">
           <p className="eyebrow">{home.eyebrow}</p>
-          <h1 id="hero-title"><span>Salah-Eddine</span><span>Mimouni</span></h1>
+          <h1 id="hero-title"><span>Salah-Eddine</span><span>MIMOUNI</span></h1>
           <p className="hero-subtitle">{home.subtitle}<strong>{home.specialty}</strong></p>
           <p className="hero-intro">{introductionLines.map((line, i) => <span key={line}>{line}{i < introductionLines.length - 1 ? ' ' : ''}</span>)}</p>
           <div className="hero-actions">

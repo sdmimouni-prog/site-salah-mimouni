@@ -1,7 +1,7 @@
 import { getBook } from './books';
 const existingBook = getBook('entre-deux-vols')!;
 export const ancienPauvre = {
-  title: 'L’ancien pauvre', subtitle: '(Entre deux vols)', author: 'Salah Eddine Mimouni',
+  title: 'L’ancien pauvre', subtitle: '(Entre deux vols)', author: 'Salah-Eddine MIMOUNI',
   cover: existingBook.image, portrait: '/assets/photos/portrait.jpeg',
   commerce: {
     price: existingBook.price, currency: 'MAD', mode: 'demo' as const,
@@ -17,7 +17,7 @@ export const ancienPauvre = {
     {icon:'message',title:'Une question ?',text:'Contact direct avec l’auteur'},
   ],
   heroQuote: {text:'ce n’est pas l’objectif qui importe, mais la personne que l’on devient en chemin.',credit:'Hind El Grari · Avant-propos, p. 9'},
-  summary: 'De l’enfance à l’entrepreneuriat, Salah Eddine Mimouni revient sur les expériences, les rencontres et les remises en question qui ont façonné son parcours. Un récit personnel sur la réussite, les relations humaines et ce qui donne du sens au chemin parcouru.',
+  summary: 'De l’enfance à l’entrepreneuriat, Salah-Eddine MIMOUNI revient sur les expériences, les rencontres et les remises en question qui ont façonné son parcours. Un récit personnel sur la réussite, les relations humaines et ce qui donne du sens au chemin parcouru.',
   arguments: ['Un récit autobiographique personnel','Des réflexions sur les épreuves et la résilience','Un regard sur l’entrepreneuriat au Maroc','Une interrogation sur la réussite et le sens'],
   excerpts: [
     {title:'Ce qui reste',text:'Ce qui restait, c’était les relations, les souvenirs partagés, et le temps bien utilisé.',source:'Chapitre 13 — L’ancien pauvre, p. 148'},

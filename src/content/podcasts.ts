@@ -15,7 +15,7 @@ export const podcastTopics = ['Entrepreneuriat', 'Intelligence artificielle', 'M
 export const podcastEpisodes: PodcastEpisode[] = [
   {
     "id": "Q6cC7A2ST7M",
-    "title": "وكالة التسويق الرقمي كيف تدار الحملات وتُصنع الاستراتيجيات Salah eddine MIMOUNI",
+    "title": "وكالة التسويق الرقمي كيف تدار الحملات وتُصنع الاستراتيجيات Salah-Eddine MIMOUNI",
     "showName": "WORX Community",
     "channelName": "WORX Community",
     "channelUrl": "https://www.youtube.com/@worxcommunity",
@@ -44,7 +44,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
     "showName": "BUSINESS+ Talk",
     "channelName": "Abderrazak Yousfi",
     "channelUrl": "https://www.youtube.com/@AbderrazakYousfi",
-    "description": "Un échange sur le parcours entrepreneurial de Salah Eddine Mimouni, Richmedia et Hypeo AI, entre marketing digital, investissements et intelligence artificielle.",
+    "description": "Un échange sur le parcours entrepreneurial de Salah-Eddine MIMOUNI, Richmedia et Hypeo AI, entre marketing digital, investissements et intelligence artificielle.",
     "guests": null,
     "role": "guest",
     "publishedAt": "2025-08-15",
@@ -144,11 +144,11 @@ export const podcastEpisodes: PodcastEpisode[] = [
   },
   {
     "id": "ofJESCT5HDc",
-    "title": "Le futur du marketing d’influence avec l’IA | Salah-Eddine Mimouni | TEDxENSAM Rabat",
+    "title": "Le futur du marketing d’influence avec l’IA | Salah-Eddine MIMOUNI | TEDxENSAM Rabat",
     "showName": "TEDxENSAM Rabat",
     "channelName": "ENSAM RABAT OFFICIEL",
     "channelUrl": "https://www.youtube.com/@ENSAMRABAT",
-    "description": "Une intervention de Salah Eddine Mimouni consacrée au futur du marketing d’influence à l’ère de l’intelligence artificielle.",
+    "description": "Une intervention de Salah-Eddine MIMOUNI consacrée au futur du marketing d’influence à l’ère de l’intelligence artificielle.",
     "guests": null,
     "role": null,
     "publishedAt": "2026-04-15",
@@ -170,7 +170,7 @@ export const podcastEpisodes: PodcastEpisode[] = [
   },
   {
     "id": "ETay40EqtfY",
-    "title": "La digitalisation des PME avec Salah-eddine Mimouni dans Cravate Club Maroc avec Thomas Brun",
+    "title": "La digitalisation des PME avec Salah-Eddine MIMOUNI dans Cravate Club Maroc avec Thomas Brun",
     "showName": "Cravate Club Maroc",
     "channelName": "Thomas Brun",
     "channelUrl": "https://www.youtube.com/@ThomasBrun",
@@ -206,5 +206,5 @@ export const podcastStats: { value: string | null; previewValue: string; label: 
   { value: String(podcastChannels.length), previewValue: '', label: 'chaînes', verified: true },
   { value: Math.floor(totalMinutes / 60) + ' h ' + String(totalMinutes % 60).padStart(2, '0'), previewValue: '', label: 'de conversations', verified: true },
 ];
-export const podcastEditorial = { text: 'Les meilleures idées naissent toujours d’une conversation sincère.', author: 'Salah-Eddine Mimouni', verified: false };
-export const podcastHero = { image: '/assets/photos/studio.jpg', alt: 'Salah-Eddine Mimouni en studio, devant un microphone', inscription: 'Partager pour aller plus loin.', inscriptionVerified: false, signature: '/assets/hero-wide-signature.webp' };
+export const podcastEditorial = { text: 'Les meilleures idées naissent toujours d’une conversation sincère.', author: 'Salah-Eddine MIMOUNI', verified: false };
+export const podcastHero = { image: '/assets/photos/studio.jpg', alt: 'Salah-Eddine MIMOUNI en studio, devant un microphone', inscription: 'Partager pour aller plus loin.', inscriptionVerified: false, signature: '/assets/hero-wide-signature.webp' };

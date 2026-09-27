@@ -27,7 +27,7 @@ export function orderEmail(order: Order, book: {title:string;price:number}, reci
     from: sender, to: [recipient], reply_to: order.email,
     subject: `Demande de commande — ${book.title} — ${order.quantity} exemplaire(s)`,
     text: [
-      'Nouvelle demande de commande depuis le site de Salah Eddine Mimouni.',
+      'Nouvelle demande de commande depuis le site de Salah-Eddine MIMOUNI.',
       '', `Référence : ${order.requestId}`, `Livre : ${book.title}`, `Quantité : ${order.quantity}`,
       `Prix unitaire : ${book.price} MAD`, `Sous-total livres : ${book.price * order.quantity} MAD`,
       'Livraison : frais et modalités à confirmer. Aucun paiement effectué sur le site.',

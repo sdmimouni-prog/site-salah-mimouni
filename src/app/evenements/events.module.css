@@ -35,6 +35,10 @@
 .agendaList { display: grid; gap: 18px; }
 .agendaCard { display: flex; align-items: center; gap: 24px; padding: 25px; background: linear-gradient(115deg, #faf8ff, #fff); border: 1px solid #e9e4f8; border-radius: 9px; }
 .agendaIcon { box-sizing: content-box; padding: 19px 15px; color: #8061fa; background: #efeaff; border: 1px solid #e4daff; border-radius: 6px; flex-shrink: 0; }
+.agendaPoster { position: relative; flex: 0 0 112px; overflow: hidden; border-radius: 8px; }
+.agendaPoster > img { display: block; width: 100%; height: auto; }
+.agendaPoster :global(.round-link) { width: 42px; height: 42px; right: 10px; bottom: 10px; box-shadow: 0 3px 14px #0003; }
+.agendaCard > div:last-child { min-width: 0; }
 .agendaCard h3 { font-size: 25px; font-weight: 400; line-height: 1.2; }
 .agendaCard p:not(.eyebrow) { color: var(--event-muted); font-size: 13px; line-height: 1.6; margin-top: 9px; }
 .agendaStatus { display: flex; gap: 7px; align-items: center; margin-top: 13px; font-size: 9px; color: #807395; letter-spacing: .11em; }
@@ -201,6 +205,7 @@
   .agendaIcon { width: 23px; height: 23px; padding: 13px 10px; }
   .agendaCard h3 { font-size: 23px; }
   .agendaCard p:not(.eyebrow) { font-size: 12px; }
+  .agendaPoster { flex-basis: 84px; }
   .agendaStatus { font-size: 8px; }
   .archive { padding-block: 36px 18px; }
   .sectionHeading { gap: 14px; margin-bottom: 23px; }

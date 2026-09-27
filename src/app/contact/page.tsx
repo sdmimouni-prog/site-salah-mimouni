@@ -8,9 +8,9 @@ import s from './contact.module.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://127.0.0.1:3009'),
-  title: 'Contact — Salah Eddine Mimouni',
-  description: 'Une conférence, un podcast, une interview ou un projet à construire ensemble ? Contactez Salah Eddine Mimouni.',
-  openGraph: { title: 'Tout commence par une conversation — Salah Eddine Mimouni', description: 'Conférences, podcasts, rencontres littéraires et collaborations : faisons le premier pas.', type: 'website', locale: 'fr_FR', images: [{ url: contact.portrait, alt: 'Portrait de Salah Eddine Mimouni' }] },
+  title: 'Contact — Salah-Eddine MIMOUNI',
+  description: 'Une conférence, un podcast, une interview ou un projet à construire ensemble ? Contactez Salah-Eddine MIMOUNI.',
+  openGraph: { title: 'Tout commence par une conversation — Salah-Eddine MIMOUNI', description: 'Conférences, podcasts, rencontres littéraires et collaborations : faisons le premier pas.', type: 'website', locale: 'fr_FR', images: [{ url: contact.portrait, alt: 'Portrait de Salah-Eddine MIMOUNI' }] },
 };
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -19,8 +19,8 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     <section className={s.mainSection} aria-labelledby="contact-page-title"><div className={`${s.frame} ${s.mainGrid}`}>
       <div className={s.introduction}><p className={s.eyebrow}>CONTACT & COLLABORATIONS</p><h1 id="contact-page-title"><span>Tout commence</span><span>par une</span><em>conversation.</em></h1>
         <p className={s.intro}>Une conférence, un podcast, une interview ou un projet à construire ensemble&nbsp;? Échangeons.</p>
-        <div className={s.author}><div className={s.portrait}><Image src={contact.portrait} alt="Portrait original de Salah Eddine Mimouni" fill sizes="(max-width: 600px) 110px, 155px" style={{ objectFit: 'cover', objectPosition: 'center 18%' }} preload/></div>
-          <div><p className={s.eyebrow}>FAISONS CONNAISSANCE</p><h2>Salah Eddine<br/>{' '}Mimouni</h2><p className={s.signature}>Entrepreneur · Auteur · Conférencier</p><p className={s.authorWords}>Des idées à partager.<br/>Des projets à construire.</p></div>
+        <div className={s.author}><div className={s.portrait}><Image src={contact.portrait} alt="Portrait original de Salah-Eddine MIMOUNI" fill sizes="(max-width: 600px) 110px, 155px" style={{ objectFit: 'cover', objectPosition: 'center 18%' }} preload/></div>
+          <div><p className={s.eyebrow}>FAISONS CONNAISSANCE</p><h2>Salah-Eddine<br/>{' '}MIMOUNI</h2><p className={s.signature}>Entrepreneur · Auteur · Conférencier</p><p className={s.authorWords}>Des idées à partager.<br/>Des projets à construire.</p></div>
         </div>
         <p className={s.topics}><span>Conférences</span><span>Podcasts & médias</span><span>Collaborations</span></p>
       </div>

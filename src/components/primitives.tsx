@@ -2,7 +2,7 @@ import { ArrowRight, CircleHelp } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 export function Brand() {
-  return <a className="brand" href="/" aria-label="Salah-Eddine Mimouni — accueil"><span className="monogram" aria-hidden="true"><img src="/assets/brand-monogram.webp" alt="" /></span><span><strong>Salah-Eddine Mimouni</strong><small>Entrepreneur • Auteur • Conférencier</small></span></a>;
+  return <a className="brand" href="/" aria-label="Salah-Eddine MIMOUNI — accueil"><span className="monogram" aria-hidden="true"><img src="/assets/brand-monogram.webp" alt="" /></span><span><strong>Salah-Eddine MIMOUNI</strong><small>Entrepreneur • Auteur • Conférencier</small></span></a>;
 }
 export function SectionHeading({ title, href, link, demo = false }: { title: string; href?: string; link?: string; demo?: boolean }) {
   return <div className="section-heading"><h2>{title}<span className="heading-mark" aria-hidden="true" /></h2>{demo && <span className="demo-tag">À valider</span>}{href && <a className="section-link" href={href}>{link}<ArrowRight size={13}/></a>}</div>;

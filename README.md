@@ -1,4 +1,4 @@
-# Salah-Eddine Mimouni — page d’accueil
+# Salah-Eddine MIMOUNI — page d’accueil
 
 Page `/` en Next.js App Router, TypeScript, React et Tailwind CSS 4. Aucun backend, compte, base de données ou déploiement.
 

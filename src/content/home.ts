@@ -1,12 +1,13 @@
 import { books } from './books';
 import { podcastEpisodes } from './podcasts';
+import { theBridge, upcomingEvents } from './agenda';
 import { durationLabel, visibleEpisodes } from '../lib/podcasts';
 const latestPodcasts = visibleEpisodes(podcastEpisodes, false);
 const latestPodcast = latestPodcasts[0];
 // Source unique des contenus. null = action indisponible, jamais de faux lien.
 // Photographies originales fournies par l’auteur ; logos de marque originaux dans /assets/brands.
 export const home = {
-  name: 'Salah-Eddine Mimouni',
+  name: 'Salah-Eddine MIMOUNI',
   signature: 'Entrepreneur • Auteur • Conférencier',
   eyebrow: 'DES IDÉES AU SERVICE D’UN IMPACT RÉEL',
   subtitle: 'Entrepreneur, auteur & conférencier',
@@ -21,7 +22,7 @@ export const home = {
   nav: [ ['Accueil', '/'], ['À propos', '/a-propos'], ['Articles', '/articles'], ['Podcasts', '/podcasts'], ['Livres', '/livres'], ['Événements', '/evenements'], ['Contact', '/contact'] ],
   news: [
     { category: 'Podcast', title: latestPodcast.title, description: latestPodcast.showName || latestPodcast.channelName, image: latestPodcast.thumbnail, alt: `Miniature YouTube — ${latestPodcast.title}`, href: '/podcasts', action: 'Découvrir les podcasts' },
-    { category: 'Témoignage', title: 'Salah-Eddine Mimouni · The Bridge', description: '17 octobre 2026', image: '/assets/photos/testimonial.jpeg', alt: 'Affiche The Bridge — Salah-Eddine Mimouni', href: '/videos/salah-eddine-mimouni.mp4', action: 'Voir le témoignage' },
+    { category: 'Prochain événement', title: theBridge.title, description: '17 octobre 2026 · Casablanca', image: theBridge.poster.src, alt: theBridge.poster.alt, href: theBridge.videoUrl, action: 'Voir le témoignage' },
     { category: 'Nouveau livre', title: 'Pour un like de plus…', description: 'Les coulisses d’un monde sous influence', image: '/assets/books/pour-un-like-de-plus.png', alt: 'Couverture originale de Pour un like de plus…', href: '/livres/pour-un-like-de-plus', action: 'Découvrir le livre' },
   ],
   expertise: [
@@ -41,15 +42,17 @@ export const home = {
   topics: ['Intelligence artificielle', 'Marketing digital', 'Entrepreneuriat', 'Personal branding', 'Influence et création de contenu'],
   episodes: latestPodcasts.slice(0, 3).map(episode => ({ title: episode.title, show: episode.showName || episode.channelName, duration: durationLabel(episode.duration), image: episode.thumbnail, sourceUrl: episode.sourceUrl })),
   books: books.map(book => ({ ...book, url: `/livres/${book.slug}` })),
-  events: [
-    { day: '12', month: 'MAI', type: 'Conférence', title: 'Le digital au service d’un futur inclusif', location: 'Casablanca, Maroc' },
-    { day: '04', month: 'OCT', type: 'Masterclass', title: 'Personal branding à l’ère de l’IA', location: 'Rabat, Maroc' },
-  ],
+  events: upcomingEvents.filter(event => event.status === 'confirmed').map(event => ({
+    ...event,
+    day: event.date.slice(8, 10),
+    month: new Intl.DateTimeFormat('fr-MA', { month: 'short', timeZone: 'Africa/Casablanca' }).format(new Date(event.date)).replace('.', '').toUpperCase(),
+    year: event.date.slice(0, 4),
+  })),
   gallery: [
-    { src: '/assets/photos/studio.jpg', alt: 'Salah-Eddine Mimouni en studio, devant un microphone' },
-    { src: '/assets/photos/portrait.jpeg', alt: 'Portrait de Salah-Eddine Mimouni en costume bleu' },
-    { src: '/assets/photos/testimonial.jpeg', alt: 'Affiche The Bridge — témoignage de Salah-Eddine Mimouni' },
-    { src: '/assets/photos/portrait-white.png', alt: 'Portrait de Salah-Eddine Mimouni sur fond blanc' },
+    { src: '/assets/photos/studio.jpg', alt: 'Salah-Eddine MIMOUNI en studio, devant un microphone' },
+    { src: '/assets/photos/portrait.jpeg', alt: 'Portrait de Salah-Eddine MIMOUNI en costume bleu' },
+    { src: '/assets/photos/testimonial.jpeg', alt: 'Affiche The Bridge — témoignage de Salah-Eddine MIMOUNI' },
+    { src: '/assets/photos/portrait-white.png', alt: 'Portrait de Salah-Eddine MIMOUNI sur fond blanc' },
   ],
   socials: [ { name: 'LinkedIn', url: null as string | null }, { name: 'YouTube', url: null as string | null }, { name: 'Instagram', url: null as string | null } ],
   contactTitle: 'Une conférence, un podcast ou un projet ? Parlons-en.',

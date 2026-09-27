@@ -16,6 +16,9 @@
 #events .event-date{min-width:56px;min-height:72px;padding:16px 7px;background:linear-gradient(130deg,#e9ecff,#dfe5ff);border-radius:8px;display:flex;flex-direction:column;justify-content:center;transition:transform .4s}
 #events .event-date strong{font-size:22px;font-family:var(--serif);line-height:1}
 #events .event-date span{font-size:12px;margin-top:3px}
+#events .event-date small{font-size:10px;margin-top:5px}
+#events .event-official{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-size:12px;font-weight:600;color:var(--indigo);min-height:30px}
+#events .event-official:hover{text-decoration:underline}
 #events .event-type{font-size:11px;gap:8px;margin-bottom:6px}
 #events .event h3{font-size:17px;line-height:1.06;margin-bottom:7px;letter-spacing:-.3px}
 #events .event-location{font-size:11px;gap:5px;line-height:1.2}

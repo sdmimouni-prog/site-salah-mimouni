@@ -58,7 +58,7 @@ export function ContactForm({ initialSubject, available }: { initialSubject: Con
 
   return <section className={s.formCard} id="formulaire" aria-labelledby="form-title">
     <p className={s.eyebrow}>VOTRE MESSAGE</p><h2 id="form-title">Parlons de votre projet.</h2><p className={s.formIntro}>Quelques mots pour faire le premier pas.</p>
-    <form ref={form} onSubmit={submit} noValidate aria-label="Contacter Salah Eddine Mimouni" aria-busy={state === 'sending'}>
+    <form ref={form} onSubmit={submit} noValidate aria-label="Contacter Salah-Eddine MIMOUNI" aria-busy={state === 'sending'}>
       <fieldset disabled={state === 'sending' || state === 'success'}><legend className={s.srOnly}>Vos coordonnées et votre message</legend>
         <div className={s.fields}>
           {field('name', 'Nom et prénom', 'Votre nom et prénom', 'name', 'text', true)}

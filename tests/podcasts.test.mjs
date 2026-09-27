@@ -15,12 +15,13 @@ const { podcastEpisodes, podcastPlatforms, podcastStats } = await import(moduleU
 const { home } = await import(moduleUrl('src/content/home.ts'));
 const episode = (overrides = {}) => ({ ...podcastEpisodes[0], id: 'test', status: 'published', videoId: null, sourceUrl: null, audioUrl: null, publishedAt: null, ...overrides });
 
-test('publishes exactly the seven supplied YouTube videos with their original metadata and local thumbnails', () => {
+test('publishes exactly the seven supplied YouTube videos with author-approved name typography and original metadata', () => {
   const ids = ['Q6cC7A2ST7M','ilmbyrflEQQ','NADMauj7z68','WRUzlvH0lug','3CgqiI0YMUA','ofJESCT5HDc','ETay40EqtfY'];
   assert.deepEqual(podcastEpisodes.map(item => item.videoId), ids);
   for (const item of podcastEpisodes) {
     const source = JSON.parse(readFileSync('tests/fixtures/youtube/' + item.id + '-details.json', 'utf8'));
-    assert.equal(item.title, source.details.title.trim());
+    const expectedTitle = source.details.title.trim().replace(/\bSalah[ -]Eddine Mimouni\b/gi, 'Salah-Eddine MIMOUNI');
+    assert.equal(item.title, expectedTitle);
     assert.equal(item.duration, Number(source.details.lengthSeconds));
     assert.equal(item.publishedAt, source.microformat.publishDate.slice(0,10));
     assert.equal(lib.episodeSource(item).videoId, item.id);

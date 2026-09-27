@@ -11,10 +11,10 @@ export const books: Book[] = [
     subtitle: 'Récits d’un esprit en transit', category: 'Autobiographie',
     image: '/assets/books/entre-deux-vols.jpg', theme: 'journey', price: 145,
     description: 'L’ancien pauvre — une autobiographie, sous le titre Entre deux vols.',
-    introduction: 'Entre deux vols, un temps pour regarder le chemin parcouru. Avec « Récits d’un esprit en transit », Salah Eddine Mimouni présente son autobiographie : une invitation à découvrir l’homme derrière les projets.',
+    introduction: 'Entre deux vols, un temps pour regarder le chemin parcouru. Avec « Récits d’un esprit en transit », Salah-Eddine MIMOUNI présente son autobiographie : une invitation à découvrir l’homme derrière les projets.',
     excerpt: { text: 'Écrire, c’est aussi une forme de libération. On porte tous en nous des souvenirs, certains lumineux, d’autres plus sombres. Les bons souvenirs, on les chérit. Les mauvais, on essaie souvent de les enterrer, mais ils continuent de peser sur nous. En les posant sur le papier, j’ai essayé de m’en libérer, de leur donner un sens, de les transformer en matière à réflexion plutôt qu’en poids invisible.', source: 'L’ancien pauvre — Quand Tout Ne Suffit Pas, introduction, page 15 du manuscrit fourni.' },
     themes: [
-      { title: 'Un regard personnel', text: 'Retrouver Salah Eddine Mimouni dans un registre autobiographique.' },
+      { title: 'Un regard personnel', text: 'Retrouver Salah-Eddine MIMOUNI dans un registre autobiographique.' },
       { title: 'L’esprit en transit', text: 'Le voyage comme point de départ d’une lecture tournée vers le parcours humain.' },
       { title: 'L’ancien pauvre', text: 'L’ouvrage présenté sous ce nom porte sur sa couverture le titre « Entre deux vols ».' },
     ],

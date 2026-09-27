@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, CalendarDays, MapPin, Mic } from 'lucide-react';
 import { eventsPage as content, eventCategories, upcomingEvents } from '@/content/events';
 import { EventArchive, EventGallery } from '@/components/events/Interactions';
 import { EventVisual } from '@/components/events/EventVisual';
+import { VideoDialog } from '@/components/VideoDialog';
 import s from './events.module.css';
 
 export const metadata: Metadata = {
@@ -16,14 +17,15 @@ export const metadata: Metadata = {
 
 function UpcomingEvents() {
   const copy = content.upcoming;
-  return <section className={`${s.frame} ${s.upcoming}`} aria-labelledby="agenda-title">
+  return <section id="agenda" className={`${s.frame} ${s.upcoming}`} aria-labelledby="agenda-title">
     <div><p className={s.eyebrow}>{copy.eyebrow}</p><h2 id="agenda-title">{copy.title}</h2></div>
     <div className={s.agendaList}>{upcomingEvents.length ? upcomingEvents.map(event => <article key={event.id} className={s.agendaCard}>
-      <CalendarDays className={s.agendaIcon} size={30} aria-hidden="true"/>
+      {event.poster ? <div className={s.agendaPoster}><img src={event.poster.src} alt={event.poster.alt} width={1080} height={1920} loading="lazy"/>{event.id === 'the-bridge-2026' && <VideoDialog/>}</div> : <CalendarDays className={s.agendaIcon} size={30} aria-hidden="true"/>}
       <div><p className={s.eyebrow}>{event.type}</p><h3>{event.title}</h3>
         <p><time dateTime={event.date}>{new Intl.DateTimeFormat('fr-MA', { dateStyle: 'long', timeZone: 'Africa/Casablanca' }).format(new Date(event.date))}</time></p>
         <p className={s.agendaLocation}><MapPin size={14} aria-hidden="true"/>{event.location}</p>
-        {event.status === 'confirmed' && event.registrationUrl ? <a className={s.textLink} href={event.registrationUrl}>S’inscrire<ArrowRight size={16}/></a> : <small>{event.status === 'full' ? 'Complet' : event.status === 'cancelled' ? 'Annulé' : 'Inscriptions à venir'}</small>}
+        {event.hours && <p>{event.hours}</p>}
+        {event.status === 'confirmed' && event.registrationUrl ? <a className={s.textLink} href={event.registrationUrl} target="_blank" rel="noopener noreferrer">Programme & billetterie<ArrowRight size={16}/></a> : <small>{event.status === 'full' ? 'Complet' : event.status === 'cancelled' ? 'Annulé' : 'Inscriptions à venir'}</small>}
       </div>
     </article>) : <div className={s.agendaCard}>
       <CalendarDays className={s.agendaIcon} size={30} aria-hidden="true"/>
@@ -40,7 +42,7 @@ export default function EventsPage() {
         <h1 id="events-title">{content.hero.title.map((line, index) => index < 2 ? <span key={line}>{line}</span> : <em key={line}>{line}</em>)}</h1>
         <p className={s.intro}>{content.hero.introduction}</p>
         <div className={s.actions}>
-          <a className="button" href="#evenements">{content.hero.discover}<ArrowDown size={18}/></a>
+          <a className="button" href={upcomingEvents.length ? '#agenda' : '#evenements'}>{content.hero.discover}<ArrowDown size={18}/></a>
           <a className={s.textLink} href={content.contactHref}>{content.hero.invite}<ArrowRight size={19}/></a>
         </div>
       </div>

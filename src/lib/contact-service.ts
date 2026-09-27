@@ -17,7 +17,7 @@ export function contactEmail(message: ContactMessage, sender: string) {
     from: sender, to: [contact.email], reply_to: message.email,
     subject: `Contact — ${subject}`,
     text: [
-      'Nouvelle demande depuis le site de Salah Eddine Mimouni.', '', `Référence : ${message.requestId}`,
+      'Nouvelle demande depuis le site de Salah-Eddine MIMOUNI.', '', `Référence : ${message.requestId}`,
       `Objet : ${subject}`, `Nom : ${message.name}`, `E-mail : ${message.email}`, `Téléphone : ${message.phone || 'Non renseigné'}`,
       `Organisation : ${message.organization || 'Non renseignée'}`,
       ...(hasEventDetails(message.subject) ? ['', `Date envisagée : ${message.date || 'Non renseignée'}`, `Lieu : ${message.location || 'Non renseigné'}`, `Format : ${format}`] : []),

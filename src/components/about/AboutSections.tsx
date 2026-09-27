@@ -7,7 +7,7 @@ import { SectionReveal } from '@/components/SectionReveal';
 const icons = { chart: ChartNoAxesColumnIncreasing, brain: Brain, lightbulb: Lightbulb, users: UsersRound, graduate: GraduationCap, mic: Mic };
 export function AboutHero() {
   return <section className="bio-hero" aria-labelledby="about-title">
-    <div className="bio-scene"><img src="/assets/photos/hero-retouched.png" alt="Portrait retouché de Salah-Eddine Mimouni en costume bleu" fetchPriority="high"/></div>
+    <div className="bio-scene"><img src="/assets/photos/hero-retouched.png" alt="Portrait retouché de Salah-Eddine MIMOUNI en costume bleu" fetchPriority="high"/></div>
     <div className="bio-hero-inner"><div className="bio-hero-copy"><p className="eyebrow">À PROPOS</p><h1 id="about-title">Un parcours guidé<br/>{' '}par la curiosité,<br/>{' '}l’impact et l’action.</h1><p className="bio-intro">{about.introduction}</p><div className="bio-actions"><SourceAction href={home.cvUrl} download className="bio-cv" unavailable="CV à fournir">Télécharger mon CV<Download size={16}/></SourceAction><a href="/contact" className="button button-outline">Me contacter<ArrowRight size={17}/></a></div></div>
 
     </div>
@@ -17,7 +17,7 @@ export function AboutJourney() {
   return <section className="bio-journey bio-journey--compact" id="histoire" aria-labelledby="story-title">
     <SectionReveal className="bio-journey-grid">
       <div className="bio-story section-reveal-item" data-reveal="visible"><p className="eyebrow">MON HISTOIRE</p><h2 id="story-title">De la passion de l’informatique à l’entrepreneuriat d’impact</h2><p>{about.story}</p><a className="button button-outline" href="#philosophie">Ma philosophie<ArrowRight size={16}/></a></div>
-      <figure className="bio-story-photo section-reveal-item" data-reveal="visible" style={{'--order':1} as CSSProperties}><img src="/assets/photos/studio.jpg" alt="Salah Eddine Mimouni en conversation dans un studio, devant un microphone" width={5351} height={3567} loading="lazy"/></figure>
+      <figure className="bio-story-photo section-reveal-item" data-reveal="visible" style={{'--order':1} as CSSProperties}><img src="/assets/photos/studio.jpg" alt="Salah-Eddine MIMOUNI en conversation dans un studio, devant un microphone" width={5351} height={3567} loading="lazy"/></figure>
       <div className="bio-timeline section-reveal-item" data-reveal="visible" style={{'--order':2} as CSSProperties}><h2>Les grandes étapes</h2><ol>{about.timeline.map(item => <li key={item.year}><time>{item.year}</time><div><h3>{item.title}</h3><p>{item.description}</p></div></li>)}</ol></div>
     </SectionReveal>
   </section>;

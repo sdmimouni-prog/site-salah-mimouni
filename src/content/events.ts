@@ -1,5 +1,7 @@
 import { library } from './library';
 import { contactLink } from './contact';
+export { upcomingEvents } from './agenda';
+export type { UpcomingEvent } from './agenda';
 
 export const eventCategories = ['Conférences & panels', 'Masterclasses', 'Rencontres littéraires'] as const;
 export type EventCategory = typeof eventCategories[number];
@@ -21,35 +23,21 @@ export type EventEntry = {
   featured: boolean;
   isPlaceholder: boolean;
 };
-export type UpcomingEvent = {
-  id: string;
-  title: string;
-  date: string;
-  location: string;
-  type: EventCategory;
-  registrationUrl: string | null;
-  status: 'confirmed' | 'full' | 'cancelled';
-};
-
-// No confirmed agenda was supplied. The dates in the original home mockup
-// are demo content and must not be promoted to confirmed events here.
-export const upcomingEvents: UpcomingEvent[] = [];
-
 // Original photographs supplied by the author, used as illustrations only.
 // Replace these with identified event photographs when available.
 const studio: EventVisual = {
   kind: 'photo', src: '/assets/photos/studio.jpg',
-  alt: 'Salah-Eddine Mimouni au microphone en studio — photographie utilisée à titre illustratif',
+  alt: 'Salah-Eddine MIMOUNI au microphone en studio — photographie utilisée à titre illustratif',
   position: '52% 43%',
 };
 const portrait: EventVisual = {
   kind: 'photo', src: '/assets/photos/portrait.jpeg',
-  alt: 'Portrait original de Salah-Eddine Mimouni en costume bleu — visuel d’illustration',
+  alt: 'Portrait original de Salah-Eddine MIMOUNI en costume bleu — visuel d’illustration',
   position: '50% 5%',
 };
 const books: EventVisual = {
   kind: 'books', src: '',
-  alt: 'Les trois ouvrages de Salah-Eddine Mimouni : Entre deux vols, Quand les marques pensent et Pour un like de plus…',
+  alt: 'Les trois ouvrages de Salah-Eddine MIMOUNI : Entre deux vols, Quand les marques pensent et Pour un like de plus…',
 };
 
 export const eventEntries: EventEntry[] = [
@@ -77,8 +65,8 @@ export const eventEntries: EventEntry[] = [
 ];
 
 export const eventsPage = {
-  title: 'Événements & rencontres — Salah-Eddine Mimouni',
-  description: 'Conférences, masterclasses et rencontres littéraires avec Salah-Eddine Mimouni. Des espaces pour échanger, transmettre et ouvrir de nouvelles perspectives.',
+  title: 'Événements & rencontres — Salah-Eddine MIMOUNI',
+  description: 'Conférences, masterclasses et rencontres littéraires avec Salah-Eddine MIMOUNI. Des espaces pour échanger, transmettre et ouvrir de nouvelles perspectives.',
   contactHref: contactLink('conference'),
   hero: {
     eyebrow: 'ÉVÉNEMENTS & RENCONTRES',
@@ -113,7 +101,7 @@ export const eventsPage = {
     topics: 'Conférences · Coulisses · Rencontres',
     items: [
       { title: 'Sur scène', image: studio, caption: 'Photographie originale en studio, utilisée pour illustrer la prise de parole. Ce visuel ne documente pas une conférence.' },
-      { title: 'Dans l’échange', image: portrait, caption: 'Portrait original de Salah-Eddine Mimouni, utilisé à titre illustratif en attendant les photographies de rencontres.' },
+      { title: 'Dans l’échange', image: portrait, caption: 'Portrait original de Salah-Eddine MIMOUNI, utilisé à titre illustratif en attendant les photographies de rencontres.' },
       { title: 'Autour des livres', image: books, caption: 'Composition des couvertures originales des trois ouvrages. Visuel illustratif des rencontres littéraires.' },
     ],
   },
