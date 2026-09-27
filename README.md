@@ -1,6 +1,6 @@
 # Salah-Eddine MIMOUNI — page d’accueil
 
-Page `/` en Next.js App Router, TypeScript, React et Tailwind CSS 4. Aucun backend, compte, base de données ou déploiement.
+Site personnel en Next.js App Router, TypeScript, React et Tailwind CSS 4. Production : https://site-salah-mimouni.vercel.app, reliée à la branche `codex/site-salah-mimouni` sur Vercel.
 
 ## Développement
 
@@ -150,3 +150,7 @@ npm run start -- --hostname 127.0.0.1 --port 3009
 ```
 
 Les dossiers locaux `output/`, `qa/` et `tmp/`, les dépendances, la compilation et les fichiers `.env` privés sont exclus du dépôt. Les sept justificatifs publics utilisés par les tests Podcasts sont conservés dans `tests/fixtures/youtube/`, indépendamment des exports de contrôle. `.env.example` contient uniquement les noms des paramètres et des valeurs non confidentielles ; les secrets d’envoi sont à renseigner localement ou chez l’hébergeur.
+
+### Vidéo en production
+
+La commande `npm run build` vérifie le média The Bridge avant de compiler. Si l’intégration Git a récupéré uniquement le pointeur LFS, `scripts/restore-lfs-media.mjs` télécharge le fichier depuis le même commit du dépôt public et vérifie sa taille et son SHA-256 avant de le remplacer. Un échec bloque la compilation, plutôt que de publier une vidéo illisible. Si le fichier original est déjà présent (clone avec Git LFS activé), aucun téléchargement supplémentaire n’est effectué. Aucun secret n’est nécessaire pour cette récupération depuis ce dépôt public.
