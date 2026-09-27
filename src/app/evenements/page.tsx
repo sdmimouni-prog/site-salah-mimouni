@@ -7,7 +7,6 @@ import { VideoDialog } from '@/components/VideoDialog';
 import s from './events.module.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://127.0.0.1:3009'),
   title: content.title, description: content.description,
   openGraph: {
     title: content.title, description: content.description, type: 'website', locale: 'fr_FR',

@@ -1,4 +1,5 @@
-import { ArrowRight, CalendarDays, Quote } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, CalendarDays } from 'lucide-react';
 import { home } from '@/content/home';
 import { contactLink } from '@/content/contact';
 
@@ -8,7 +9,7 @@ export function Hero() {
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-visual">
         <picture>
-          <img className="hero-portrait" src="/assets/photos/hero-retouched.png" alt="Portrait de Salah-Eddine MIMOUNI, en costume bleu" fetchPriority="high" />
+          <Image className="hero-portrait" src="/assets/photos/hero-retouched.png" alt="Portrait de Salah-Eddine MIMOUNI, en costume bleu" width={1386} height={1135} sizes="(max-width: 600px) 100vw, 55vw" preload />
         </picture>
 
       </div>

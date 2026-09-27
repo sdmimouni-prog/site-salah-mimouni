@@ -7,7 +7,6 @@ import { ArticleCatalogue } from '@/components/articles/ArticleCatalogue';
 import s from './articles.module.css';
 
 export const metadata: Metadata = {
-  metadataBase:new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://127.0.0.1:3009'),
   title:'Articles & analyses — Salah-Eddine MIMOUNI',
   description:'Stratégie digitale, acquisition, data et visibilité : découvrez les articles de Salah-Eddine MIMOUNI publiés sur Richmedia.',
   alternates:{canonical:'/articles'},

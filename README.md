@@ -134,7 +134,7 @@ L’import est volontairement local, indépendant des visites et du build. Il su
 
 La taxonomie de la page auteur fait référence : « Guide 2026 : construire un plan d'acquisition digital performant » y est classé **Guides**, même si sa page de détail affiche **Secteurs**. « SEO / GEO » reste une seule catégorie. Les descriptions proviennent des descriptions sources, sans résumé inventé. Les neuf fichiers d’images distincts servent les dix publications : Richmedia réutilise lui-même un visuel.
 
-Le menu commun comprend désormais Articles entre À propos et Podcasts. Les réseaux du footer ne sont affichés que si une URL est renseignée. Le sitemap inclut `/articles` ; configurer `NEXT_PUBLIC_SITE_URL` avec l’origine publique avant un futur déploiement (par défaut : aperçu local sur le port 3009). Les règles `noindex` existantes restent inchangées.
+Le menu commun comprend désormais Articles entre À propos et Podcasts. Les réseaux du footer ne sont affichés que si une URL est renseignée. Le sitemap inclut `/articles` et utilise l’origine publique définie dans `NEXT_PUBLIC_SITE_URL` (par défaut : `https://site-salah-mimouni.vercel.app`). Le site est indexable en production ; le développement et les prévisualisations Vercel restent en `noindex`. Voir [la configuration SEO](docs/seo.md).
 
 Validation : 46 tests réussis, compilation webpack/TypeScript réussie, navigateur à 1440/768/390 px, recherche/catégories/tri/état vide/réinitialisation/clavier/liens vérifiés. Aucun script de lint disponible. Comparaisons visuelles dans `output/articles/` et rapport dans `design-qa.md`. Aucun déploiement ni modification du site source.
 

@@ -6,7 +6,6 @@ import { ContactForm } from '@/components/contact/ContactForm';
 import s from './contact.module.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://127.0.0.1:3009'),
   title: 'Contact — Salah-Eddine MIMOUNI',
   description: 'Une conférence, un podcast, une interview ou un projet à construire ensemble ? Contactez Salah-Eddine MIMOUNI.',
   openGraph: { title: 'Tout commence par une conversation — Salah-Eddine MIMOUNI', description: 'Conférences, podcasts, rencontres littéraires et collaborations : faisons le premier pas.', type: 'website', locale: 'fr_FR', images: [{ url: contact.portrait, alt: 'Portrait de Salah-Eddine MIMOUNI' }] },

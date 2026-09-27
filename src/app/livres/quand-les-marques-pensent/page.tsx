@@ -3,7 +3,7 @@ import {ArrowRight,ArrowUpRight,Asterisk,Plus} from 'lucide-react';
 import {marques as c} from '@/content/marques';
 import {MarquesForm} from '@/components/marques/Interactions';
 import s from './marques.module.css';
-export const metadata:Metadata={metadataBase:new URL(process.env.SITE_URL||'http://127.0.0.1:3009'),title:'Quand les marques pensent — Salah-Eddine MIMOUNI',description:c.subtitle,alternates:{canonical:'/livres/quand-les-marques-pensent'},openGraph:{title:c.title,description:c.subtitle,type:'book',images:[{url:c.cover,width:692,height:1024,alt:'Couverture originale de Quand les marques pensent'}]},twitter:{card:'summary_large_image',title:c.title,description:c.subtitle,images:[c.cover]}};
+export const metadata:Metadata={title:'Quand les marques pensent — Salah-Eddine MIMOUNI',description:c.subtitle,alternates:{canonical:'/livres/quand-les-marques-pensent'},openGraph:{title:c.title,description:c.subtitle,type:'book',images:[{url:c.cover,width:692,height:1024,alt:'Couverture originale de Quand les marques pensent'}]},twitter:{card:'summary_large_image',title:c.title,description:c.subtitle,images:[c.cover]}};
 function Logo(){return <img className={s.logo} src={c.logo} width={199} height={59} alt="Les Éditions Actuelles"/>;}
 function Cover({hero=false}:{hero?:boolean}){return <img className={hero?s.heroCover:s.smallCover} src={c.cover} width={692} height={1024} alt="Quand les marques pensent — couverture originale" loading={hero?'eager':'lazy'} fetchPriority={hero?'high':'auto'}/>;}
 function OrderLink(){return <a className={s.primary} href="#commander">Commander le livre<ArrowRight size={18}/></a>;}
