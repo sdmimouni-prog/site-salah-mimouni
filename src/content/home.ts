@@ -48,12 +48,6 @@ export const home = {
     month: new Intl.DateTimeFormat('fr-MA', { month: 'short', timeZone: 'Africa/Casablanca' }).format(new Date(event.date)).replace('.', '').toUpperCase(),
     year: event.date.slice(0, 4),
   })),
-  gallery: [
-    { src: '/assets/photos/studio.jpg', alt: 'Salah-Eddine MIMOUNI en studio, devant un microphone' },
-    { src: '/assets/photos/portrait.jpeg', alt: 'Portrait de Salah-Eddine MIMOUNI en costume bleu' },
-    { src: '/assets/photos/testimonial.jpeg', alt: 'Affiche The Bridge — témoignage de Salah-Eddine MIMOUNI' },
-    { src: '/assets/photos/portrait-white.png', alt: 'Portrait de Salah-Eddine MIMOUNI sur fond blanc' },
-  ],
   socials: [ { name: 'LinkedIn', url: null as string | null }, { name: 'YouTube', url: null as string | null }, { name: 'Instagram', url: null as string | null } ],
   contactTitle: 'Une conférence, un podcast ou un projet ? Parlons-en.',
   contactDescription: 'Je suis toujours ouvert aux échanges, aux collaborations et aux nouvelles opportunités.',

@@ -10,9 +10,9 @@
 #livres .book-card .muted{font-size:12px;line-height:1.4}
 #livres .book-card .text-link{font-size:12px;margin-top:auto;gap:9px;white-space:nowrap}
 #livres .book-action{display:inline-flex;align-items:center;border:0;padding:0;background:none;opacity:1;color:#3b43d0;font-weight:600}
-#events .events-gallery{grid-template-columns:1fr 1.5fr;gap:12px;height:198px}
+#events .events-list{grid-template-columns:1fr;gap:12px;height:198px}
 #events .events{padding:7px;gap:9px;border-radius:8px}
-#events .event{padding:5px;gap:17px;transition:transform .4s var(--motion-ease),box-shadow .4s}
+#events .event{padding:20px 24px;gap:24px;transition:transform .4s var(--motion-ease),box-shadow .4s}
 #events .event-date{min-width:56px;min-height:72px;padding:16px 7px;background:linear-gradient(130deg,#e9ecff,#dfe5ff);border-radius:8px;display:flex;flex-direction:column;justify-content:center;transition:transform .4s}
 #events .event-date strong{font-size:22px;font-family:var(--serif);line-height:1}
 #events .event-date span{font-size:12px;margin-top:3px}
@@ -62,7 +62,7 @@
 .footer .socials button{opacity:1}.footer .socials a:hover img,.footer .socials button:hover img{transform:translateY(-3px) scale(1.07)}
 .footer>small{font-size:9px;max-width:none;white-space:nowrap;padding-left:12px}
 @media(min-width:1600px){
- #livres .book-card,#events .events-gallery{height:calc(198 * var(--u))}
+ #livres .book-card,#events .events-list{height:calc(198 * var(--u))}
  #livres .book-card>img{height:calc(177 * var(--u))}
  #livres .book-card h3{font-size:calc(16 * var(--u))}
  #livres .book-card .muted,#livres .book-card .text-link{font-size:calc(12 * var(--u))}
@@ -78,7 +78,7 @@
  .books-events-columns{grid-template-columns:1fr;gap:26px}
  #livres .book-card{height:210px}
  #livres .book-card>img{height:186px}
- #events .events-gallery{height:235px}
+ #events .events-list{height:235px}
  .contact-inner{width:calc(100% - 48px);gap:24px}
  .contact-band h2{font-size:29px}.contact-band p:not(.eyebrow){font-size:12px}
  .contact-inner>.contact-button{min-width:190px}.contact-inner>.contact-button>button{width:190px;font-size:14px}
@@ -93,7 +93,7 @@
  #livres .book-card>img{width:112px;height:180px}
  #livres .book-card>div{padding:27px 0 22px}
  #livres .book-card h3{font-size:19px}#livres .book-card .muted{font-size:12px}#livres .book-card .text-link{font-size:12px}
- #events .events-gallery{grid-template-columns:1fr;height:auto;gap:12px}
+ #events .events-list{grid-template-columns:1fr;height:auto;gap:12px}
  #events .events{padding:7px}#events .event{min-height:100px;padding:8px;gap:18px}#events .event h3{font-size:18px}#events .event-date{min-width:57px}
  #events .gallery-grid{height:214px;gap:6px}
  .contact-inner{width:calc(100% - 40px);display:block;padding:29px 0}
@@ -108,3 +108,5 @@
  #livres *,#events *,.contact-band *,.footer *{animation:none!important;transition:none!important}
  #livres .book-card:hover,#livres .book-card:hover>img,#events .event:hover,#events .event:hover .event-date,#events .gallery-item:hover img,#events .gallery-count:hover::before,.contact-inner>.contact-button:hover>button,.footer nav a:hover,.footer .socials a:hover img,.footer .socials button:hover img{transform:none}
 }
+
+#events .event-hours{margin-top:9px}

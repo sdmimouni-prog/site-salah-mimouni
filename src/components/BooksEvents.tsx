@@ -1,9 +1,8 @@
-import { MapPin, ArrowRight } from 'lucide-react';
+import { MapPin, Clock3, ArrowRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import { home } from '@/content/home';
 import { SectionHeading } from './primitives';
 import { SectionReveal } from './SectionReveal';
-import { Gallery } from './Gallery';
 import { BookCover } from './books/BookCover';
 export function BooksEvents() {
   return <div className="books-events-columns">
@@ -14,10 +13,9 @@ export function BooksEvents() {
         </div>
       )}</SectionReveal>
     </section>
-    <section id="events"><SectionHeading title="Événements & galerie" link="Tous les événements" href="/evenements"/>
-      <SectionReveal className="events-gallery">
-        <div className="events card section-reveal-item" data-reveal="visible" style={{ '--order': 1 } as CSSProperties}>{home.events.map(event => <article className="event" key={event.id}><time className="event-date" dateTime={event.date}><strong>{event.day}</strong><span>{event.month}</span><small>{event.year}</small></time><div><p className="event-type"><span/>À venir · {event.type}</p><h3>{event.title}</h3><p className="event-location"><MapPin size={13}/>{event.location}</p>{event.registrationUrl && <a className="event-official" href={event.registrationUrl} target="_blank" rel="noopener noreferrer">Site officiel<ArrowRight size={14}/></a>}</div></article>)}</div>
-        <div className="gallery-reveal section-reveal-item" data-reveal="visible" style={{ '--order': 2 } as CSSProperties}><Gallery/></div>
+    <section id="events"><SectionHeading title="Événements" link="Voir l’événement" href="/evenements"/>
+      <SectionReveal className="events-list">
+        <div className="events card section-reveal-item" data-reveal="visible" style={{ '--order': 1 } as CSSProperties}>{home.events.map(event => <article className="event" key={event.id}><time className="event-date" dateTime={event.date}><strong>{event.day}</strong><span>{event.month}</span><small>{event.year}</small></time><div><p className="event-type"><span/>À venir · {event.type}</p><h3>{event.title}</h3><p className="event-location"><MapPin size={13}/>{event.location}</p>{event.hours && <p className="event-location event-hours"><Clock3 size={13}/>{event.hours}</p>}{event.registrationUrl && <a className="event-official" href={event.registrationUrl} target="_blank" rel="noopener noreferrer">Site officiel<ArrowRight size={14}/></a>}</div></article>)}</div>
       </SectionReveal>
     </section>
   </div>;

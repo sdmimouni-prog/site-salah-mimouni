@@ -66,7 +66,7 @@
  #media .episode .play{width:46px;height:46px;min-width:46px}
  #media .episode h3{font-size:15px}#media .episode p{font-size:13px}#media .episode-action{font-size:12px}
  .books-events-columns{margin-top:36px;gap:30px}
- #livres .book-card,#events .events-gallery{height:250px}
+ #livres .book-card,#events .events-list{height:250px}
  #livres .book-card{padding:15px 10px;gap:12px}
  #livres .book-card>img{height:220px}
  #livres .book-card h3{font-size:19px}#livres .book-card .muted{font-size:14px}#livres .book-card .text-link{font-size:14px}
