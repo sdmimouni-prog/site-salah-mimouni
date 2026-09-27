@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { PodcastsPage } from '@/components/podcasts/PodcastsPage';
 import { podcastEpisodes, podcastHero } from '@/content/podcasts';
 import { visibleEpisodes } from '@/lib/podcasts';
+import { newsletterMailConfig } from '@/lib/newsletter-service';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 };
 export default function Page() {
   const preview = process.env.PODCASTS_PREVIEW === 'true';
-  return <PodcastsPage preview={preview} episodes={visibleEpisodes(podcastEpisodes, preview)}/>;
+  return <PodcastsPage preview={preview} episodes={visibleEpisodes(podcastEpisodes, preview)} newsletterAvailable={newsletterMailConfig(process.env).available}/>;
 }

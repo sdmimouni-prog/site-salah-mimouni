@@ -109,6 +109,14 @@
 .newsletter input { width: 100%; min-height: 41px; border: 1px solid #e0ddee; border-radius: 5px; background: #fff; padding: 10px 12px; font: 13px var(--sans); color: #30234a; }
 .newsletter :global(.button) { width: 100%; min-height: 41px; padding: 8px; font-size: 12px; margin-top: 8px; }
 .newsletter .unavailable { font-size: 10px; color: #77708c; line-height: 1.5; margin-top: 10px; }
+.newsletterFields { border: 0; padding: 0; margin: 0; min-width: 0; }
+.newsletterConsent { display: flex; align-items: flex-start; gap: 8px; margin-top: 12px; color: #625b7b; font-size: 11px; line-height: 1.5; cursor: pointer; }
+.newsletter .newsletterConsent input { width: 15px; height: 15px; min-height: 0; padding: 0; margin: 1px 0 0; flex-shrink: 0; accent-color: #5942e8; }
+.newsletterTrap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.newsletterPrivacy { color: #77708c; font-size: 10px; line-height: 1.5; margin-top: 12px; }
+.newsletterPrivacy a { text-decoration: underline; text-underline-offset: 2px; }
+.newsletterSuccess { color: #226349; font-size: 12px; line-height: 1.5; margin-top: 10px; }
+.newsletterDirect { display: inline-flex; align-items: center; gap: 5px; color: #5942e8; font-size: 11px; line-height: 1.5; margin-top: 9px; }
 .fieldError { display: block; color: #a02b51; font-size: 12px; line-height: 1.5; margin-top: 6px; }
 .contactBand { background: radial-gradient(ellipse at 95% 140%, #ee9e96, transparent 43%), linear-gradient(105deg, #2c286f, #4939d9); color: #fff; }
 .contactBand > .frame { padding-block: 35px 33px; display: flex; align-items: center; justify-content: space-between; gap: 35px; }

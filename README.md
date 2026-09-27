@@ -100,11 +100,19 @@ L’aperçu actuel affiche le contenu réel avec `PODCASTS_PREVIEW=false`. Pour 
 PODCASTS_PREVIEW=false npm run start -- --hostname 127.0.0.1 --port 3009
 ```
 
-En production, laisser cette variable absente ou à `false`. Seuls les épisodes `status: 'published'`, indicateurs vérifiés avec valeur et plateformes vérifiées avec URL spécifique seront affichés. Les URL des pages d’accueil des plateformes sont rejetées. Les chiffres d’aperçu, la citation et l’inscription décorative non validés sont masqués. Un catalogue vide donne un état informatif, sans fausse lecture.
+En production, laisser cette variable absente ou à `false`. Seuls les épisodes `status: 'published'`, indicateurs vérifiés avec valeur et plateformes vérifiées avec URL spécifique seront affichés. Les URL des pages d’accueil des plateformes sont rejetées. Les chiffres d’aperçu et la citation non validés sont masqués. Le bloc newsletter reste visible. Un catalogue vide donne un état informatif, sans fausse lecture.
 
 Les sept vidéos sont publiées et lisibles après clic. Les miniatures originales sont conservées dans `public/assets/podcasts/`, avec leur provenance dans `SOURCES.md` : quatre à 1280 × 720, deux à 640 × 480 et une à 480 × 360, sans agrandissement artificiel. Les indications 7 vidéos, 6 chaînes et 5 h 28 sont calculées sur ce catalogue. Aucun chiffre d’audience ni avis de plateforme n’est inventé. Les autres plateformes restent absentes tant qu’aucun lien spécifique n’a été fourni.
 
-Aucun service de newsletter n’existe dans le projet. Le formulaire indique son indisponibilité, valide l’adresse saisie sur blur et n’enregistre ni n’envoie rien. L’adresse de contact et le service d’e-mail transactionnel ne sont pas réutilisés comme une inscription automatique. Raccorder un véritable service d’abonnement côté serveur avant d’activer le bouton.
+### Demandes d’inscription à la newsletter
+
+Le bloc reste visible et recueille une adresse e-mail avec un accord explicite pour recevoir les nouveaux épisodes. `/api/newsletter` transmet chaque demande à `sd.mimouni@richmedia.ma`, destinataire fixé côté serveur. Le message contient l’adresse, le consentement et une référence de demande ; le Reply-To permet de répondre au visiteur. Aucune campagne ni liste de diffusion automatique n’est créée.
+
+L’envoi utilise le transport Resend existant : renseigner `RESEND_API_KEY`, un expéditeur vérifié dans `NEWSLETTER_FROM` (ou, à défaut, `CONTACT_FROM` puis `BOOK_ORDERS_FROM`) et l’origine publique exacte dans `SITE_URL`. Ces variables doivent être définies dans l’environnement de production, jamais commitées. La confirmation n’apparaît qu’après acceptation du message par le service d’envoi.
+
+Sans configuration mail, le bouton actif « S’inscrire par e-mail » ouvre la messagerie du visiteur avec une demande préparée. Le visiteur doit envoyer ce message ; le site ne simule pas de confirmation d’envoi. Ce même lien est proposé en secours après un échec du service.
+
+Validation partagée, contrôle d’origine, honeypot, corps limité à 4 Ko, déduplication et limites en mémoire (3 tentatives par adresse et 120 globales par heure). La clé d’idempotence est également transmise au fournisseur. Les limites locales nécessitent un stockage partagé pour une protection globale entre plusieurs instances. Aucune adresse n’est enregistrée dans localStorage ni journalisée. Vérification isolée sans e-mails réels : `node --test tests/newsletter.test.mjs`.
 
 ### Vérification des lecteurs
 
