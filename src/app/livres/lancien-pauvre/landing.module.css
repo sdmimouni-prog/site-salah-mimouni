@@ -7,3 +7,6 @@
 @media(prefers-reduced-motion:reduce){.page *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.bookMockup:hover{transform:perspective(1000px) rotateY(-12deg) rotateZ(-2deg)}}
 
 .heroBook{position:relative}.heroBook:before{content:"";position:absolute;left:-15%;right:-15%;height:34px;bottom:32px;background:linear-gradient(160deg,#424541,#171a18 70%);transform:skewY(-3deg);box-shadow:0 12px 0 #111411;z-index:-1}@media(max-width:800px){.heroBook:before{bottom:65px}}@media(max-width:540px){.heroBook:before{left:0;right:-10%;bottom:28px;height:20px}}
+
+.reviewNotice{font-size:14px;line-height:1.65;color:#646976;max-width:680px;margin-top:14px}
+.reviewBadge{display:inline-block;margin-bottom:16px;padding:5px 9px;border:1px solid #ded3c1;border-radius:4px;background:#f8f4ed;color:#796344;font-size:11px;font-weight:600;letter-spacing:.03em}

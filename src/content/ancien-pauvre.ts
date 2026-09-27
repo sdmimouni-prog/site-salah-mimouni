@@ -24,7 +24,12 @@ export const ancienPauvre = {
     {title:'Écrire pour comprendre',text:'Écrire, c’est aussi une forme de libération. On porte tous en nous des souvenirs, certains lumineux, d’autres plus sombres. Les bons souvenirs, on les chérit. Les mauvais, on essaie souvent de les enterrer, mais ils continuent de peser sur nous.',source:'Introduction, p. 15'},
     {title:'Les rencontres',text:'Le business, j’ai compris, ne se limite pas à des contrats ou des transactions. C’est une affaire de personnes, de confiance, et d’alchimie.',source:'Chapitre 12 — Le vrai business ne se fait pas sur LinkedIn, p. 140'},
   ],
-  testimonials: [] as {name:string;role:string;text:string}[],
+  // Fictional examples retained at the author's request; always label them in the UI.
+  testimonials: [
+    {name:'Youssef A.',role:'Entrepreneur',text:'Un récit bouleversant et motivant. On se reconnaît dans ses doutes, ses combats et ses victoires.',isFictional:true},
+    {name:'Amina B.',role:'Étudiante',text:'Une lecture incontournable pour tous ceux qui rêvent d’entreprendre au Maroc.',isFictional:true},
+    {name:'Karim T.',role:'Cadre marketing',text:'Sincère, authentique et inspirant. Un livre qui fait du bien.',isFictional:true},
+  ] as {name:string;role:string;text:string;isFictional:boolean}[],
   socials: [] as {label:string;url:string}[],
 };
 export type LandingOrder = {name:string;phone:string;city:string;address:string;quantity:string;consent:boolean};

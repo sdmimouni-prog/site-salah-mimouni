@@ -13,7 +13,19 @@ export function ExcerptReader(){
 }
 export function Testimonials(){
  const [start,setStart]=useState(0);const reviews=content.testimonials;const total=reviews.length;const visible=total?Array.from({length:Math.min(3,total)},(_,i)=>reviews[(start+i)%total]):[];
- return <><div className={styles.reviewsHeading}><div><p className={styles.eyebrow}>TÉMOIGNAGES</p><h2>Ils en parlent mieux que nous</h2></div><div className={styles.reviewControls}><button aria-label="Témoignages précédents" disabled={total<=3} onClick={()=>setStart((start-1+total)%total)}><ArrowLeft size={20}/></button><button aria-label="Témoignages suivants" disabled={total<=3} onClick={()=>setStart((start+1)%total)}><ArrowRight size={20}/></button></div></div><div className={styles.reviewsGrid}>{total?visible.map((review,i)=><article key={`${review.name}-${i}`}><p>« {review.text} »</p><strong>{review.name}</strong><small>{review.role}</small></article>):[1,2,3].map(i=><article key={i}><span className={styles.reviewIndex}>0{i}</span><h3>Témoignage à fournir</h3><p>Cet espace accueillera un avis authentique, publié avec l’accord de son auteur.</p><small>Aperçu · aucun avis publié</small></article>)}</div></>;
+ const hasFictional=reviews.some(review=>review.isFictional);
+ return <>
+   <div className={styles.reviewsHeading}>
+     <div><p className={styles.eyebrow}>TÉMOIGNAGES</p><h2>{hasFictional?'Exemples de témoignages':'Ils en parlent mieux que nous'}</h2>
+       {hasFictional&&<p className={styles.reviewNotice}>Textes et profils fictifs pour illustrer la présentation. Il ne s’agit pas d’avis réels de lecteurs.</p>}
+     </div>
+     {total>3&&<div className={styles.reviewControls}><button aria-label="Témoignages précédents" onClick={()=>setStart((start-1+total)%total)}><ArrowLeft size={20}/></button><button aria-label="Témoignages suivants" onClick={()=>setStart((start+1)%total)}><ArrowRight size={20}/></button></div>}
+   </div>
+   <div className={styles.reviewsGrid}>{total?visible.map((review,i)=><article key={`${review.name}-${i}`}>
+     {review.isFictional&&<span className={styles.reviewBadge}>Témoignage fictif</span>}
+     <p>« {review.text} »</p><strong>{review.name}</strong><small>{review.role}{review.isFictional?' · Profil fictif':''}</small>
+   </article>):[1,2,3].map(i=><article key={i}><span className={styles.reviewIndex}>0{i}</span><h3>Témoignage à fournir</h3><p>Cet espace accueillera un avis authentique, publié avec l’accord de son auteur.</p><small>Aperçu · aucun avis publié</small></article>)}</div>
+ </>;
 }
 const initial:LandingOrder={name:'',phone:'',city:'',address:'',quantity:'1',consent:false};
 export function LandingOrderForm(){
