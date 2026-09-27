@@ -52,3 +52,15 @@ test('FormSubmit refuses another recipient or a non-web source before making any
   await assert.rejects(sendFormEmail(payload, 'file:///tmp/contact', 'test', send), /INVALID_SOURCE/);
   assert.equal(calls, 0);
 });
+
+test('browser delivery leaves protected Origin and Referer headers to the browser', async () => {
+  globalThis.window = {};
+  try {
+    await sendFormEmail(payload, source, 'test', async (_, options) => {
+      assert.equal(options.headers.Origin, undefined);
+      assert.equal(options.headers.Referer, undefined);
+      assert.equal(JSON.parse(options.body)._url, source);
+      return Response.json({ success: 'true' });
+    });
+  } finally { delete globalThis.window; }
+});

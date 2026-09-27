@@ -21,7 +21,7 @@ export function newsletterEmail(subscription: NewsletterRequest) {
 
 // Rate limits and deduplication are per server instance.
 // Only hashes and submission references are retained in the short-lived maps.
-export function createNewsletterHandler({ env = process.env, send = sendFormEmail, now = Date.now }: { env?: MailEnvironment; send?: typeof sendFormEmail; now?: () => number } = {}) {
+export function createNewsletterHandler({ env = process.env, send = sendFormEmail, now = Date.now, browserDelivery = false }: { env?: MailEnvironment; send?: typeof sendFormEmail; now?: () => number; browserDelivery?: boolean } = {}) {
   const attempts = new Map<string, { count: number; until: number }>();
   const requests = new Map<string, { fingerprint: string; result: Promise<Response>; until: number }>();
   const hash = (value: string) => createHash('sha256').update(value).digest('hex');
@@ -65,6 +65,10 @@ export function createNewsletterHandler({ env = process.env, send = sendFormEmai
     if ('error' in parsed) return json(parsed, 400);
     const { subscription } = parsed;
     const payload = newsletterEmail(subscription);
+    if (browserDelivery) {
+      if (limited(hash(subscription.email), 3)) return json({ error: 'Trop de demandes pour cette adresse. Réessayez dans une heure.' }, 429);
+      return json({ ready: true, reference: subscription.requestId, delivery: { payload, source: `${origin}/podcasts`, reference: `newsletter-${subscription.requestId}` } });
+    }
     const fingerprint = hash(JSON.stringify(payload));
     const existing = requests.get(subscription.requestId);
     if (existing) return existing.fingerprint === fingerprint ? (await existing.result).clone() : json({ error: 'Cette référence a déjà été utilisée. Rechargez la page.' }, 409);

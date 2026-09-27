@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from 'react';
 import { ArrowRight, CheckCircle2, LoaderCircle } from 'lucide-react';
 import { contact } from '@/content/contact';
 import { validateNewsletterFields, type NewsletterErrors, type NewsletterFields } from '@/lib/newsletter-request';
+import { sendFormEmail, type PreparedDelivery } from '@/lib/form-submit';
 import s from '@/app/podcasts/podcasts.module.css';
 
 export function Newsletter() {
@@ -36,7 +37,9 @@ export function Newsletter() {
     try {
       const response = await fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, requestId: requestId.current }), signal: AbortSignal.timeout(20_000) });
       const result = await response.json();
-      if (response.ok && result.ok === true && result.reference === requestId.current) {
+      if (response.ok && result.ready === true && result.delivery && result.reference === requestId.current) {
+        const delivery = result.delivery as PreparedDelivery;
+        await sendFormEmail(delivery.payload, delivery.source, delivery.reference);
         setState('success'); setNotice('Votre demande d’inscription a bien été transmise. Merci !');
       } else {
         if (result.errors) showErrors(result.errors);

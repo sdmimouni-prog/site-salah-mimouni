@@ -1,4 +1,4 @@
 import { createContactHandler } from '@/lib/contact-service';
 
 export const runtime = 'nodejs';
-export const POST = createContactHandler();
+export const POST = createContactHandler({ browserDelivery: true });

@@ -4,6 +4,7 @@ import { useRef, useState, type FormEvent } from 'react';
 import { ArrowRight, CheckCircle2, LoaderCircle } from 'lucide-react';
 import { contact, hasEventDetails, type ContactSubject } from '@/content/contact';
 import { emptyContactFields, validateContactFields, validRequestId, type ContactFields, type ContactErrors } from '@/lib/contact-request';
+import { sendFormEmail, type PreparedDelivery } from '@/lib/form-submit';
 import s from '@/app/contact/contact.module.css';
 
 export function ContactForm({ initialSubject }: { initialSubject: ContactSubject | '' }) {
@@ -39,7 +40,9 @@ export function ContactForm({ initialSubject }: { initialSubject: ContactSubject
     try {
       const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, requestId: requestId.current }), signal: AbortSignal.timeout(20_000) });
       const result = await response.json();
-      if (response.ok && result.ok === true && validRequestId(result.reference) && result.reference === requestId.current) {
+      if (response.ok && result.ready === true && result.delivery && validRequestId(result.reference) && result.reference === requestId.current) {
+        const delivery = result.delivery as PreparedDelivery;
+        await sendFormEmail(delivery.payload, delivery.source, delivery.reference);
         setState('success'); setNotice('Votre message a bien été transmis. Merci d’avoir fait le premier pas.');
       } else {
         if (result.errors) showErrors(result.errors);

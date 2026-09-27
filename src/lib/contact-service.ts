@@ -22,7 +22,7 @@ export function contactEmail(message: ContactMessage) {
 
 // Scoped to this contact endpoint. No raw messages or contact details are retained
 // in the limiter/deduplication maps. Use a shared limiter for multi-instance hosting.
-export function createContactHandler({ env = process.env, send = sendFormEmail, now = Date.now }: { env?: MailEnvironment; send?: typeof sendFormEmail; now?: () => number } = {}) {
+export function createContactHandler({ env = process.env, send = sendFormEmail, now = Date.now, browserDelivery = false }: { env?: MailEnvironment; send?: typeof sendFormEmail; now?: () => number; browserDelivery?: boolean } = {}) {
   const attempts = new Map<string, { count: number; until: number }>();
   const requests = new Map<string, { fingerprint: string; result: Promise<Response>; until: number }>();
   const hash = (text: string) => createHash('sha256').update(text).digest('hex');
@@ -63,6 +63,11 @@ export function createContactHandler({ env = process.env, send = sendFormEmail, 
     const result = validateContactRequest(input);
     if ('error' in result) return json(result, 400);
     const payload = contactEmail(result.message);
+    if (browserDelivery) {
+      if (limited(hash(result.message.email), 5)) return json({ error: 'Trop de demandes. Veuillez réessayer dans une heure.' }, 429);
+      // Validation is not delivery: the browser must get FormSubmit's acceptance.
+      return json({ ready: true, reference: result.message.requestId, delivery: { payload, source: `${origin}/contact`, reference: `contact-${result.message.requestId}` } });
+    }
     const fingerprint = hash(JSON.stringify(payload));
     const existing = requests.get(result.message.requestId);
     if (existing) return existing.fingerprint === fingerprint ? (await existing.result).clone() : json({ error: 'Cette référence a déjà été utilisée. Modifiez votre demande avant de réessayer.' }, 409);

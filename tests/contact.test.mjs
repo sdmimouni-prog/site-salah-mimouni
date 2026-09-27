@@ -108,3 +108,19 @@ test('contact global guard also bounds invalid submissions', async () => {
   for (let i = 0; i < 120; i++) assert.equal((await handler(request({}))).status, 400);
   assert.equal((await handler(request({}))).status, 429);
 });
+
+test('browser contact delivery returns validated preparation, never a delivery confirmation', async () => {
+  let calls = 0;
+  const handler = createContactHandler({ env, browserDelivery: true, send: async () => { calls++; return 'mock'; } });
+  const input = { ...valid(), to: 'forged@example.com', _cc: 'forged@example.com' };
+  const result = await (await handler(request(input))).json();
+  assert.equal(result.ready, true); assert.equal(result.ok, undefined); assert.equal(calls, 0);
+  assert.equal(result.reference, input.requestId);
+  assert.deepEqual(result.delivery.payload.to, ['sd.mimouni@richmedia.ma']);
+  assert.equal(result.delivery.payload.reply_to, 'visiteur@example.com');
+  assert.equal(result.delivery.source, env.SITE_URL + '/contact');
+  assert.equal(result.delivery.payload._cc, undefined);
+  for (let i = 0; i < 4; i++) assert.equal((await handler(request(valid()))).status, 200);
+  assert.equal((await handler(request(valid()))).status, 429);
+  assert.equal((await handler(request({ ...valid(), consent: false }))).status, 400);
+});

@@ -104,3 +104,18 @@ test('newsletter global limit also bounds invalid requests', async () => {
   for (let i = 0; i < 120; i++) assert.equal((await handler(request({}))).status, 400);
   assert.equal((await handler(request({}))).status, 429);
 });
+
+test('browser newsletter delivery prepares only consented requests and never claims mail was sent', async () => {
+  let calls = 0;
+  const handler = createNewsletterHandler({ env, browserDelivery: true, send: async () => { calls++; return 'mock'; } });
+  const input = valid();
+  const result = await (await handler(request(input))).json();
+  assert.equal(result.ready, true); assert.equal(result.ok, undefined); assert.equal(calls, 0);
+  assert.equal(result.reference, input.requestId);
+  assert.deepEqual(result.delivery.payload.to, ['sd.mimouni@richmedia.ma']);
+  assert.equal(result.delivery.payload.reply_to, 'abonne@example.com');
+  assert.equal(result.delivery.source, env.SITE_URL + '/podcasts');
+  for (let i = 0; i < 2; i++) assert.equal((await handler(request(valid()))).status, 200);
+  assert.equal((await handler(request(valid()))).status, 429);
+  assert.equal((await handler(request({ ...valid(), consent: false }))).status, 400);
+});

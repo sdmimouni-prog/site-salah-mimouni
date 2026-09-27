@@ -1,6 +1,7 @@
 import { contact } from '../content/contact';
 
-type SiteEmail = { to: string[]; reply_to: string; subject: string; text: string };
+export type SiteEmail = { to: string[]; reply_to: string; subject: string; text: string };
+export type PreparedDelivery = { payload: SiteEmail; source: string; reference: string };
 
 // The recipient and transport options are controlled by the server, never form fields.
 export async function sendFormEmail(payload: SiteEmail, source: string, reference: string, send: typeof fetch = fetch) {
@@ -9,7 +10,11 @@ export async function sendFormEmail(payload: SiteEmail, source: string, referenc
   if (!['https:', 'http:'].includes(url.protocol)) throw new Error('INVALID_SOURCE');
   const response = await send(`https://formsubmit.co/ajax/${contact.email}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json', Referer: url.href, Origin: url.origin },
+    headers: {
+      'Content-Type': 'application/json', Accept: 'application/json',
+      // In a browser these headers are managed by fetch itself.
+      ...(typeof window === 'undefined' ? { Referer: url.href, Origin: url.origin } : {}),
+    },
     body: JSON.stringify({
       email: payload.reply_to, message: payload.text, reference, source: url.href,
       _replyto: payload.reply_to, _subject: payload.subject, _template: 'table', _url: url.href,
