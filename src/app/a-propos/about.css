@@ -1,0 +1,100 @@
+/* About reference: 1024 × 1536. Shared Header and Footer keep homepage styling. */
+.about-page{--bio-frame:var(--wide-frame)}
+.bio-hero{height:560px;position:relative;overflow:hidden;background:linear-gradient(110deg,#fff 35%,#f2f3f7 78%,#e6e8f1);isolation:isolate}
+.bio-hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:30px;background:linear-gradient(#a8c5ff,#f6dbe8,#fff5df)}
+.bio-scene{position:absolute;left:43%;right:17%;height:100%;bottom:0;z-index:-1;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 93%,transparent)}
+.bio-scene img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.bio-hero-inner{max-width:var(--bio-frame);width:calc(100% - 64px);margin:auto;position:relative;height:100%;display:flex;align-items:center;justify-content:space-between}
+.bio-hero-copy{width:47%;padding:30px 0;max-width:640px}
+.about-page .eyebrow{font-size:11px;letter-spacing:3px;color:#2534df;line-height:1.5}
+.bio-hero h1{font-size:clamp(45px,4.2vw,66px);line-height:.99;letter-spacing:-2px;margin:18px 0 21px}
+.bio-intro{font-size:16px;line-height:1.55;color:#656f95;max-width:485px}
+.bio-actions{display:flex;gap:14px;margin-top:27px;align-items:flex-start}
+.bio-actions .button,.bio-cv>button{min-height:44px;padding:12px 21px;font-size:13px;gap:10px}
+.bio-cv>button{display:inline-flex;align-items:center;background:linear-gradient(120deg,#222d91,#434bf0);border:0;border-radius:6px;color:white;opacity:1}
+.bio-cv>small{font-size:9px;color:#757d99}
+.bio-quote{width:238px;padding:24px 25px 20px;background:#fafaffdf;border:1px solid #ffffffa6;border-radius:10px;box-shadow:0 8px 24px #16214910;backdrop-filter:blur(8px);transition:transform .45s,box-shadow .45s}
+.bio-quote>svg{color:#353be0;transform:rotate(180deg);margin-bottom:14px}
+.bio-quote blockquote{font:italic 24px/1.19 var(--serif);letter-spacing:-.4px}
+.bio-quote figcaption{margin-top:29px}.bio-quote figcaption img{width:100%;mix-blend-mode:multiply}
+.about-content{width:calc(100% - 64px);max-width:var(--bio-frame);margin:0 auto;padding:38px 0 30px}
+.bio-journey-grid{display:grid;grid-template-columns:.9fr 1.1fr .63fr;gap:42px}
+.bio-story h2,.bio-philosophy h2{font-size:37px;line-height:1.04;letter-spacing:-1px;margin:15px 0 23px}
+.bio-story>p:not(.eyebrow),.bio-philosophy>p:not(.eyebrow){font-size:15px;line-height:1.55;color:#667197}
+.bio-story .button,.bio-philosophy .button{font-size:13px;margin-top:30px;padding:10px 17px;min-height:39px}
+.bio-timeline h2{font-size:23px;line-height:1.2;margin:4px 0 26px}
+.bio-timeline ol{padding:0;margin:0;list-style:none;position:relative}
+.bio-timeline li{display:grid;grid-template-columns:88px 1fr;gap:24px;position:relative;padding-bottom:20px}
+.bio-timeline li:last-child{padding-bottom:0}
+.bio-timeline li::before{content:'';position:absolute;left:99px;top:8px;bottom:-8px;width:1px;background:#bfc7fa}
+.bio-timeline li:last-child::before{display:none}
+.bio-timeline li::after{content:'';position:absolute;left:95px;top:6px;width:9px;height:9px;border-radius:50%;background:#303bda;box-shadow:0 0 0 4px #fff;transition:transform .3s}
+.bio-timeline time{font-size:13px;text-align:right;line-height:1.5}
+.bio-timeline h3{font-size:16px;line-height:1.2;margin-bottom:4px}
+.bio-timeline li p{font-size:13px;line-height:1.4;color:#7781a4}
+.bio-photos{display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:8px;padding-top:43px}
+.bio-photos figure{overflow:hidden;border-radius:6px;min-height:0}.bio-photos img{width:100%;height:100%;object-fit:cover;transition:transform .65s var(--motion-ease)}
+.bio-stats{margin:28px -14px 0;padding:17px 15px;background:#f5f7fb;border-radius:12px}
+.bio-stats>h2{font-size:20px;margin:0 5px 11px}
+.bio-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.bio-stats article{height:88px;background:#ffffffb8;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:23px;padding:15px;color:#142085;transition:transform .4s,box-shadow .4s}
+.bio-stats h3{font-size:23px;letter-spacing:-.5px}.bio-stats p{font-size:13px;line-height:1.4;color:#7682a9;margin-top:4px}
+.bio-expertise{display:grid;grid-template-columns:.95fr 1.5fr;gap:38px;margin-top:28px}
+.bio-philosophy{padding-top:10px}.bio-philosophy h2{font-size:35px}
+.bio-expertise-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.bio-expertise article{height:164px;text-align:center;padding:20px 14px 16px;border-radius:11px;background:linear-gradient(120deg,#f7f8fb,#f3f5f9);transition:transform .4s,box-shadow .4s}
+.bio-expertise article svg{color:#3039cc;display:block;margin:0 auto 13px;transition:transform .4s}
+.bio-expertise article h3{font-size:18px;line-height:1.12;letter-spacing:-.4px;margin-bottom:7px}
+.bio-expertise article p{font-size:13px;line-height:1.45;color:#7782a6;max-width:200px;margin:auto}
+.bio-contact .contact-inner{min-height:127px}.about-page .bio-contact .eyebrow{color:#d7dcff;text-align:left;font-size:10px}.bio-contact h2{font-size:35px;font-weight:500}
+.about-demo-note{font-size:11px;line-height:1.5;color:#78809b;max-width:var(--bio-frame);margin:12px auto 20px;padding:0 24px}
+@media(hover:hover){.bio-quote:hover{transform:translateY(-5px);box-shadow:0 15px 30px #16214920}.bio-photos figure:hover img{transform:scale(1.05)}.bio-timeline li:hover::after{transform:scale(1.4)}.bio-stats article:hover,.bio-expertise article:hover{transform:translateY(-5px);box-shadow:0 12px 25px #22316a13}.bio-expertise article:hover svg{transform:rotate(-6deg) scale(1.08)}}
+@media(prefers-reduced-motion:no-preference){.bio-hero-copy>.eyebrow{animation:rise-in .8s .1s both}.bio-hero h1{animation:title-enter 1s .2s var(--motion-ease) both}.bio-intro{animation:rise-in .9s .35s both}.bio-actions{animation:rise-in .9s .5s both}.bio-scene{animation:scene-reveal 1.3s var(--motion-ease) both}.bio-quote{animation:quote-enter 1s .6s backwards}}
+@media(max-width:1200px){
+ .bio-hero{height:480px}.bio-hero h1{font-size:49px}.bio-intro{font-size:13px;max-width:380px}.bio-hero-copy{width:46%}.bio-quote{width:190px;padding:20px}.bio-quote blockquote{font-size:21px}.bio-scene{left:40%;right:17%}
+ .bio-journey-grid{grid-template-columns:.85fr 1.05fr .64fr;gap:24px}.bio-story h2{font-size:30px}.bio-story>p:not(.eyebrow){font-size:13px}.bio-timeline li{grid-template-columns:65px 1fr;gap:24px;padding-bottom:16px}.bio-timeline li::before{left:76px}.bio-timeline li::after{left:72px}.bio-timeline h3{font-size:14px}.bio-timeline li p{font-size:12px}.bio-timeline h2{font-size:20px}
+ .bio-stats article{gap:15px;padding:12px}.bio-stats h3{font-size:20px}.bio-stats p{font-size:12px}.bio-stats article svg{width:31px}
+ .bio-philosophy h2{font-size:30px}.bio-philosophy>p:not(.eyebrow){font-size:13px}.bio-expertise{gap:25px}.bio-expertise article h3{font-size:16px}.bio-expertise article p{font-size:12px}
+}
+@media(max-width:900px){
+ .bio-hero{height:520px}.bio-hero-copy{width:54%}.bio-hero h1{font-size:43px}.bio-scene{left:48%;right:0}.bio-quote{position:absolute;right:0;bottom:23px;width:175px;padding:16px}.bio-quote blockquote{font-size:17px}.bio-quote>svg{width:23px;margin-bottom:7px}.bio-quote figcaption{margin-top:15px}.bio-hero-copy{align-self:flex-start;padding-top:36px}.bio-intro{max-width:330px}.bio-actions{flex-wrap:wrap;gap:10px}
+ .bio-journey-grid{grid-template-columns:.85fr 1.2fr;gap:28px}.bio-photos{grid-column:1/-1;grid-template-columns:repeat(3,1fr);grid-template-rows:none;padding-top:0;height:150px}.bio-stats-grid{grid-template-columns:repeat(2,1fr)}.bio-expertise{grid-template-columns:1fr}.bio-philosophy h2 br{display:none}.bio-expertise article{height:158px}
+}
+@media(max-width:600px){
+ .bio-hero{height:auto;padding-bottom:335px}.bio-hero-inner,.about-content{width:calc(100% - 40px)}.bio-hero-copy{width:100%;padding:30px 0 18px}.bio-hero h1{font-size:clamp(35px,9.5vw,50px);letter-spacing:-1.4px}.bio-intro{font-size:13px;max-width:none}.bio-actions{margin-top:22px}.bio-actions .button,.bio-cv>button{font-size:12px;padding:11px 15px}
+ .bio-scene{top:auto;left:5%;right:13%;height:335px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 95%,transparent)}.bio-scene img{object-fit:contain;object-position:center bottom}.bio-quote{top:calc(100% + 118px);bottom:auto;right:0;width:151px;padding:15px}.bio-quote blockquote{font-size:15px}.bio-quote figcaption{margin-top:12px}.bio-quote>svg{height:20px;margin-bottom:5px}
+ .about-content{padding:27px 0}.bio-journey-grid{grid-template-columns:1fr;gap:30px}.bio-story h2{font-size:33px}.bio-story h2 br{display:none}.bio-story>p:not(.eyebrow){font-size:14px}.bio-timeline h2{font-size:23px}.bio-timeline h3{font-size:16px}.bio-timeline li p{font-size:13px}.bio-timeline li{grid-template-columns:72px 1fr;padding-bottom:20px}.bio-timeline li::before{left:83px}.bio-timeline li::after{left:79px}.bio-photos{height:110px;gap:6px}
+ .bio-stats{margin:25px 0 0;padding:14px 10px}.bio-stats-grid{gap:9px}.bio-stats article{height:115px;flex-direction:column;text-align:center;gap:8px;padding:10px 6px}.bio-stats h3{font-size:19px}.bio-stats p{font-size:11px}.bio-stats article svg{height:29px}
+ .bio-expertise-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.bio-expertise article{height:178px;padding:19px 10px}.bio-philosophy h2{font-size:31px}.bio-philosophy>p:not(.eyebrow){font-size:14px}.bio-contact h2{font-size:29px}.about-page .bio-contact .eyebrow{font-size:8px}
+}
+@media(prefers-reduced-motion:reduce){.about-page .bio-hero *,.about-page .bio-expertise *,.about-page .bio-stats *,.about-page .bio-photos *{animation:none!important;transition:none!important}.bio-quote:hover,.bio-expertise article:hover,.bio-stats article:hover,.bio-photos figure:hover img,.bio-expertise article:hover svg{transform:none}}
+.bio-hero h1,.bio-story h2,.bio-philosophy h2{font-weight:700}
+.bio-scene{mask-image:linear-gradient(90deg,transparent,#000 20%,#000 94%,transparent)}
+@media(min-width:901px) and (max-width:1200px){.bio-hero{height:410px}.bio-hero h1{font-size:46px}.bio-hero-copy{padding:20px 0}.bio-actions{margin-top:20px}.bio-hero h1{margin:13px 0 15px}}
+.bio-scene img{object-fit:contain;object-position:center bottom}
+@media(min-width:901px) and (max-width:1200px){.bio-timeline li{padding-bottom:10px}.bio-stats article{height:76px}.bio-stats{padding-top:13px;padding-bottom:13px}}
+@media(max-width:600px){.bio-hero{padding-bottom:415px}.bio-scene{bottom:80px}.bio-quote{top:calc(100% + 205px);width:160px}.bio-story h2 br,.bio-philosophy h2 br{display:none}}
+
+/* Mon histoire : une seule photo, récit et chronologie équilibrés. */
+.bio-journey--compact .bio-journey-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);grid-template-areas:"story timeline" "photo timeline";gap:28px 64px;align-items:start;padding:16px 0 28px}
+.bio-journey--compact .bio-story{grid-area:story;min-width:0}
+.bio-journey--compact .bio-story h2{font-size:clamp(32px,2.8vw,48px);line-height:1.07;max-width:650px;margin:13px 0 22px}
+.bio-journey--compact .bio-story>p:not(.eyebrow){font-size:16px;line-height:1.7;max-width:710px}
+.bio-journey--compact .bio-story .button{margin-top:23px}
+.bio-story-photo{grid-area:photo;margin:0;overflow:hidden;border-radius:12px;aspect-ratio:2/1;max-height:340px;width:100%;background:#eef2fa}
+.bio-story-photo img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 46%;transition:transform .6s var(--motion-ease)}
+.bio-journey--compact .bio-timeline{grid-area:timeline;background:#f8f9fc;border:1px solid #eef0f7;border-radius:14px;padding:30px 32px;min-width:0;align-self:stretch}
+.bio-journey--compact .bio-timeline h2{font-size:29px;margin:0 0 28px}
+.bio-journey--compact .bio-timeline ol{display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100% - 64px)}
+.bio-journey--compact .bio-timeline li{grid-template-columns:92px minmax(0,1fr);gap:25px;padding-bottom:22px}
+.bio-journey--compact .bio-timeline li:last-child{padding-bottom:0}
+.bio-journey--compact .bio-timeline li::before{left:103px;bottom:-8px}
+.bio-journey--compact .bio-timeline li::after{left:99px;box-shadow:0 0 0 5px #f8f9fc}
+.bio-journey--compact .bio-timeline time{font-size:13px}
+.bio-journey--compact .bio-timeline h3{font-size:20px;line-height:1.2;margin-bottom:6px}
+.bio-journey--compact .bio-timeline li p{font-size:14px;line-height:1.5}
+@media(hover:hover){.bio-story-photo:hover img{transform:scale(1.025)}}
+@media(max-width:1100px){.bio-journey--compact .bio-journey-grid{gap:25px 30px;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}.bio-journey--compact .bio-story>p:not(.eyebrow){font-size:14px}.bio-journey--compact .bio-timeline{padding:25px 20px}.bio-journey--compact .bio-timeline h3{font-size:17px}.bio-journey--compact .bio-timeline li p{font-size:13px}.bio-journey--compact .bio-timeline li{grid-template-columns:78px minmax(0,1fr);gap:23px}.bio-journey--compact .bio-timeline li::before{left:89px}.bio-journey--compact .bio-timeline li::after{left:85px}.bio-story-photo{aspect-ratio:4/3}}
+@media(max-width:800px){.bio-journey--compact .bio-journey-grid{grid-template-columns:1fr;grid-template-areas:"story" "photo" "timeline";gap:25px;padding-top:6px}.bio-journey--compact .bio-story h2{max-width:620px;font-size:36px}.bio-story-photo{aspect-ratio:16/9;max-height:360px}.bio-journey--compact .bio-timeline{padding:28px}.bio-journey--compact .bio-timeline ol{min-height:0}.bio-journey--compact .bio-timeline h3{font-size:19px}.bio-journey--compact .bio-timeline li{padding-bottom:24px}}
+@media(max-width:480px){.bio-journey--compact .bio-story h2{font-size:32px}.bio-journey--compact .bio-story>p:not(.eyebrow){font-size:14px}.bio-story-photo{aspect-ratio:4/3;border-radius:9px}.bio-journey--compact .bio-timeline{padding:24px 15px}.bio-journey--compact .bio-timeline h2{font-size:26px}.bio-journey--compact .bio-timeline li{grid-template-columns:72px minmax(0,1fr);gap:20px}.bio-journey--compact .bio-timeline li::before{left:82px}.bio-journey--compact .bio-timeline li::after{left:78px}.bio-journey--compact .bio-timeline h3{font-size:17px}.bio-journey--compact .bio-timeline time{font-size:11px}.bio-journey--compact .bio-timeline li p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.bio-story-photo img{transition:none}.bio-story-photo:hover img{transform:none}}

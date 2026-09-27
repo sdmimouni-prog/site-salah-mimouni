@@ -1,0 +1,61 @@
+/* Original photographs: preserve aspect ratio, no generated facial retouching. */
+.hero .hero-visual{left:auto;right:0;top:0;bottom:0;width:46%;height:100%;background:#074c85;margin:0}
+.hero .hero-visual picture{position:static;display:block;width:100%;height:100%;animation:none}
+.hero .hero-portrait{position:static;width:100%;height:100%;object-fit:contain;object-position:center;mask-image:none;-webkit-mask-image:none;transform:none}
+.hero::after{display:none}.hero .hero-copy{width:50%}
+.about-page .bio-scene{left:auto;right:0;top:0;bottom:0;width:45%;height:100%;background:#074c85;mask-image:none;-webkit-mask-image:none;z-index:0}
+.about-page .bio-scene img{width:100%;height:100%;object-fit:contain;object-position:center;transform:none}
+.about-page .bio-hero-inner{z-index:1;pointer-events:none}.about-page .bio-hero-copy{width:50%;pointer-events:auto}
+.about-page .bio-photos{height:auto;grid-template-rows:none;align-content:start}.about-page .bio-photos figure{background:#f3f5fa}.about-page .bio-photos img{height:auto;max-height:320px;object-fit:contain;transform:none}
+#actualites .news-card>img{object-fit:contain;object-position:center;background:#edf1f7}
+#interventions .conference-image img,#podcasts .episode-image img{object-fit:contain;object-position:center;transform:none;background:#edf1f7}
+#events .gallery-item img{object-fit:contain;object-position:center;transform:none;background:#edf1f7}
+#events .gallery-grid{grid-template-columns:repeat(3,1fr)}
+#events .gallery-count{background:#172651}#events .gallery-count::before{display:none}
+.lightbox-panel>img{width:auto;max-width:100%;height:auto;max-height:65dvh;min-height:0;object-fit:contain;margin:auto}
+.book-author>img{object-fit:contain;object-position:center;background:#074c85}
+.video-feature{margin:48px 0;padding:40px;background:#f2f4fa;border:1px solid #e5e9f2;border-radius:16px;scroll-margin-top:125px}
+.video-feature-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:45px;align-items:center}
+.video-feature h2{font:700 clamp(30px,3.2vw,52px)/1.08 var(--serif);letter-spacing:-1px;margin:20px 0;color:var(--navy)}
+.video-feature-copy>p:not(.eyebrow){color:var(--muted);font-size:17px;line-height:1.7}.video-feature-copy .button{margin-top:25px}
+.video-frame video{display:block;width:100%;max-height:620px;aspect-ratio:16/9;object-fit:contain;background:#091321;border-radius:12px}
+.video-frame>p{font-size:12px;line-height:1.6;color:var(--muted);margin-top:12px}
+@media(max-width:1000px){.video-feature-grid{grid-template-columns:1fr;gap:28px}.video-feature{padding:25px}.hero .hero-copy{width:52%}}
+@media(max-width:600px){.hero .hero-copy{width:100%}.hero .hero-visual{position:relative;inset:auto;width:100%;height:430px;margin:24px 0 0}.hero .hero-visual picture{width:100%;height:100%}.about-page .bio-hero{height:auto;padding-bottom:430px}.about-page .bio-scene{top:auto;bottom:0;width:100%;height:405px}.about-page .bio-hero-copy{width:100%}.about-page .bio-photos{height:auto;grid-template-columns:1fr 1fr}.about-page .bio-photos figure:first-child{grid-column:1/-1}.about-page .bio-photos img{max-height:280px}.video-feature{padding:22px 16px;margin:30px 0}.video-feature h2{font-size:33px}.video-feature-copy>p:not(.eyebrow){font-size:15px}.video-frame video{aspect-ratio:auto;min-height:210px}}
+
+.video-feature-grid{grid-template-columns:1fr .85fr}.video-frame{width:min(100%,350px);justify-self:center}.video-frame video{width:100%;height:auto;max-height:none;aspect-ratio:1538/2750;object-fit:contain}.video-frame>p{text-align:center}
+@media(max-width:1000px){.video-feature-grid{grid-template-columns:1fr}.video-frame{width:min(100%,330px)}}
+
+/* Restored light-office hero, retouched using the supplied identity reference. */
+.hero .hero-visual,.about-page .bio-scene{background:#f0f1f6}
+.hero .hero-portrait,.about-page .bio-scene img{object-fit:cover;object-position:center center}
+@media(max-width:600px){.hero .hero-visual{height:350px}.about-page .bio-hero{padding-bottom:375px}.about-page .bio-scene{height:350px}}
+
+.testimonial-dialog{border:0;border-radius:14px;padding:16px;background:#fff;width:min(440px,94vw);max-height:94dvh;margin:auto;color:var(--navy);box-shadow:0 25px 100px #0005}
+.testimonial-dialog::backdrop{background:#070d25c9;backdrop-filter:blur(5px)}
+.testimonial-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:12px}
+.testimonial-dialog-header h2{font:700 21px/1.2 var(--serif)}
+.testimonial-dialog-header button{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:50%;background:#f0f2fa;color:var(--navy);flex-shrink:0;cursor:pointer}
+.testimonial-dialog video{display:block;width:100%;height:min(72dvh,650px);object-fit:contain;background:#091321;border-radius:8px}
+.news-card button.round-link{border:0;cursor:pointer;color:var(--indigo)}
+/* Keep the copy and portrait adjacent at every desktop width. */
+@media(min-width:1001px){
+ .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);height:auto;min-height:clamp(600px,43vw,800px)}
+ .hero .hero-inner{grid-column:1;grid-row:1;width:100%;max-width:none;height:auto;margin:0;padding:44px clamp(28px,3vw,76px);display:flex;align-items:center}
+ .hero .hero-copy{width:100%;max-width:none;padding:0}
+ .hero .hero-visual{grid-column:2;grid-row:1;position:relative;inset:auto;width:100%;height:100%;min-height:100%;margin:0}
+ .hero .hero-visual picture{position:absolute;inset:0;width:100%;height:100%}
+ .hero .hero-portrait{object-fit:cover;object-position:center}
+ .hero h1{font-size:clamp(66px,5.6vw,142px)}
+ .hero .hero-intro{width:100%;max-width:none}
+ .hero .hero-actions{max-width:none}
+ .hero .stats{max-width:none}
+}
+
+/* YouTube previews: preserve the complete original thumbnails and long titles. */
+#media #podcasts .episodes{height:auto;grid-template-columns:1fr;grid-template-rows:none}
+#media #podcasts .episode{min-height:96px;padding:12px 8px}
+#media #podcasts .episode-image{width:110px;height:70px}
+#media #podcasts .episode h3{line-height:1.4}
+#media #podcasts .section-heading{flex-wrap:wrap}
+@media(max-width:650px){#media #podcasts .episode{padding-bottom:28px}#media #podcasts .episode-image{width:80px;height:52px}#media #podcasts .section-link{font-size:11px}}

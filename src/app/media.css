@@ -1,0 +1,114 @@
+/* Media reference, fitted to the shared homepage content frame. */
+#media .media-columns{display:grid;grid-template-columns:1.67fr 1fr;gap:30px;margin-top:30px}
+#media .section-heading{margin:0 18px 14px;min-height:32px}
+#media .section-heading h2{font-size:27px;line-height:1.15;gap:23px;letter-spacing:-.5px}
+#media .heading-mark{width:65px}
+#media .intervention-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:15px}
+#media .conference-card{display:flex;gap:20px;height:246px;min-height:0;padding:8px 10px;border:1px solid transparent;border-radius:12px}
+#media .conference-image{width:40%;height:228px;flex-shrink:0;padding:0;overflow:hidden;border-radius:6px;display:block}
+#media .conference-image img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .7s var(--motion-ease),filter .7s}
+#media .conference-copy{padding:7px 2px 10px 0;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+#media .category-pill{font-size:10px;letter-spacing:1.1px;padding:6px 10px;border-radius:6px;background:#e2e5ff;color:#4449c7;margin:0 0 15px;line-height:1.1;gap:8px}
+#media .category-pill>span{background:#f77873;box-shadow:0 0 0 3px #ffe4e4;width:6px;height:6px}
+#media .conference-card h3{font-size:24px;letter-spacing:-.45px;line-height:1.08;margin:0 0 15px}
+#media .conference-card .muted{font-size:13px;line-height:1.45;margin:0 0 14px}
+#media .media-watch{display:inline-flex;align-items:center;gap:12px;padding:10px 17px;min-height:36px;margin-top:auto;background:white;border:0;border-radius:10px;color:#333bc2;font-size:13px;font-weight:600;opacity:1;transition:transform .35s,box-shadow .35s}
+#media .topics{height:246px;padding:12px 14px;border-radius:12px}
+#media .topics h3{font-family:var(--serif);font-size:18px;line-height:1.2;letter-spacing:-.25px;margin:0 10px 10px}
+#media .topics ul{gap:4px}
+#media .topics li{height:35px;min-height:35px;padding:6px 12px;gap:15px;font-size:13px;line-height:1.15;border-radius:5px;color:#727895;transition:transform .35s var(--motion-ease),background .35s,color .35s}
+#media .topics li svg{width:19px;height:19px;transition:transform .4s var(--motion-ease)}
+#media .episodes{height:246px;padding:7px 12px;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:9px;border-radius:12px}
+#media .episode{height:100%;min-height:0;gap:16px;padding:0 10px 0 0;border-radius:8px;position:relative;transition:transform .4s var(--motion-ease),box-shadow .4s,background .4s}
+#media .episode-image{width:83px;height:64px;flex-shrink:0;border-radius:5px;overflow:hidden;margin-left:0}
+#media .episode-image img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--motion-ease)}
+#media .episode .play{width:41px;height:41px;min-width:41px;display:grid;place-items:center;background:#e7ebff;color:#3740d4;border:0;border-radius:50%;opacity:1;padding:0;transition:transform .4s var(--motion-ease),box-shadow .4s}
+#media .episode .play svg{margin-left:2px}
+#media .episode-copy{padding:0;min-width:0}
+#media .episode h3{font-family:var(--sans);font-size:13px;font-weight:600;line-height:1.25;letter-spacing:-.2px}
+#media .episode p{font-size:12px;line-height:1.4;margin-top:5px;color:#858ca7}
+#media .episode p span{margin:0 9px}
+#media .episode-action{position:static;display:flex;align-items:center;gap:5px;background:none;border:0;padding:5px 0;font-size:11px;font-weight:600;color:#464bd1;opacity:1;white-space:nowrap}
+#media .episode-action svg,#media .media-watch svg{transition:transform .35s}
+#media .media-availability{font-size:10px;color:#80869b;line-height:1.5;margin:8px 14px 0}
+#media .card{background:linear-gradient(115deg,#f7f8fa,#f3f5f8)}
+#media .conference-card{transition:transform .45s var(--motion-ease),box-shadow .45s,border-color .45s}
+@media(hover:hover){
+ #media .conference-card:hover{transform:translateY(-5px);box-shadow:0 14px 30px #20275214;border-color:#e3e5ff}
+ #media .conference-card:hover .conference-image img{transform:scale(1.045);filter:saturate(1.08)}
+ #media .media-watch:hover{transform:translateY(-2px);box-shadow:0 7px 17px #252e6810}
+ #media .media-watch:hover svg,#media .episode:hover .episode-action svg{transform:translateX(3px)}
+ #media .topics li:hover{transform:translateX(4px);background:#edf0ff;color:#363eb5}
+ #media .topics li:hover svg{transform:rotate(-7deg) scale(1.1)}
+ #media .episode:hover{transform:translateX(4px);background:#fff;box-shadow:0 7px 18px #2027520c}
+ #media .episode:hover .episode-image img{transform:scale(1.07)}
+ #media .episode:hover .play{transform:scale(1.08);box-shadow:0 0 0 5px #e8ebff80}
+}
+@media(min-width:1600px){
+ #media .media-columns{gap:calc(30 * var(--u))}
+ #media .conference-card,#media .topics,#media .episodes{height:calc(246 * var(--u))}
+ #media .conference-card{gap:calc(20 * var(--u));padding:calc(8 * var(--u)) calc(10 * var(--u))}
+ #media .conference-image{height:calc(228 * var(--u))}
+ #media .conference-copy{padding:calc(7 * var(--u)) 0 calc(10 * var(--u))}
+ #media .conference-card h3{font-size:calc(24 * var(--u));margin-bottom:calc(15 * var(--u))}
+ #media .conference-card .muted{font-size:calc(13 * var(--u));margin-bottom:calc(14 * var(--u))}
+ #media .category-pill{font-size:calc(10 * var(--u));padding:calc(6 * var(--u)) calc(10 * var(--u));margin-bottom:calc(15 * var(--u))}
+ #media .media-watch{font-size:calc(13 * var(--u));min-height:calc(36 * var(--u));padding:calc(10 * var(--u)) calc(17 * var(--u))}
+ #media .topics{padding:calc(12 * var(--u)) calc(14 * var(--u))}
+ #media .topics h3{font-size:calc(18 * var(--u));margin-bottom:calc(10 * var(--u))}
+ #media .topics li{height:calc(35 * var(--u));min-height:calc(35 * var(--u));font-size:calc(13 * var(--u));gap:calc(15 * var(--u))}
+ #media .episode{gap:calc(16 * var(--u))}
+ #media .episode-image{width:calc(83 * var(--u));height:calc(64 * var(--u))}
+ #media .episode .play{width:calc(41 * var(--u));height:calc(41 * var(--u));min-width:calc(41 * var(--u))}
+ #media .episode h3{font-size:calc(13 * var(--u))}
+ #media .episode p{font-size:calc(12 * var(--u))}
+ #media .episode-action{font-size:calc(11 * var(--u))}
+}
+@media(max-width:1200px){
+ #media .media-columns{grid-template-columns:1fr;gap:26px}
+ #media .conference-card,#media .topics{height:260px}
+ #media .conference-image{height:242px}
+ #media .topics li{height:37px}
+ #media .episodes{height:auto;gap:10px;padding:10px 12px}
+ #media .episode{min-height:78px}
+ #media .episode h3{font-size:15px}
+ #media .episode p{font-size:13px}
+ #media .episode-action{font-size:12px}
+}
+@media(max-width:650px){
+ #media .section-heading{margin:0 0 14px}
+ #media .section-heading h2{font-size:24px;gap:15px}
+ #media .heading-mark{width:40px}
+ #media .intervention-grid{grid-template-columns:1fr;gap:14px}
+ #media .conference-card{height:auto;min-height:248px;gap:13px;padding:8px}
+ #media .conference-image{height:auto;min-height:230px;width:38%;align-self:stretch}
+ #media .conference-copy{padding:7px 0;flex:1}
+ #media .conference-card h3{font-size:20px;line-height:1.12;margin-bottom:12px}
+ #media .conference-card .muted{font-size:12px;margin-bottom:14px}
+ #media .category-pill{font-size:8px;letter-spacing:.7px;margin-bottom:13px;padding:6px 8px}
+ #media .media-watch{font-size:12px;padding:9px 12px}
+ #media .topics{height:auto;padding:16px}
+ #media .topics h3{font-size:18px;margin-left:8px;margin-bottom:12px}
+ #media .topics li{height:39px;font-size:12px;gap:12px}
+ #media .episodes{padding:7px;gap:9px}
+ #media .episode{min-height:96px;gap:9px;padding:8px 8px 24px}
+ #media .episode-image{width:54px;height:55px}
+ #media .episode .play{width:30px;height:30px;min-width:30px}
+ #media .episode .play svg{width:14px;height:14px}
+ #media .episode h3{font-size:12px;line-height:1.35}
+ #media .episode p{font-size:10px;margin-top:4px}
+ #media .episode p span{margin:0 5px}
+ #media .episode-action{position:absolute;right:10px;bottom:4px;font-size:10px;padding:3px 0}
+}
+@media(prefers-reduced-motion:reduce){
+ #media *{animation:none!important;transition:none!important}
+ #media .conference-card:hover,#media .conference-card:hover img,#media .topics li:hover,#media .topics li:hover svg,#media .episode:hover,#media .episode:hover img,#media .episode:hover .play,#media .media-watch:hover,#media .media-watch:hover svg,#media .episode:hover .episode-action svg{transform:none}
+}
+
+#media .conference-card h3>span{display:block}
+/* Let longer tablet titles determine the row height. */
+@media(min-width:651px) and (max-width:1200px){
+ #media .conference-card{height:100%;min-height:260px}
+ #media .conference-image{height:auto;min-height:242px;align-self:stretch}
+ #media .topics{height:100%;min-height:260px}
+}

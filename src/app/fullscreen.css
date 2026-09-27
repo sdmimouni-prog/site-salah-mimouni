@@ -1,0 +1,142 @@
+/* Full-width composition shared by the homepage and About. */
+:root{--wide-frame:calc(100vw - 80px)}
+.site-header{height:108px}
+.site-header::before{display:none}
+.site-header .header-inner{width:calc(100% - 80px);max-width:none;gap:28px}
+.site-header .brand{gap:16px}
+.site-header .brand .monogram{width:70px}
+.site-header .brand strong{font-size:25px;letter-spacing:-.6px}
+.site-header .brand small{font-size:13px;margin-top:4px}
+.site-header .main-nav{font-size:15px;gap:24px;margin-left:auto;margin-right:auto}
+.site-header .main-nav a::after,.site-header .main-nav .current::after{bottom:26px}
+.site-header .header-cta{width:auto;min-width:172px;min-height:50px;padding:12px 24px;font-size:15px;border-radius:8px}
+.content-wrap,.hero .hero-inner,.contact-band .contact-inner,.footer,.about-page .about-content,.about-page .bio-hero-inner{width:calc(100% - 80px);max-width:none;margin-left:auto;margin-right:auto}
+.content-wrap{padding-bottom:32px}
+@media(min-width:1400px){
+ :root{--u:clamp(1px,.05208333vw,1.25px)}
+ .hero{height:clamp(600px,36vw,780px)}
+ .hero .hero-copy{padding-top:65px;width:48%;max-width:850px}
+ .hero .eyebrow{font-size:13px;letter-spacing:4px}
+ .hero h1{font-size:clamp(76px,5.1vw,115px);margin:22px 0 20px;line-height:.91}
+ .hero h1 span:first-child{font-size:inherit;letter-spacing:-4px}
+ .hero .hero-subtitle,.hero .hero-subtitle strong{font-size:clamp(27px,1.9vw,39px);line-height:1.2}
+ .hero .hero-intro{font-size:18px;width:auto;max-width:700px;line-height:1.6;margin-top:20px}
+ .hero .hero-intro span{display:inline}
+ .hero .hero-actions{margin-top:26px;gap:18px;flex-wrap:wrap}
+ .hero .hero-actions .button{width:auto!important;min-height:52px;font-size:16px;padding:12px 24px}
+ .hero .stats{max-width:700px;margin-top:28px}.hero .stats strong{font-size:23px}.hero .stats small{font-size:13px}
+ .hero-visual{width:55%;left:auto;right:0;height:100%}
+ .hero .hero-portrait{object-fit:cover;object-position:left center}
+ #actualites{margin-top:30px}
+ #actualites .news-card{height:176px;padding:10px 14px;gap:22px}
+ #actualites .news-card>img{width:180px;height:154px}
+ #actualites .news-card h3{font-size:24px;line-height:1.1}
+ #actualites .news-card .muted{font-size:16px}
+ #actualites .news-2>img{width:145px;height:165px}
+ #actualites .news-2 .text-link{font-size:15px}
+ #parcours,#societes{margin-top:36px}
+ #parcours .section-heading h2,#societes .section-heading h2,#media .section-heading h2,.books-events-columns .section-heading h2,#actualites .section-heading h2{font-size:30px}
+ #parcours .expertise-heading>p{font-size:15px;max-width:1000px}
+ #parcours .expertise-grid{gap:20px}
+ #parcours .expertise-card{height:255px;padding:25px 20px}
+ #parcours .expertise-icon{height:58px;margin-bottom:15px}#parcours .expertise-icon svg{width:54px;height:54px}
+ #parcours .expertise-card h3{font-size:25px;min-height:55px;margin-bottom:12px}
+ #parcours .expertise-card p{font-size:17px;max-width:270px}
+ #societes .companies-grid{gap:20px}
+ #societes .company-card{height:166px;padding:26px 30px;gap:18px}
+ #societes .company-logo{height:46px;width:240px}
+ #societes .company-card p{font-size:16px;max-width:340px}
+ #societes .company-2{padding-left:130px}
+ #societes .company-2 .company-logo{width:82px;height:82px;left:25px;top:40px}
+ #societes .company-2::before{font-size:26px}
+ #societes .company-3 .company-logo{width:200px;height:48px}
+ #media .media-columns{margin-top:38px;gap:30px}
+ #media .conference-card,#media .topics,#media .episodes{height:300px}
+ #media .conference-card{padding:12px;gap:24px}
+ #media .conference-image{height:274px}
+ #media .conference-card h3{font-size:27px;line-height:1.1}
+ #media .conference-card .muted{font-size:15px;line-height:1.5}
+ #media .category-pill{font-size:11px;padding:8px 11px;margin-bottom:20px}
+ #media .media-watch{font-size:15px;min-height:44px;padding:12px 19px}
+ #media .topics{padding:17px}
+ #media .topics h3{font-size:21px;margin-bottom:15px}
+ #media .topics li{height:43px;min-height:43px;font-size:15px}
+ #media .episodes{padding:10px 14px;gap:11px}
+ #media .episode-image{width:96px;height:76px}
+ #media .episode .play{width:46px;height:46px;min-width:46px}
+ #media .episode h3{font-size:15px}#media .episode p{font-size:13px}#media .episode-action{font-size:12px}
+ .books-events-columns{margin-top:36px;gap:30px}
+ #livres .book-card,#events .events-gallery{height:250px}
+ #livres .book-card{padding:15px 10px;gap:12px}
+ #livres .book-card>img{height:220px}
+ #livres .book-card h3{font-size:19px}#livres .book-card .muted{font-size:14px}#livres .book-card .text-link{font-size:14px}
+ #events .event h3{font-size:20px}#events .event-type,#events .event-location{font-size:13px}
+ #events .event-date{min-width:64px;min-height:88px}#events .event-date strong{font-size:26px}#events .event-date span{font-size:14px}
+ .contact-band .contact-inner{min-height:168px;padding:30px 0}
+ .contact-band h2{font-size:40px}.contact-band p:not(.eyebrow){font-size:16px}
+ .footer{min-height:116px;gap:28px}.footer nav{font-size:13px;gap:24px}.footer .brand strong{font-size:21px}.footer .brand small{font-size:11px}.footer>small{font-size:10px}
+ .about-page .bio-hero{height:650px}.about-page .bio-hero h1{font-size:clamp(62px,4.5vw,92px)}
+ .about-page .bio-hero-copy{max-width:860px;width:49%}.about-page .bio-intro{font-size:19px;max-width:650px}
+ .about-page .bio-quote{width:290px;padding:30px}.about-page .bio-quote blockquote{font-size:29px}
+ .about-page .about-content{padding-top:50px}.about-page .bio-journey-grid{gap:50px}
+ .about-page .bio-story h2,.about-page .bio-philosophy h2{font-size:44px}.about-page .bio-story>p:not(.eyebrow),.about-page .bio-philosophy>p:not(.eyebrow){font-size:18px}
+ .about-page .bio-timeline h2{font-size:28px}.about-page .bio-timeline h3{font-size:19px}.about-page .bio-timeline li p,.about-page .bio-timeline time{font-size:16px}
+ .about-page .bio-stats article{height:110px}.about-page .bio-stats h3{font-size:27px}.about-page .bio-stats p{font-size:16px}
+ .about-page .bio-expertise article{height:195px;padding:26px 18px}.about-page .bio-expertise article h3{font-size:22px}.about-page .bio-expertise article p{font-size:16px;max-width:260px}
+}
+@media(min-width:1400px) and (max-width:1699px){
+ .site-header .brand strong{font-size:21px}.site-header .brand small{font-size:11px}.site-header .brand .monogram{width:60px}
+ .site-header .main-nav{gap:18px;font-size:14px}.site-header .header-cta{min-width:150px;font-size:14px;padding:12px 18px}
+ #media .media-columns{grid-template-columns:1fr;gap:28px}
+ #media .episodes{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:1fr;height:auto}
+ #media .episode{min-height:126px;gap:12px;flex-wrap:wrap;padding:12px}
+ #media .episode-copy{flex-basis:50%}#media .episode-action{margin-left:auto}
+ #actualites .news-card>img{width:140px}#actualites .news-card h3{font-size:21px}#actualites .news-2>img{width:112px}
+ #parcours .expertise-card h3{font-size:23px}
+ #events .event h3{font-size:17px}#events .event-location{font-size:11px}
+ .footer{flex-wrap:wrap}.footer nav{order:4;flex-basis:100%;justify-content:space-between}
+}
+@media(max-width:1399px){
+ .site-header{height:96px}.site-header .header-inner{width:calc(100% - 48px)}
+ .site-header .brand strong{font-size:23px}.site-header .brand small{font-size:12px}.site-header .brand .monogram{width:62px}
+ .site-header .menu-toggle{display:grid;place-items:center;width:48px;height:48px;margin-left:0;order:3;flex-shrink:0;background:#eef0ff;border:0;border-radius:8px;color:var(--navy)}
+ .site-header .header-cta{margin-left:auto}
+ .site-header .main-nav{display:none;position:absolute;top:96px;left:0;right:0;height:auto;padding:20px 24px;grid-template-columns:repeat(3,1fr);gap:10px;background:#fff;box-shadow:0 15px 30px #151c4814;margin:0}
+ .site-header .main-nav.open{display:grid}.site-header .main-nav a{font-size:16px;min-height:48px;padding:12px}.site-header .main-nav a::after{display:none}
+ .content-wrap,.hero .hero-inner,.contact-band .contact-inner,.footer,.about-page .about-content,.about-page .bio-hero-inner{width:calc(100% - 48px)}
+}
+@media(max-width:600px){
+ .site-header{height:90px}.site-header .header-inner{width:calc(100% - 32px);gap:10px}
+ .site-header .brand{gap:9px}.site-header .brand strong{font-size:16px}.site-header .brand small{font-size:8px}.site-header .brand .monogram{width:45px}
+ .site-header .menu-toggle{width:44px;height:44px;margin-left:auto}.site-header .header-cta{display:none}
+ .site-header .main-nav{top:90px;grid-template-columns:repeat(2,1fr);padding:16px}.site-header .main-nav a{font-size:15px}
+ .content-wrap,.hero .hero-inner,.contact-band .contact-inner,.footer,.about-page .about-content,.about-page .bio-hero-inner{width:calc(100% - 32px)}
+}
+@media(min-width:1400px){
+ .hero::before{display:none}
+ .hero-visual{background:linear-gradient(110deg,#fff,#eef0f7)}
+ .hero-visual picture{position:absolute;left:0;bottom:0;width:82%;height:100%}
+ .hero .hero-portrait{object-fit:contain;object-position:left bottom}
+ .hero .hero-handwriting{display:block;width:155px;right:34px;top:35px}
+ .hero .quote{left:auto;right:30px;top:auto;bottom:35px;width:255px;height:auto;padding:36px 24px 22px 45px;border:1px solid #ffffffa8;border-radius:12px;background:#f9faffed;backdrop-filter:blur(10px);box-shadow:0 8px 30px #23305b12}
+ .hero .quote blockquote{font-size:21px;line-height:1.3}
+ .hero .quote figcaption{width:auto;margin:22px 0 0}
+ .hero .quote-icon{left:12px;top:16px;width:27px;height:27px}
+}
+@media(min-width:1400px) and (max-width:1699px){.hero{height:720px}.hero .hero-copy{padding-top:48px}}
+/* Navigation principale : six entrées, lecture plus confortable. */
+@media(min-width:1400px){
+ .site-header{height:124px}
+ .site-header .main-nav{font-size:20px;font-weight:500;gap:30px}
+ .site-header .main-nav a::after,.site-header .main-nav .current::after{bottom:30px}
+ .site-header .header-cta{font-size:16px;min-height:54px;padding:14px 24px}
+}
+@media(min-width:601px) and (max-width:1399px){
+ .site-header{height:108px}.site-header .main-nav{top:108px}
+ .site-header .main-nav a{font-size:19px;min-height:56px}
+}
+@media(max-width:600px){
+ .site-header{height:96px}.site-header .main-nav{top:96px}
+ .site-header .main-nav a{font-size:18px;font-weight:500;min-height:54px}
+ .site-header .menu-toggle{width:48px;height:48px}
+}

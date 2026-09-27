@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+const compile=(source)=>`data:text/javascript;base64,${Buffer.from(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText).toString('base64')}`;
+const books=compile(readFileSync('src/content/books.ts','utf8'));
+const source=readFileSync('src/content/ancien-pauvre.ts','utf8').replace("'./books'",JSON.stringify(books));
+const {ancienPauvre,validateLandingOrder}=await import(compile(source));
+const valid={name:'Lecteur Test',phone:'+212 600000000',city:'Rabat',address:'12 rue Exemple, appartement 3',quantity:'2',consent:true};
+test('valid order passes; confirmed catalog price and demo mode are preserved',()=>{assert.deepEqual(validateLandingOrder(valid),{});assert.equal(ancienPauvre.commerce.price,145);assert.equal(ancienPauvre.commerce.mode,'demo');});
+test('required fields have distinct errors and unsupported quantities fail',()=>{assert.equal(Object.keys(validateLandingOrder({name:'',phone:'',city:'',address:'',quantity:'0',consent:false})).length,6);for(const quantity of ['-1','0','1.5','11','1e2',''])assert.ok(validateLandingOrder({...valid,quantity}).quantity);});
+test('oversized values and malformed telephone are rejected',()=>{for(const [field,value] of [['name','x'.repeat(101)],['phone','not a telephone'],['city','x'.repeat(101)],['address','x'.repeat(501)]])assert.ok(validateLandingOrder({...valid,[field]:value})[field]);});
+test('excerpt attribution distinguishes foreword from author and no invented reviews',()=>{assert.match(ancienPauvre.heroQuote.credit,/Hind El Grari/);assert.match(ancienPauvre.excerpts[0].source,/148/);assert.equal(ancienPauvre.testimonials.length,0);});

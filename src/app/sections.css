@@ -1,0 +1,93 @@
+/* Reference: sections-expertise-companies.png. Keep the shared homepage frame. */
+#parcours,#societes{--section-unit:1px;margin-top:28px}
+#parcours .expertise-heading{display:flex;align-items:center;justify-content:space-between;gap:30px;margin:0 20px 16px}
+#parcours .section-heading,#societes .section-heading{margin:0;min-height:30px}
+#parcours .section-heading h2,#societes .section-heading h2{font-size:27px;line-height:1.15;gap:23px;white-space:nowrap;letter-spacing:-.5px}
+#parcours .heading-mark,#societes .heading-mark{width:65px}
+#parcours .expertise-heading>p{font-size:13px;color:#777d98;text-align:right;max-width:790px;line-height:1.5;margin:0}
+#parcours .expertise-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
+#parcours .expertise-card{height:211px;min-height:0;padding:18px 16px 14px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid transparent;border-radius:13px}
+#parcours .expertise-icon{height:48px;display:grid;place-items:center;color:#4146de;margin-bottom:8px;filter:drop-shadow(0 3px 2px #4047e51c);transition:transform .5s var(--motion-ease)}
+#parcours .expertise-icon svg{width:49px;height:49px}
+#parcours .expertise-graduate .expertise-icon svg{fill:#4448df;stroke:#f4f6ff;stroke-width:1.3}
+#parcours .expertise-chart .expertise-icon svg{stroke-width:5}
+#parcours .expertise-card h3{font-size:22px;line-height:1.06;min-height:47px;max-width:none;width:100%;display:flex;align-items:center;justify-content:center;margin:0 0 8px;letter-spacing:-.45px}
+#parcours .expertise-card p{font-size:16px;line-height:1.38;max-width:215px;margin:0}
+#societes{margin-top:20px}
+#societes .section-heading{margin:0 20px 14px}
+#societes .companies-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+#societes .company-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:13px;height:132px;padding:19px 26px;border:1px solid transparent;border-radius:13px}
+#societes .company-logo{height:38px;width:210px;max-width:90%;display:flex;align-items:center;justify-content:flex-start;transition:transform .5s var(--motion-ease)}
+#societes .company-logo img{width:100%;height:100%;object-fit:contain;object-position:left center;border-radius:0}
+#societes .company-0 .company-logo img,#societes .company-1 .company-logo img{filter:brightness(0);opacity:.94}
+#societes .company-2{padding-left:112px}
+#societes .company-2 .company-logo{position:absolute;left:24px;top:28px;height:76px;width:76px;max-width:none;border-radius:17px;background:#11121c;padding:9px}
+#societes .company-2::before{content:'Lemon Mind';font-size:22px;line-height:1.15;font-weight:700;letter-spacing:-.5px}
+#societes .company-3 .company-logo{width:165px;height:44px}
+#societes .company-card p{font-size:15px;line-height:1.4;max-width:285px;margin:0}
+#societes .company-arrow{position:absolute;right:14px;top:16px;color:#4146de;opacity:0;transform:translate(-4px,4px);transition:opacity .3s,transform .3s}
+#parcours .expertise-card,#societes .company-card{background:linear-gradient(120deg,#f7f8fb,#f3f5f8);transition:transform .45s var(--motion-ease),box-shadow .45s,border-color .45s,background .45s}
+@media(hover:hover){
+ #parcours .expertise-card:hover,#societes .company-card:hover{transform:translateY(-7px);box-shadow:0 15px 30px #262e6810;border-color:#dfe2ff;background:#f7f8ff}
+ #parcours .expertise-card:hover .expertise-icon{transform:translateY(-3px) rotate(-5deg) scale(1.08)}
+ #parcours .expertise-rocket:hover .expertise-icon{transform:translate(5px,-6px) rotate(8deg)}
+ #societes .company-card:hover .company-logo{transform:scale(1.035)}
+ #societes .company-card:hover .company-arrow{opacity:1;transform:translate(0,0)}
+}
+#societes .company-card:focus-visible{outline:3px solid #686bff;outline-offset:4px}
+#societes .company-card:focus-visible .company-arrow{opacity:1;transform:none}
+@media(prefers-reduced-motion:no-preference){
+ .section-reveal-item[data-reveal=waiting]{opacity:0;transform:translateY(26px)}
+ .section-reveal-item[data-reveal=visible]{animation:section-card-enter .85s calc(var(--order,0) * 90ms) var(--motion-ease) backwards}
+}
+@keyframes section-card-enter{from{opacity:0;transform:translateY(26px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(min-width:1600px){
+ #parcours .expertise-heading{gap:24px;margin-left:calc(20 * var(--u));margin-right:calc(20 * var(--u))}
+ #parcours .expertise-heading>p{font-size:calc(13 * var(--u))}
+ #parcours .section-heading h2,#societes .section-heading h2{font-size:calc(27 * var(--u))}
+ #parcours .expertise-card{height:calc(211 * var(--u));padding:calc(18 * var(--u)) calc(16 * var(--u)) calc(14 * var(--u))}
+ #parcours .expertise-card h3{font-size:calc(22 * var(--u));min-height:calc(47 * var(--u));margin-bottom:calc(8 * var(--u))}
+ #parcours .expertise-card p{font-size:calc(16 * var(--u))}
+ #parcours .expertise-icon{height:calc(48 * var(--u));margin-bottom:calc(8 * var(--u))}
+ #parcours .expertise-icon svg{width:calc(49 * var(--u));height:calc(49 * var(--u))}
+ #societes .company-card{height:calc(132 * var(--u));padding:calc(19 * var(--u)) calc(26 * var(--u))}
+ #societes .company-card p{font-size:calc(15 * var(--u))}
+ #societes .company-2{padding-left:calc(106 * var(--u))}
+ #societes .company-2 .company-logo{width:calc(70 * var(--u));height:calc(70 * var(--u));left:calc(20 * var(--u));top:calc(28 * var(--u))}
+ #societes .company-2::before{font-size:calc(22 * var(--u))}
+}
+@media(max-width:1200px){
+ #parcours .expertise-heading{align-items:flex-start;margin-left:0;margin-right:0;gap:20px}
+ #parcours .expertise-heading>p{max-width:450px;font-size:12px}
+ #parcours .expertise-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ #parcours .expertise-card{height:100%;min-height:255px}
+ #societes .companies-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #societes .section-heading{margin-left:0}
+}
+@media(max-width:650px){
+ #parcours,#societes{margin-top:28px}
+ #parcours .expertise-heading{display:block;margin-bottom:16px}
+ #parcours .section-heading h2,#societes .section-heading h2{font-size:23px;gap:13px;white-space:normal}
+ #parcours .heading-mark,#societes .heading-mark{width:35px}
+ #parcours .expertise-heading>p{text-align:left;font-size:12px;line-height:1.6;margin-top:12px;max-width:none}
+ #parcours .expertise-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ #parcours .expertise-card{height:100%;min-height:250px;padding:20px 12px 18px}
+ #parcours .expertise-card h3{font-size:18px;min-height:59px;letter-spacing:-.4px}
+ #parcours .expertise-card p{font-size:13px;line-height:1.45}
+ #parcours .expertise-grid>.section-reveal-item:last-child{grid-column:1/-1}
+ #parcours .expertise-grid>.section-reveal-item:last-child .expertise-card{height:185px;min-height:185px}
+ #parcours .expertise-grid>.section-reveal-item:last-child h3{min-height:25px}
+ #societes .companies-grid{grid-template-columns:1fr;gap:12px}
+ #societes .company-card{height:142px;padding:22px 24px}
+ #societes .company-2{padding-left:116px}
+ #societes .company-2 .company-logo{top:33px;left:24px}
+ #societes .company-card p{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+ .section-reveal-item[data-reveal]{opacity:1;transform:none;animation:none}
+ #parcours .expertise-card:hover,#parcours .expertise-card:hover .expertise-icon,#societes .company-card:hover,#societes .company-card:hover .company-logo{transform:none}
+}
+
+#parcours .expertise-chart p{max-width:190px}
+
+#parcours .expertise-card>*{flex-shrink:0}

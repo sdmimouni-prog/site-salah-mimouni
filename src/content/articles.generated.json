@@ -1,0 +1,116 @@
+{
+  "sourceUrl": "https://www.richmedia.ma/auteurs/salah-eddine-mimouni/",
+  "importedAt": "2026-09-27T17:11:29.528Z",
+  "articles": [
+    {
+      "id": "comment-choisir-agence-communication",
+      "title": "Comment choisir une agence de communication ? Les 10 critères qui comptent vraiment",
+      "sourceUrl": "https://www.richmedia.ma/insights/comment-choisir-agence-communication/",
+      "category": "Stratégie",
+      "excerpt": "Comment choisir une agence de communication ? Découvrez les 10 critères essentiels pour comparer les agences, évaluer leurs compétences et faire le bon choix.",
+      "publishedAt": "2026-08-24",
+      "readingMinutes": 12,
+      "image": "/assets/articles/7d29dc55547d7c67.webp",
+      "imageAlt": "Comment choisir une agence de communication ? | Richmedia"
+    },
+    {
+      "id": "priorites-digitales-2026-croissance-rentable",
+      "title": "2026 : priorités digitales pour une croissance rentable",
+      "sourceUrl": "https://www.richmedia.ma/insights/priorites-digitales-2026-croissance-rentable/",
+      "category": "Stratégie",
+      "excerpt": "Identifiez les priorités digitales 2026 pour mieux investir en data, média, SEO/GEO, CRM, WhatsApp, création et performance.",
+      "publishedAt": "2026-05-14",
+      "readingMinutes": 11,
+      "image": "/assets/articles/69b2fffa700a3a68.webp",
+      "imageAlt": "Priorités digitales 2026 : croissance rentable"
+    },
+    {
+      "id": "data-decision-strategie-performance",
+      "title": "La data au service de la décision : bâtir une stratégie pilotée par la performance",
+      "sourceUrl": "https://www.richmedia.ma/insights/data-decision-strategie-performance/",
+      "category": "Stratégie",
+      "excerpt": "Transformez first-party data, attribution et reporting en décisions marketing plus fiables pour piloter vos campagnes avec précision.",
+      "publishedAt": "2026-05-09",
+      "readingMinutes": 11,
+      "image": "/assets/articles/b469fc4f8af7ebbf.webp",
+      "imageAlt": "Data marketing : piloter la performance"
+    },
+    {
+      "id": "seo-vs-geo-enjeux-2026",
+      "title": "SEO vs GEO : comprendre les nouveaux enjeux 2026",
+      "sourceUrl": "https://www.richmedia.ma/insights/seo-vs-geo-enjeux-2026/",
+      "category": "SEO / GEO",
+      "excerpt": "Comprenez les différences entre SEO et GEO pour adapter votre visibilité sur Google, les moteurs IA et les nouveaux parcours de recherche.",
+      "publishedAt": "2026-05-06",
+      "readingMinutes": 10,
+      "image": "/assets/articles/0b9696de4e81af22.webp",
+      "imageAlt": "SEO vs GEO en 2026 : visibilité Google et IA"
+    },
+    {
+      "id": "campagnes-meta-2026-bonnes-pratiques",
+      "title": "Campagnes Meta 2026 : les bonnes pratiques",
+      "sourceUrl": "https://www.richmedia.ma/insights/campagnes-meta-2026-bonnes-pratiques/",
+      "category": "Média & performance",
+      "excerpt": "Structure, créatifs, ciblage, CAPI et mesure : les repères pour mieux piloter vos campagnes Meta Ads au Maroc et à l’international.",
+      "publishedAt": "2026-05-02",
+      "readingMinutes": 10,
+      "image": "/assets/articles/c85fce17a34f5634.webp",
+      "imageAlt": "Campagnes Meta Ads 2026 : bonnes pratiques"
+    },
+    {
+      "id": "whatsapp-business-canal-conversion",
+      "title": "WhatsApp Business : un canal de conversion sous-exploité",
+      "sourceUrl": "https://www.richmedia.ma/insights/whatsapp-business-canal-conversion/",
+      "category": "Stratégie",
+      "excerpt": "Découvrez comment WhatsApp Business peut qualifier, relancer et convertir davantage de prospects lorsqu’il est connecté au CRM et au reporting.",
+      "publishedAt": "2026-04-28",
+      "readingMinutes": 9,
+      "image": "/assets/articles/4be58ff1afbc5de4.webp",
+      "imageAlt": "WhatsApp Business : convertir plus de prospects"
+    },
+    {
+      "id": "plan-acquisition-digital-2026",
+      "title": "Guide 2026 : construire un plan d'acquisition digital performant",
+      "sourceUrl": "https://www.richmedia.ma/insights/plan-acquisition-digital-2026/",
+      "category": "Guides",
+      "excerpt": "Structurez votre plan d’acquisition : canaux, budget, tracking, contenus et conversion pour mieux piloter la croissance.",
+      "publishedAt": "2026-04-18",
+      "readingMinutes": 10,
+      "image": "/assets/articles/0b9696de4e81af22.webp",
+      "imageAlt": "Plan d’acquisition digital 2026 : méthode"
+    },
+    {
+      "id": "contenu-qualite-seo-perenne",
+      "title": "Contenu de qualité : la base d'un SEO pérenne",
+      "sourceUrl": "https://www.richmedia.ma/insights/contenu-qualite-seo-perenne/",
+      "category": "SEO / GEO",
+      "excerpt": "Découvrez comment un contenu clair, utile et structuré renforce durablement la visibilité SEO et la confiance des audiences.",
+      "publishedAt": "2026-04-07",
+      "readingMinutes": 9,
+      "image": "/assets/articles/e6cd4b032834e744.webp",
+      "imageAlt": "Contenu SEO de qualité : méthode durable"
+    },
+    {
+      "id": "crm-automation-aligner-marketing-sales",
+      "title": "CRM & automation : aligner marketing et sales pour convertir plus",
+      "sourceUrl": "https://www.richmedia.ma/insights/crm-automation-aligner-marketing-sales/",
+      "category": "Stratégie",
+      "excerpt": "Connectez campagnes, CRM, WhatsApp et relances pour qualifier les leads, fluidifier le suivi commercial et améliorer la conversion.",
+      "publishedAt": "2026-04-03",
+      "readingMinutes": 9,
+      "image": "/assets/articles/3917c78dab324236.webp",
+      "imageAlt": "CRM & automation : aligner marketing et sales"
+    },
+    {
+      "id": "cout-campagne-google-ads-maroc",
+      "title": "Combien coûte une campagne Google Ads au Maroc ?",
+      "sourceUrl": "https://www.richmedia.ma/insights/cout-campagne-google-ads-maroc/",
+      "category": "Média & performance",
+      "excerpt": "Comprenez les coûts d’une campagne Google Ads au Maroc : budget média, enchères, concurrence, landing page et pilotage des leads.",
+      "publishedAt": "2026-02-01",
+      "readingMinutes": 10,
+      "image": "/assets/articles/03fab609b483cc05.webp",
+      "imageAlt": "Prix Google Ads au Maroc : budgets & coûts 2026"
+    }
+  ]
+}

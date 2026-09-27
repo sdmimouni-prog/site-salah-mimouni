@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import ts from 'typescript';
+const source=ts.transpileModule(readFileSync('src/content/marques.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const {marques,validateMarquesRequest:validate}=await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
+const valid={book:'quand-les-marques-pensent',name:'Lecteur Test',phone:'+212600000000',email:'',city:'Rabat',address:'12 rue Exemple',quantity:'1',consent:true};
+test('dedicated book configuration has no assumed price and accepts optional email',()=>{assert.equal(marques.commerce.price,null);assert.equal(marques.commerce.mode,'demo');assert.deepEqual(validate(valid),{});assert.ok(validate({...valid,book:'autre'}).book);assert.ok(validate({...valid,email:'invalide'}).email);});
+test('requires contact data and consent with field errors',()=>{const errors=validate({...valid,name:'',phone:'',city:'',address:'',consent:false});assert.deepEqual(Object.keys(errors),['name','phone','city','address','consent']);});
+test('quantity must be a positive safe integer; inputs bounded',()=>{for(const quantity of ['0','-1','1.5','','1e2','9007199254740992'])assert.ok(validate({...valid,quantity}).quantity);assert.deepEqual(validate({...valid,quantity:'11'}),{});assert.ok(validate({...valid,address:'x'.repeat(501)}).address);});
+test('three acts contain ten chapters without manuscript links',()=>{assert.equal(marques.acts.length,3);assert.equal(marques.acts.reduce((sum,a)=>sum+a.chapters.length,0),10);assert.equal(marques.excerpts.length,2);});

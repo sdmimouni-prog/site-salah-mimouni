@@ -1,0 +1,107 @@
+.books-events-columns{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px;margin-bottom:2px}
+.books-events-columns .section-heading{margin:0 20px 13px;min-height:30px}
+.books-events-columns .section-heading h2{font-size:27px;letter-spacing:-.5px;gap:22px}
+.books-events-columns .heading-mark{width:64px}
+#livres .books-grid{gap:8px}
+#livres .book-card{height:198px;padding:12px 7px;gap:8px;border-radius:10px;transition:transform .45s var(--motion-ease),box-shadow .45s}
+#livres .book-card>img{width:46%;height:177px;object-fit:contain;mix-blend-mode:multiply;transition:transform .6s var(--motion-ease),filter .6s;transform-origin:50% 85%}
+#livres .book-card>div{min-width:0;align-self:stretch;padding-top:24px;display:flex;flex-direction:column;padding-bottom:24px}
+#livres .book-card h3{font-size:16px;line-height:1.1;letter-spacing:-.4px;margin:0 0 12px}
+#livres .book-card .muted{font-size:12px;line-height:1.4}
+#livres .book-card .text-link{font-size:12px;margin-top:auto;gap:9px;white-space:nowrap}
+#livres .book-action{display:inline-flex;align-items:center;border:0;padding:0;background:none;opacity:1;color:#3b43d0;font-weight:600}
+#events .events-gallery{grid-template-columns:1fr 1.5fr;gap:12px;height:198px}
+#events .events{padding:7px;gap:9px;border-radius:8px}
+#events .event{padding:5px;gap:17px;transition:transform .4s var(--motion-ease),box-shadow .4s}
+#events .event-date{min-width:56px;min-height:72px;padding:16px 7px;background:linear-gradient(130deg,#e9ecff,#dfe5ff);border-radius:8px;display:flex;flex-direction:column;justify-content:center;transition:transform .4s}
+#events .event-date strong{font-size:22px;font-family:var(--serif);line-height:1}
+#events .event-date span{font-size:12px;margin-top:3px}
+#events .event-type{font-size:11px;gap:8px;margin-bottom:6px}
+#events .event h3{font-size:17px;line-height:1.06;margin-bottom:7px;letter-spacing:-.3px}
+#events .event-location{font-size:11px;gap:5px;line-height:1.2}
+#events .event-location svg{color:#142063;flex-shrink:0}
+#events .gallery-reveal,#events .gallery-grid{height:100%;min-height:0}
+#events .gallery-grid{gap:5px}
+#events .gallery-item,#events .gallery-count{border-radius:6px}
+#events .gallery-item img{transition:transform .65s var(--motion-ease),filter .65s}
+#events .gallery-item>svg{transition:opacity .3s,transform .3s;transform:translateY(4px)}
+#events .gallery-count{position:relative;isolation:isolate;overflow:hidden;background:#303243;gap:2px}
+#events .gallery-count::before{content:'';position:absolute;inset:0;background:linear-gradient(#171b39a8,#171b39cc),url('/assets/gallery-detail-5.webp') center/cover;z-index:-1;transition:transform .6s,filter .6s}
+#events .gallery-count>svg{display:none}
+#events .gallery-count strong{font-size:22px;line-height:1.1}
+#events .gallery-count span{font-size:10px}
+@media(hover:hover){
+ #livres .book-card:hover{transform:translateY(-6px);box-shadow:0 14px 28px #1d285017}
+ #livres .book-card:hover>img{transform:perspective(600px) rotateY(-9deg) rotate(-2deg) translateY(-3px);filter:drop-shadow(7px 9px 5px #11163018)}
+ #livres .book-card:hover .text-link svg{transform:translateX(4px)}
+ #events .event:hover{transform:translateX(3px);box-shadow:0 5px 15px #222a5610}
+ #events .event:hover .event-date{transform:translateY(-2px)}
+ #events .gallery-item:hover img{transform:scale(1.08);filter:saturate(1.1)}
+ #events .gallery-item:hover>svg{opacity:1;transform:none}
+ #events .gallery-count:hover::before{transform:scale(1.08);filter:brightness(1.15)}
+}
+.contact-band{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 100% 130%,#fb906a 0,transparent 34%),linear-gradient(110deg,#172b67,#3343b1 51%,#443356);margin-top:0}
+.contact-inner{width:calc(100% - 64px);max-width:var(--wide-frame);min-height:138px;margin:0 auto;padding:24px 0 17px;gap:45px}
+.contact-band .eyebrow{font-size:10px;letter-spacing:3px;margin-bottom:15px;text-align:center;color:#c5cdfd}
+.contact-band h2{font-size:35px;line-height:1.15;letter-spacing:-.6px}
+.contact-band p:not(.eyebrow){font-size:14px;margin-top:7px;color:#dce0f7;line-height:1.45}
+.contact-inner>.contact-button{flex-shrink:0;min-width:240px;align-self:center}
+.contact-inner>.contact-button>button{min-height:54px;width:240px;font-size:16px;justify-content:center;gap:15px;padding:15px 25px;border-radius:6px;box-shadow:0 4px 18px #12195219;transition:transform .35s,box-shadow .35s}
+.contact-inner>.contact-button>small{font-size:9px;margin-top:3px}
+.contact-inner>.contact-button:hover>button{transform:translateY(-3px);box-shadow:0 8px 26px #1017403b}
+.footer{width:calc(100% - 64px);max-width:var(--wide-frame);min-height:92px;margin:0 auto;gap:28px;padding:18px 0}
+.footer .brand strong{font-size:18px}.footer .brand small{font-size:10px}.footer .brand .monogram{width:48px}
+.footer nav{gap:23px;font-size:11px;justify-content:center}
+.footer nav a{position:relative;transition:color .25s,transform .25s}
+.footer nav a::after{content:'';position:absolute;left:0;right:0;bottom:-6px;height:1px;background:#4148d9;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.footer nav a:hover{transform:translateY(-2px)}.footer nav a:hover::after{transform:scaleX(1)}
+.footer .socials{gap:15px}.footer .socials img{width:18px;height:18px;object-fit:contain;mix-blend-mode:multiply;transition:transform .3s}
+.footer .socials button{opacity:1}.footer .socials a:hover img,.footer .socials button:hover img{transform:translateY(-3px) scale(1.07)}
+.footer>small{font-size:9px;max-width:none;white-space:nowrap;padding-left:12px}
+@media(min-width:1600px){
+ #livres .book-card,#events .events-gallery{height:calc(198 * var(--u))}
+ #livres .book-card>img{height:calc(177 * var(--u))}
+ #livres .book-card h3{font-size:calc(16 * var(--u))}
+ #livres .book-card .muted,#livres .book-card .text-link{font-size:calc(12 * var(--u))}
+ #events .event{gap:calc(17 * var(--u))}
+ #events .event-date{min-width:calc(56 * var(--u));min-height:calc(72 * var(--u));padding:calc(16 * var(--u)) calc(7 * var(--u))}
+ #events .event h3{font-size:calc(17 * var(--u))}
+ #events .event-location,#events .event-type{font-size:calc(11 * var(--u))}
+ .contact-band h2{font-size:calc(35 * var(--u))}
+ .footer{gap:calc(22 * var(--u))}.footer nav{gap:calc(20 * var(--u));font-size:calc(11 * var(--u))}
+ .footer .brand strong{font-size:calc(18 * var(--u))}.footer>small{font-size:calc(9 * var(--u))}
+}
+@media(max-width:1200px){
+ .books-events-columns{grid-template-columns:1fr;gap:26px}
+ #livres .book-card{height:210px}
+ #livres .book-card>img{height:186px}
+ #events .events-gallery{height:235px}
+ .contact-inner{width:calc(100% - 48px);gap:24px}
+ .contact-band h2{font-size:29px}.contact-band p:not(.eyebrow){font-size:12px}
+ .contact-inner>.contact-button{min-width:190px}.contact-inner>.contact-button>button{width:190px;font-size:14px}
+ .footer{width:calc(100% - 48px);flex-wrap:wrap;gap:20px}
+ .footer nav{order:4;flex-basis:100%;justify-content:space-between}
+ .footer .socials{margin-left:auto}
+}
+@media(max-width:650px){
+ .books-events-columns .section-heading{margin:0 0 14px}.books-events-columns .section-heading h2{font-size:24px;gap:15px}.books-events-columns .heading-mark{width:40px}
+ #livres .books-grid{grid-template-columns:1fr;gap:12px}
+ #livres .book-card{height:205px;padding:12px 18px;gap:20px}
+ #livres .book-card>img{width:112px;height:180px}
+ #livres .book-card>div{padding:27px 0 22px}
+ #livres .book-card h3{font-size:19px}#livres .book-card .muted{font-size:12px}#livres .book-card .text-link{font-size:12px}
+ #events .events-gallery{grid-template-columns:1fr;height:auto;gap:12px}
+ #events .events{padding:7px}#events .event{min-height:100px;padding:8px;gap:18px}#events .event h3{font-size:18px}#events .event-date{min-width:57px}
+ #events .gallery-grid{height:214px;gap:6px}
+ .contact-inner{width:calc(100% - 40px);display:block;padding:29px 0}
+ .contact-band .eyebrow{text-align:left;font-size:8px;line-height:1.6;margin-bottom:13px;letter-spacing:2px}
+ .contact-band h2{font-size:30px;line-height:1.13}.contact-band p:not(.eyebrow){font-size:12px;line-height:1.6;margin-top:13px}
+ .contact-inner>.contact-button{margin-top:23px;width:100%}.contact-inner>.contact-button>button{width:100%;font-size:14px}
+ .footer{width:calc(100% - 40px);padding:26px 0;gap:22px}.footer .brand strong{font-size:16px}.footer .brand small{font-size:8px}.footer .brand .monogram{width:43px}
+ .footer .socials{margin-left:0;gap:20px}.footer nav{order:3;display:grid;grid-template-columns:repeat(3,1fr);gap:0;font-size:11px;flex-basis:100%}
+ .footer nav a{padding:12px 0}.footer>small{order:4;border:0;padding:0;font-size:9px;white-space:normal;width:100%;line-height:1.5}
+}
+@media(prefers-reduced-motion:reduce){
+ #livres *,#events *,.contact-band *,.footer *{animation:none!important;transition:none!important}
+ #livres .book-card:hover,#livres .book-card:hover>img,#events .event:hover,#events .event:hover .event-date,#events .gallery-item:hover img,#events .gallery-count:hover::before,.contact-inner>.contact-button:hover>button,.footer nav a:hover,.footer .socials a:hover img,.footer .socials button:hover img{transform:none}
+}

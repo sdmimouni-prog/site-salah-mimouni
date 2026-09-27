@@ -1,0 +1,15 @@
+node_modules/
+.next/
+*.tsbuildinfo
+
+.runtime/
+
+.env*
+!.env.example
+
+# Local diagnostics, exports and operating-system files
+/output/
+/qa/
+/tmp/
+.DS_Store
+*.log
