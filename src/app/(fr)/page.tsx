@@ -4,10 +4,11 @@ import { HomeContent } from '@/components/HomeContent';
 export const metadata: Metadata = {
   title: homeSeo.title,
   description: homeSeo.description,
-  alternates: { canonical: '/' },
+  alternates: { canonical: '/', languages: { fr: '/', en: '/en', 'x-default': '/' } },
   openGraph: {
     type: 'website',
     locale: 'fr_MA',
+    alternateLocale: 'en_GB',
     siteName,
     url: '/',
     title: homeSeo.title,

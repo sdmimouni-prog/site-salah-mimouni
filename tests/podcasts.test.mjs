@@ -13,7 +13,23 @@ function moduleUrl(file) {
 const lib = await import(moduleUrl('src/lib/podcasts.ts'));
 const { podcastEpisodes, podcastPlatforms, podcastStats } = await import(moduleUrl('src/content/podcasts.ts'));
 const { home } = await import(moduleUrl('src/content/home.ts'));
+const { getHomeContent } = await import(moduleUrl('src/content/home-localized.ts'));
 const episode = (overrides = {}) => ({ ...podcastEpisodes[0], id: 'test', status: 'published', videoId: null, sourceUrl: null, audioUrl: null, publishedAt: null, ...overrides });
+
+test('English homepage preserves original works, prices, sources and confirmed events without mutating French content', () => {
+  const original = JSON.stringify(home);
+  const translated = getHomeContent('en');
+  assert.equal(translated.name, 'Salah-Eddine MIMOUNI');
+  assert.deepEqual(translated.episodes, home.episodes);
+  assert.deepEqual(translated.books.map(({ title, slug, price, image, url }) => ({ title, slug, price, image, url })), home.books.map(({ title, slug, price, image, url }) => ({ title, slug, price, image, url })));
+  assert.deepEqual(translated.news.map(({ title, image, href }) => ({ title, image, href })), home.news.map(({ title, image, href }) => ({ title, image, href })));
+  assert.deepEqual(translated.events.map(({ id, date, location, status, registrationUrl }) => ({ id, date, location, status, registrationUrl })), home.events.map(({ id, date, location, status, registrationUrl }) => ({ id, date, location, status, registrationUrl })));
+  for (const book of translated.books) assert.ok(book.subtitle?.trim());
+  for (const company of translated.companies) assert.ok(company.description?.trim());
+  assert.equal(translated.conference.videoUrl, null);
+  assert.equal(getHomeContent('fr'), home);
+  assert.equal(JSON.stringify(home), original);
+});
 
 test('publishes exactly the seven supplied YouTube videos with author-approved name typography and original metadata', () => {
   const ids = ['Q6cC7A2ST7M','ilmbyrflEQQ','NADMauj7z68','WRUzlvH0lug','3CgqiI0YMUA','ofJESCT5HDc','ETay40EqtfY'];

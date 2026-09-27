@@ -1,16 +1,18 @@
 import { LocalizedLink } from '@/components/i18n/LocalizedLink';
 import Image from 'next/image';
 import { ArrowRight, CalendarDays } from 'lucide-react';
-import { home } from '@/content/home';
+import { getHomeContent, homeCopy } from '@/content/home-localized';
+import type { Locale } from '@/lib/i18n';
 import { contactLink } from '@/content/contact';
 
-export function Hero() {
-  const introductionLines = home.introduction.replace('artificielle, ', 'artificielle,|').replace('au service ', 'au service|').split('|');
+export function Hero({ locale = 'fr' }: { locale?: Locale }) {
+  const home = getHomeContent(locale), copy = homeCopy[locale];
+  const introductionLines = locale === 'en' ? [home.introduction] : home.introduction.replace('artificielle, ', 'artificielle,|').replace('au service ', 'au service|').split('|');
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero-visual">
         <picture>
-          <Image className="hero-portrait" src="/assets/photos/hero-retouched.png" alt="Portrait de Salah-Eddine MIMOUNI, en costume bleu" width={1386} height={1135} sizes="(max-width: 600px) 100vw, 55vw" preload />
+          <Image className="hero-portrait" src="/assets/photos/hero-retouched.png" alt={copy.portrait} width={1386} height={1135} sizes="(max-width: 600px) 100vw, 55vw" preload />
         </picture>
 
       </div>
@@ -21,10 +23,10 @@ export function Hero() {
           <p className="hero-subtitle">{home.subtitle}<strong>{home.specialty}</strong></p>
           <p className="hero-intro">{introductionLines.map((line, i) => <span key={line}>{line}{i < introductionLines.length - 1 ? ' ' : ''}</span>)}</p>
           <div className="hero-actions">
-            <LocalizedLink className="button" href="/a-propos">Découvrir mon parcours<ArrowRight size={16} /></LocalizedLink>
-            <LocalizedLink className="button button-outline" href={contactLink('conference')}><CalendarDays size={18} />Invitez-moi à intervenir</LocalizedLink>
+            <LocalizedLink className="button" href="/a-propos">{copy.journey}<ArrowRight size={16} /></LocalizedLink>
+            <LocalizedLink className="button button-outline" href={contactLink('conference')}><CalendarDays size={18} />{copy.invite}</LocalizedLink>
           </div>
-          <div className="stats" aria-label="Indicateurs à confirmer">
+          <div className="stats" aria-label={copy.stats}>
             {home.stats.map(stat => <div key={stat.value}><span className="stat-dot" /><div><strong>{stat.value}</strong><small>{stat.label}</small></div></div>)}
           </div>
         </div>

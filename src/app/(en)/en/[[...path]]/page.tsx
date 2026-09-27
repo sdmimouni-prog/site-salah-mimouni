@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { siteRoutes, findRoute } from '@/lib/i18n';
 import { HomeContent } from '@/components/HomeContent';
+import { englishHomeSeo, isIndexable, siteName } from '@/lib/seo';
 import AboutPage from '@/app/(fr)/a-propos/page';
 import ArticlesPage from '@/app/(fr)/articles/page';
 import PodcastsPage from '@/app/(fr)/podcasts/page';
@@ -30,6 +31,23 @@ async function currentRoute(params: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const route = await currentRoute(params);
   if (!route) notFound();
+  if (route.id === 'home') return {
+    title: englishHomeSeo.title,
+    description: englishHomeSeo.description,
+    alternates: { canonical: '/en', languages: { fr: '/', en: '/en', 'x-default': '/' } },
+    robots: isIndexable
+      ? { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large' } }
+      : { index: false, follow: false },
+    openGraph: {
+      type: 'website', locale: 'en_GB', alternateLocale: 'fr_MA', siteName, url: '/en',
+      title: englishHomeSeo.title, description: englishHomeSeo.description,
+      images: [{ url: englishHomeSeo.image, width: 1200, height: 630, alt: englishHomeSeo.imageAlt }],
+    },
+    twitter: {
+      card: 'summary_large_image', title: englishHomeSeo.title, description: englishHomeSeo.description,
+      images: [{ url: englishHomeSeo.image, alt: englishHomeSeo.imageAlt }],
+    },
+  };
   return {
     title: `${route.label.en} — Salah-Eddine MIMOUNI`,
     // These are French-content fallbacks, not finished translations.
@@ -42,7 +60,7 @@ export default async function EnglishPage({ params, searchParams }: Props) {
   if (!route) notFound();
   let content: React.ReactNode;
   switch (route.id) {
-    case 'home': content = <HomeContent structuredData={false}/>; break;
+    case 'home': return <HomeContent locale="en"/>;
     case 'about': content = <AboutPage/>; break;
     case 'articles': content = <ArticlesPage/>; break;
     case 'podcasts': content = <PodcastsPage/>; break;

@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   ...siteMetadata,
   title: 'Salah-Eddine MIMOUNI — Entrepreneur, Author & Speaker',
   description: 'Explore the books, podcasts and work of Salah-Eddine MIMOUNI.',
-  // The English routes currently reuse French content. Enable indexing and
-  // reciprocal hreflang only as each page receives its full translation.
+  // Interior pages still reuse French content. Completed translations (currently
+  // the homepage) override this default with their own metadata and indexing.
   robots: { index: false, follow: isIndexable, googleBot: { index: false, follow: isIndexable } },
 };
 

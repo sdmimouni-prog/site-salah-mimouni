@@ -6,7 +6,7 @@ import sharp from 'sharp';
 
 const source = readFileSync('src/lib/seo.ts', 'utf8');
 const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
-const { resolveSiteUrl, isIndexableEnvironment, homeStructuredData } = await import(`data:text/javascript;base64,${Buffer.from(js).toString('base64')}`);
+const { resolveSiteUrl, isIndexableEnvironment, homeStructuredData, englishHomeStructuredData, englishHomeSeo } = await import(`data:text/javascript;base64,${Buffer.from(js).toString('base64')}`);
 
 test('canonical origin defaults to production, never localhost or an invalid URL', () => {
   for (const value of [undefined, '', 'invalid', 'http://127.0.0.1:3009', 'https://127.0.0.1', 'https://localhost', 'https://site.local', 'https://preview.localhost', 'https://user:pass@example.com']) {
@@ -33,6 +33,20 @@ test('homepage schema connects the person, website and page without fabricated r
   assert.equal(page.isPartOf['@id'], website['@id']);
   assert.equal(page.about['@id'], person['@id']);
   assert.equal(/aggregateRating|reviewRating|localhost|127\.0\.0\.1/.test(JSON.stringify(homeStructuredData)), false);
+});
+
+test('English homepage has its own page identity while referencing the same person and website', () => {
+  const [person, website, page] = englishHomeStructuredData['@graph'];
+  assert.equal(person.name, 'Salah-Eddine MIMOUNI');
+  assert.equal(person['@id'], homeStructuredData['@graph'][0]['@id']);
+  assert.equal(website['@id'], homeStructuredData['@graph'][1]['@id']);
+  assert.equal(page.isPartOf['@id'], website['@id']);
+  assert.equal(page.about['@id'], person['@id']);
+  assert.equal(new URL(page.url).pathname, '/en');
+  assert.equal(new URL(page['@id']).hash, '#webpage');
+  assert.equal(page.inLanguage, 'en');
+  assert.equal(page.description, englishHomeSeo.description);
+  assert.notEqual(page['@id'], homeStructuredData['@graph'][2]['@id']);
 });
 
 test('ICO embeds RGBA PNG frames accepted by the production Turbopack decoder', async () => {

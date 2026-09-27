@@ -29,6 +29,13 @@ export const homeSeo = {
   imageAlt: 'Salah-Eddine MIMOUNI — Entrepreneur, auteur et conférencier. Marketing digital et intelligence artificielle.',
 };
 
+export const englishHomeSeo = {
+  title: 'Salah-Eddine MIMOUNI | Digital Marketing, AI & Speaking',
+  description: 'Meet Salah-Eddine MIMOUNI, a Morocco-based entrepreneur, author and speaker. Explore his books, podcasts and work in digital marketing and artificial intelligence.',
+  image: homeSeo.image,
+  imageAlt: 'Salah-Eddine MIMOUNI — Entrepreneur, author and speaker. Digital marketing and artificial intelligence.',
+};
+
 export const homeStructuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -66,4 +73,24 @@ export const homeStructuredData = {
       },
     },
   ],
+};
+
+export const englishHomeStructuredData = {
+  '@context': 'https://schema.org',
+  '@graph': homeStructuredData['@graph'].map(entity => {
+    if (entity['@type'] === 'Person') return {
+      ...entity,
+      jobTitle: 'Entrepreneur, author and speaker',
+      knowsAbout: ['Digital marketing', 'Artificial intelligence', 'Entrepreneurship'],
+    };
+    if (entity['@type'] === 'WebSite') return { ...entity, inLanguage: ['fr-MA', 'en'] };
+    return {
+      ...entity,
+      '@id': new URL('/en#webpage', siteUrl).href,
+      url: new URL('/en', siteUrl).href,
+      name: englishHomeSeo.title,
+      description: englishHomeSeo.description,
+      inLanguage: 'en',
+    };
+  }),
 };
