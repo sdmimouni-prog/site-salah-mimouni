@@ -19,7 +19,9 @@ export async function sendFormEmail(payload: SiteEmail, source: string, referenc
       email: payload.reply_to, message: payload.text, reference, source: url.href,
       _replyto: payload.reply_to, _subject: payload.subject, _template: 'table', _url: url.href,
     }),
-    signal: AbortSignal.timeout(15_000),
+    // The provider can deliver the email before its HTTP response is ready.
+    // Keep the button pending long enough to receive that acknowledgement.
+    signal: AbortSignal.timeout(60_000),
   });
   if (!response.ok) throw new Error('MAIL_DELIVERY_FAILED');
   const result = await response.json();
