@@ -12,7 +12,7 @@ for (const [size, path] of [[96, 'public/favicon-96x96.png'], [180, 'public/appl
 
 // ICO stores three PNG frames for sharp rendering in classic and high-DPI tabs.
 const sizes = [16, 32, 48];
-const frames = await Promise.all(sizes.map(size => sharp(monogram).resize(size, size).png().toBuffer()));
+const frames = await Promise.all(sizes.map(size => sharp(monogram).resize(size, size).ensureAlpha().png().toBuffer()));
 const header = Buffer.alloc(6 + frames.length * 16);
 header.writeUInt16LE(1, 2);
 header.writeUInt16LE(frames.length, 4);

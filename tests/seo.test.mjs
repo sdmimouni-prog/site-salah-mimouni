@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import ts from 'typescript';
+import sharp from 'sharp';
 
 const source = readFileSync('src/lib/seo.ts', 'utf8');
 const js = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 } }).outputText;
@@ -32,4 +33,23 @@ test('homepage schema connects the person, website and page without fabricated r
   assert.equal(page.isPartOf['@id'], website['@id']);
   assert.equal(page.about['@id'], person['@id']);
   assert.equal(/aggregateRating|reviewRating|localhost|127\.0\.0\.1/.test(JSON.stringify(homeStructuredData)), false);
+});
+
+test('ICO embeds RGBA PNG frames accepted by the production Turbopack decoder', async () => {
+  const ico = readFileSync('src/app/favicon.ico');
+  assert.equal(ico.readUInt16LE(2), 1);
+  const count = ico.readUInt16LE(4);
+  assert.equal(count, 3);
+  for (let index = 0; index < count; index++) {
+    const entry = 6 + index * 16;
+    const bytes = ico.readUInt32LE(entry + 8);
+    const offset = ico.readUInt32LE(entry + 12);
+    const frame = ico.subarray(offset, offset + bytes);
+    const metadata = await sharp(frame).metadata();
+    assert.equal(metadata.format, 'png');
+    assert.equal(metadata.channels, 4);
+    assert.equal(metadata.hasAlpha, true);
+    assert.equal(metadata.width, ico[entry]);
+    assert.equal(metadata.height, ico[entry + 1]);
+  }
 });
