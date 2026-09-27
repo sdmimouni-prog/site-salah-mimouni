@@ -10,7 +10,7 @@ import { MediaDialog } from '@/components/media/MediaDialog';
 import s from '@/app/podcasts/podcasts.module.css';
 import { Newsletter } from './Newsletter';
 
-export function PodcastsPage({ episodes, preview, newsletterAvailable = false }: { episodes: PodcastEpisode[]; preview: boolean; newsletterAvailable?: boolean }) {
+export function PodcastsPage({ episodes, preview }: { episodes: PodcastEpisode[]; preview: boolean }) {
   const [query, setQuery] = useState(''), [topic, setTopic] = useState(''), [limit, setLimit] = useState(4);
   const [selected, setSelected] = useState<PodcastEpisode | null>(null), [open, setOpen] = useState(false), [playing, setPlaying] = useState(false);
   const search = useRef<HTMLInputElement>(null);
@@ -62,7 +62,7 @@ export function PodcastsPage({ episodes, preview, newsletterAvailable = false }:
         {platforms.length > 0 && <section aria-labelledby="platforms-title"><h3 id="platforms-title" className={s.eyebrow}>ÉCOUTER SUR VOS PLATEFORMES PRÉFÉRÉES</h3><ul className={s.platforms}>{platforms.map(platform => { const url = platform.verified ? platformUrl(platform.url) : null; const content = <><span className={`${s.platformIcon} ${s[platform.id]}`}><img src={`/assets/platforms/${platform.id}.svg`} width={25} height={25} alt=""/></span><span className={s.platformName}>{platform.name}</span>{url ? <span className={s.platformAction}>{platform.id === 'youtube' ? 'Voir' : 'Écouter'}<ArrowRight size={13}/></span> : <span className={s.platformPending}>À renseigner</span>}</>; return <li key={platform.id}>{url ? <a href={url} target="_blank" rel="noopener noreferrer" aria-label={`Écouter sur ${platform.name}`}>{content}</a> : <div>{content}</div>}</li>; })}</ul></section>}
         <section aria-labelledby="channels-title"><h3 id="channels-title" className={s.eyebrow}>LES CHAÎNES QUI M’ACCUEILLENT</h3><ul className={s.channels}>{podcastChannels.map(channel => <li key={channel.url}><a href={channel.url} target="_blank" rel="noopener noreferrer"><span>{channel.name}</span><ArrowRight size={15} aria-hidden="true"/></a></li>)}</ul></section>
         {(preview || podcastEditorial.verified) && <figure className={s.quote}><Quote size={30} fill="currentColor" strokeWidth={0} aria-hidden="true"/><blockquote>{podcastEditorial.text}</blockquote><figcaption>{podcastEditorial.author}{!podcastEditorial.verified && <small>Citation d’aperçu · à valider</small>}</figcaption></figure>}
-        <Newsletter available={newsletterAvailable}/>
+        <Newsletter/>
       </aside></div>
     </section>
     <section className={s.contactBand}><div className={s.frame}><div><p className={s.eyebrow}>UNE IDÉE D’INVITÉ&nbsp;?</p><h2>Une conversation à proposer&nbsp;?</h2><p>Je suis toujours ouvert aux échanges avec des personnes qui ont une histoire à partager.</p></div><a href={contactLink('podcast')} className="button">Me contacter<ArrowRight size={19}/></a></div></section>

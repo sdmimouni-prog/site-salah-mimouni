@@ -16,8 +16,8 @@ function moduleUrl(file) {
 }
 const { contactSubject, contactLink } = await import(moduleUrl('src/content/contact.ts'));
 const { emptyContactFields, validateContactFields, validateContactRequest } = await import(moduleUrl('src/lib/contact-request.ts'));
-const { contactEmail, contactMailConfig, createContactHandler } = await import(moduleUrl('src/lib/contact-service.ts'));
-const env = { RESEND_API_KEY: 'mock-key', BOOK_ORDERS_FROM: 'Site <sender@example.com>', SITE_URL: 'http://localhost:3009' };
+const { contactEmail, createContactHandler } = await import(moduleUrl('src/lib/contact-service.ts'));
+const env = { SITE_URL: 'http://localhost:3009' };
 const valid = () => ({ ...emptyContactFields, name: 'Visiteur Test', email: 'VISITEUR@example.com', subject: 'conference', message: 'Ceci est un message de test, sans envoi réel.', consent: true, requestId: randomUUID() });
 const request = (value, headers = {}) => new Request('http://localhost:3009/api/contact', { method: 'POST', headers: { Origin: env.SITE_URL, 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(value) });
 
@@ -49,34 +49,38 @@ test('contact enforces maximum lengths, permitted values and prevents header inj
 test('contact only includes event details for relevant categories', () => {
   const input = { ...valid(), date: '2027-10-15', location: 'Rabat', format: 'hybride' };
   const message = validateContactRequest(input).message;
-  const mail = contactEmail(message, env.BOOK_ORDERS_FROM);
+  const mail = contactEmail(message);
   assert.deepEqual(mail.to, ['sd.mimouni@richmedia.ma']); assert.equal(mail.reply_to, 'visiteur@example.com');
   assert.match(mail.text, /2027-10-15/); assert.match(mail.text, /Hybride/);
   const without = validateContactRequest({ ...input, subject: 'podcast', to: 'attacker@example.com', from: 'attacker@example.com' }).message;
-  assert.equal(without.location, ''); assert.doesNotMatch(contactEmail(without, env.BOOK_ORDERS_FROM).text, /Date envisagée/);
+  assert.equal(without.location, ''); assert.doesNotMatch(contactEmail(without).text, /Date envisagée/);
 });
-test('contact reuses configured book sender and supports server-only override', () => {
-  assert.equal(contactMailConfig(env).available, true);
-  assert.equal(contactMailConfig({ ...env, CONTACT_FROM: 'Contact <contact@example.com>' }).sender, 'Contact <contact@example.com>');
-  for (const value of [{}, { ...env, RESEND_API_KEY: '' }, { ...env, BOOK_ORDERS_FROM: 'a@example.com\r\nBcc: b@example.com' }]) assert.equal(contactMailConfig(value).available, false);
+test('contact recognizes the browser host and keeps a configured public origin authoritative', async () => {
+  let calls = 0;
+  const send = async () => { calls++; return 'mock'; };
+  const headers = { Host: '127.0.0.1:3009', Origin: 'http://127.0.0.1:3009' };
+  assert.equal((await createContactHandler({ env: {}, send })(request(valid(), headers))).status, 200);
+  assert.equal((await createContactHandler({ env, send })(request(valid(), headers))).status, 403);
+  assert.equal(calls, 1);
 });
 test('contact rejects wrong origin, bad content type and oversized streamed input without sending', async () => {
   let calls = 0; const handler = createContactHandler({ env, send: async () => { calls++; return 'mock'; } });
   assert.equal((await handler(request(valid(), { Origin: 'https://untrusted.example' }))).status, 403);
   assert.equal((await handler(request(valid(), { 'Content-Type': 'text/plain' }))).status, 415);
+  assert.equal((await handler(request(valid(), { 'Content-Type': 'application/json-forged' }))).status, 415);
   assert.equal((await handler(request({ message: 'x'.repeat(33_000) }))).status, 413);
   assert.equal((await handler(request({ ...valid(), website: 'bot' }))).status, 400);
   assert.equal(calls, 0);
 });
-test('unconfigured contact service returns 503 with no simulated confirmation', async () => {
+test('contact uses FormSubmit without requiring Resend credentials', async () => {
   let calls = 0;
   const response = await createContactHandler({ env: {}, send: async () => { calls++; return 'mock'; } })(request(valid()));
-  assert.equal(response.status, 503); assert.equal(calls, 0); assert.equal((await response.json()).ok, undefined);
+  assert.equal(response.status, 200); assert.equal(calls, 1); assert.equal((await response.json()).ok, true);
 });
 test('contact accepts only after provider success; concurrent duplicates send once', async () => {
   let release, started; const ready = new Promise(resolve => { started = resolve; }); let calls = 0;
-  const handler = createContactHandler({ env, send: async (payload, key, idempotency) => {
-    calls++; assert.deepEqual(payload.to, ['sd.mimouni@richmedia.ma']); assert.equal(key, 'mock-key'); assert.match(idempotency, /^contact-/);
+  const handler = createContactHandler({ env, send: async (payload, source, reference) => {
+    calls++; assert.deepEqual(payload.to, ['sd.mimouni@richmedia.ma']); assert.equal(source, 'http://localhost:3009/contact'); assert.match(reference, /^contact-/);
     started(); await new Promise(resolve => { release = resolve; }); return 'mock-accepted';
   } });
   const input = valid(); const first = handler(request(input)); await ready;

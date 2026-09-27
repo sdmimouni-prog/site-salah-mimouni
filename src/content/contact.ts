@@ -4,7 +4,6 @@ export const contact = {
   phoneHref: 'tel:+212661172885',
   whatsappHref: 'https://wa.me/212661172885',
   portrait: '/assets/photos/portrait-white.png',
-  privacyUrl: null as string | null,
   subjects: [
     { value: 'conference', label: 'Conférence ou masterclass' },
     { value: 'podcast', label: 'Podcast ou interview' },

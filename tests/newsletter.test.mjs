@@ -15,8 +15,8 @@ function moduleUrl(file) {
   modules.set(file, url); return url;
 }
 const { validateNewsletterFields, validateNewsletterRequest } = await import(moduleUrl('src/lib/newsletter-request.ts'));
-const { newsletterEmail, newsletterMailConfig, createNewsletterHandler } = await import(moduleUrl('src/lib/newsletter-service.ts'));
-const env = { RESEND_API_KEY: 'mock-key', BOOK_ORDERS_FROM: 'Site <sender@example.com>', SITE_URL: 'http://localhost:3009' };
+const { newsletterEmail, createNewsletterHandler } = await import(moduleUrl('src/lib/newsletter-service.ts'));
+const env = { SITE_URL: 'http://localhost:3009' };
 const valid = () => ({ email: ' ABONNE@example.com ', consent: true, website: '', requestId: randomUUID() });
 const request = (body, headers = {}) => new Request(env.SITE_URL + '/api/newsletter', { method: 'POST', headers: { Origin: env.SITE_URL, 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(body) });
 
@@ -30,7 +30,7 @@ test('newsletter validates consent, email, honeypot and request id', () => {
 
 test('newsletter notification always goes only to the owner, with the validated visitor as reply-to', () => {
   const parsed = validateNewsletterRequest({ ...valid(), to: 'attacker@example.com', subject: 'forged' });
-  const mail = newsletterEmail(parsed.subscription, env.BOOK_ORDERS_FROM);
+  const mail = newsletterEmail(parsed.subscription);
   assert.deepEqual(mail.to, ['sd.mimouni@richmedia.ma']);
   assert.equal(mail.reply_to, 'abonne@example.com');
   assert.equal(mail.subject, 'Newsletter Podcasts — Nouvelle demande d’inscription');
@@ -38,13 +38,6 @@ test('newsletter notification always goes only to the owner, with the validated 
   assert.match(mail.text, /page \/podcasts/);
   assert.equal(mail.html, undefined);
   assert.doesNotMatch(mail.text, /attacker/);
-});
-
-test('newsletter configuration reuses the mail transport without exposing unconfigured senders', () => {
-  assert.equal(newsletterMailConfig(env).available, true);
-  assert.equal(newsletterMailConfig({ ...env, CONTACT_FROM: 'contact@example.com' }).sender, 'contact@example.com');
-  assert.equal(newsletterMailConfig({ ...env, CONTACT_FROM: 'contact@example.com', NEWSLETTER_FROM: 'newsletter@example.com' }).sender, 'newsletter@example.com');
-  for (const value of [{}, { ...env, RESEND_API_KEY: '' }, { ...env, NEWSLETTER_FROM: 'bad\r\nBcc:a@example.com' }]) assert.equal(newsletterMailConfig(value).available, false);
 });
 
 test('newsletter rejects cross-origin, non-JSON, oversized and bot submissions before sending', async () => {
@@ -58,26 +51,27 @@ test('newsletter rejects cross-origin, non-JSON, oversized and bot submissions b
   assert.equal(calls, 0);
 });
 
-test('newsletter without mail configuration never returns a false success', async () => {
+test('newsletter sends through FormSubmit without requiring Resend credentials', async () => {
   let calls = 0;
   const response = await createNewsletterHandler({ env: {}, send: async () => { calls++; return 'mock'; } })(request(valid()));
-  assert.equal(response.status, 503); assert.equal((await response.json()).ok, undefined); assert.equal(calls, 0);
+  assert.equal(response.status, 200); assert.equal((await response.json()).ok, true); assert.equal(calls, 1);
 });
 
 test('newsletter recognizes the browser host when Next uses an internal hostname, but honors configured origins', async () => {
-  const handler = createNewsletterHandler({ env: {} });
+  const send = async () => 'mock';
+  const handler = createNewsletterHandler({ env: {}, send });
   const headers = { Host: '127.0.0.1:3009', Origin: 'http://127.0.0.1:3009' };
-  assert.equal((await handler(request(valid(), headers))).status, 503);
+  assert.equal((await handler(request(valid(), headers))).status, 200);
   assert.equal((await handler(request(valid(), { ...headers, Origin: 'http://untrusted.example' }))).status, 403);
-  assert.equal((await createNewsletterHandler({ env })(request(valid(), headers))).status, 403);
+  assert.equal((await createNewsletterHandler({ env, send })(request(valid(), headers))).status, 403);
 });
 
 test('newsletter only succeeds after provider acceptance and deduplicates concurrent retries', async () => {
   let release, started, calls = 0;
   const ready = new Promise(resolve => { started = resolve; });
   const input = valid();
-  const handler = createNewsletterHandler({ env, send: async (mail, key, idempotency) => {
-    calls++; assert.deepEqual(mail.to, ['sd.mimouni@richmedia.ma']); assert.equal(key, 'mock-key'); assert.equal(idempotency, `newsletter-${input.requestId}`);
+  const handler = createNewsletterHandler({ env, send: async (mail, source, reference) => {
+    calls++; assert.deepEqual(mail.to, ['sd.mimouni@richmedia.ma']); assert.equal(source, 'http://localhost:3009/podcasts'); assert.equal(reference, `newsletter-${input.requestId}`);
     started(); await new Promise(resolve => { release = resolve; }); return 'mock-accepted';
   } });
   const first = handler(request(input)); await ready;

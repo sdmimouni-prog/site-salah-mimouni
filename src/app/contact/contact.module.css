@@ -44,15 +44,10 @@
 .consent { margin-block: 20px; color: #73718b; font-size: 11px; line-height: 1.6; }
 .consent label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
 .consent input { width: 15px; height: 15px; flex-shrink: 0; accent-color: #6540e8; margin: 2px 0 0; }
-.consent a, .privacyPending { display: block; margin-left: 25px; margin-top: 1px; }
-.consent a { text-decoration: underline; text-underline-offset: 3px; }
-.privacyPending { color: #73718b; }
 .consent .fieldError { margin-top: 5px; margin-left: 25px; }
 .page :global(.button) { background: linear-gradient(110deg, #3830b8, #673dff); min-height: 49px; border-radius: 6px; font-size: 13px; padding: 13px 18px; }
 .formCard :global(.button) { width: 100%; justify-content: space-between; }
 .formCard :global(.button):disabled { opacity: .67; cursor: not-allowed; transform: none; }
-.unavailable { padding: 12px 14px; margin-bottom: 16px; border: 1px solid #e3dcf4; border-radius: 6px; background: #f9f7ff; color: #62527f; font-size: 12px; line-height: 1.5; }
-.unavailable a { display: inline-flex; align-items: center; gap: 8px; color: #5535bd; margin-top: 6px; text-decoration: underline; text-underline-offset: 3px; }
 .mandatory { text-align: center; font-size: 10px; line-height: 1.5; color: #7f7a90; margin-top: 14px; }
 .feedback { margin-top: 18px; padding: 13px 15px; border: 1px solid #e9ced4; background: #fff8fa; color: #982d4a; border-radius: 6px; font-size: 13px; line-height: 1.6; }
 .formCard form[aria-busy="true"] .feedback { background: #f8f6ff; color: #5a497c; border-color: #e0d8f0; }
@@ -156,7 +151,6 @@
   .field textarea { min-height: 145px; }
   .eventFields { padding: 16px; }
   .consent { font-size: 11px; line-height: 1.7; }
-  .unavailable { font-size: 12px; }
   .direct { padding-block: 31px; }
   .directHeading h2 { font-size: 29px; }
   .channel strong { font-size: 16px; overflow-wrap: anywhere; }

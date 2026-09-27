@@ -6,7 +6,7 @@ import { contact, hasEventDetails, type ContactSubject } from '@/content/contact
 import { emptyContactFields, validateContactFields, validRequestId, type ContactFields, type ContactErrors } from '@/lib/contact-request';
 import s from '@/app/contact/contact.module.css';
 
-export function ContactForm({ initialSubject, available }: { initialSubject: ContactSubject | ''; available: boolean }) {
+export function ContactForm({ initialSubject }: { initialSubject: ContactSubject | '' }) {
   const [values, setValues] = useState<ContactFields>({ ...emptyContactFields, subject: initialSubject });
   const [errors, setErrors] = useState<ContactErrors>({});
   const [state, setState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -34,13 +34,12 @@ export function ContactForm({ initialSubject, available }: { initialSubject: Con
     if (busy.current || state === 'success') return;
     const nextErrors = validateContactFields(values);
     if (Object.keys(nextErrors).length) { showErrors(nextErrors); setNotice('Vérifiez les champs indiqués avant l’envoi.'); setState('error'); return; }
-    if (!available) { setNotice('L’envoi en ligne est temporairement indisponible. Utilisez les coordonnées directes ci-dessous.'); setState('error'); return; }
     busy.current = true; setState('sending'); setNotice('Envoi de votre message en cours…');
     requestId.current ||= crypto.randomUUID();
     try {
       const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, requestId: requestId.current }), signal: AbortSignal.timeout(20_000) });
       const result = await response.json();
-      if (response.ok && result.ok === true && validRequestId(result.reference)) {
+      if (response.ok && result.ok === true && validRequestId(result.reference) && result.reference === requestId.current) {
         setState('success'); setNotice('Votre message a bien été transmis. Merci d’avoir fait le premier pas.');
       } else {
         if (result.errors) showErrors(result.errors);
@@ -79,12 +78,11 @@ export function ContactForm({ initialSubject, available }: { initialSubject: Con
         </div>
         <div className={s.honeypot} aria-hidden="true"><label htmlFor="contact-website">Laissez ce champ vide</label><input id="contact-website" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={event => update('website', event.target.value)}/></div>
         <div className={s.consent}><label htmlFor="contact-consent"><input id="contact-consent" name="consent" type="checkbox" required checked={values.consent} onChange={event => update('consent', event.target.checked)} aria-invalid={!!errors.consent} aria-describedby={errors.consent ? 'contact-consent-error' : undefined}/><span>J’accepte d’être recontacté au sujet de ma demande.</span></label>{error('consent')}
-          {contact.privacyUrl ? <a href={contact.privacyUrl}>Politique de confidentialité</a> : <span className={s.privacyPending}>Politique de confidentialité : texte à fournir.</span>}
         </div>
-        {!available && <div className={s.unavailable}><p>L’envoi en ligne est temporairement indisponible.</p><a href="#contact-direct">Utiliser les coordonnées directes<ArrowRight size={14}/></a></div>}
-        <button type="submit" className="button" disabled={!available || state === 'sending' || state === 'success'}>{state === 'sending' ? <><LoaderCircle className={s.spinner} size={18}/>Envoi en cours…</> : state === 'success' ? <>Message transmis<CheckCircle2 size={19}/></> : <>Envoyer mon message<ArrowRight size={19}/></>}</button>
+        <button type="submit" className="button" disabled={state === 'sending' || state === 'success'}>{state === 'sending' ? <><LoaderCircle className={s.spinner} size={18}/>Envoi en cours…</> : state === 'success' ? <>Message transmis<CheckCircle2 size={19}/></> : <>Envoyer mon message<ArrowRight size={19}/></>}</button>
       </fieldset>
       <div ref={feedback} role="status" aria-live="polite" aria-atomic="true" className={notice ? `${s.feedback} ${state === 'success' ? s.success : ''}` : s.srOnly}>{notice}</div>
+      {state === 'error' && <a className={s.newMessage} href={`mailto:${contact.email}`}>Écrire directement à {contact.email}<ArrowRight size={16}/></a>}
       {state === 'success' && <button type="button" className={s.newMessage} onClick={() => { setValues({ ...emptyContactFields }); setErrors({}); setNotice(''); setState('idle'); requestId.current = null; requestAnimationFrame(() => form.current?.querySelector<HTMLInputElement>('[name="name"]')?.focus()); }}>Écrire un autre message<ArrowRight size={16}/></button>}
       <p className={s.mandatory}>* Champs obligatoires</p>
     </form>

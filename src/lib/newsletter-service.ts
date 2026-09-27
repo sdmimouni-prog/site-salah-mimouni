@@ -1,17 +1,11 @@
 import { createHash } from 'node:crypto';
 import { contact } from '../content/contact';
-import { sendOrderEmail } from './book-order';
-import { contactMailConfig } from './contact-service';
+import { sendFormEmail } from './form-submit';
 import { validateNewsletterRequest, type NewsletterRequest } from './newsletter-request';
 
 type MailEnvironment = Record<string, string | undefined>;
-export function newsletterMailConfig(env: MailEnvironment) {
-  return contactMailConfig({ ...env, CONTACT_FROM: env.NEWSLETTER_FROM || env.CONTACT_FROM || env.BOOK_ORDERS_FROM });
-}
-
-export function newsletterEmail(subscription: NewsletterRequest, sender: string) {
+export function newsletterEmail(subscription: NewsletterRequest) {
   return {
-    from: sender,
     to: [contact.email],
     reply_to: subscription.email,
     subject: 'Newsletter Podcasts — Nouvelle demande d’inscription',
@@ -25,9 +19,9 @@ export function newsletterEmail(subscription: NewsletterRequest, sender: string)
   };
 }
 
-// These guards are per server instance; provider idempotency also protects retries.
+// Rate limits and deduplication are per server instance.
 // Only hashes and submission references are retained in the short-lived maps.
-export function createNewsletterHandler({ env = process.env, send = sendOrderEmail, now = Date.now }: { env?: MailEnvironment; send?: typeof sendOrderEmail; now?: () => number } = {}) {
+export function createNewsletterHandler({ env = process.env, send = sendFormEmail, now = Date.now }: { env?: MailEnvironment; send?: typeof sendFormEmail; now?: () => number } = {}) {
   const attempts = new Map<string, { count: number; until: number }>();
   const requests = new Map<string, { fingerprint: string; result: Promise<Response>; until: number }>();
   const hash = (value: string) => createHash('sha256').update(value).digest('hex');
@@ -69,17 +63,15 @@ export function createNewsletterHandler({ env = process.env, send = sendOrderEma
     } catch { return json({ error: 'Demande invalide.' }, 400); }
     const parsed = validateNewsletterRequest(input);
     if ('error' in parsed) return json(parsed, 400);
-    const config = newsletterMailConfig(env);
-    if (!config.available) return json({ error: 'L’envoi n’est pas disponible. Vous pouvez transmettre votre demande par e-mail.' }, 503);
     const { subscription } = parsed;
-    const payload = newsletterEmail(subscription, config.sender);
+    const payload = newsletterEmail(subscription);
     const fingerprint = hash(JSON.stringify(payload));
     const existing = requests.get(subscription.requestId);
     if (existing) return existing.fingerprint === fingerprint ? (await existing.result).clone() : json({ error: 'Cette référence a déjà été utilisée. Rechargez la page.' }, 409);
     if (limited(hash(subscription.email), 3)) return json({ error: 'Trop de demandes pour cette adresse. Réessayez dans une heure.' }, 429);
     const delivery = (async () => {
       try {
-        await send(payload, config.key, `newsletter-${subscription.requestId}`);
+        await send(payload, `${origin}/podcasts`, `newsletter-${subscription.requestId}`);
         return json({ ok: true, reference: subscription.requestId });
       } catch {
         requests.delete(subscription.requestId);

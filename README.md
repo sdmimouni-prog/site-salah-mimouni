@@ -69,19 +69,15 @@ L’aperçu de production vérifié utilise `http://127.0.0.1:3009` et se relanc
 
 La page `/contact` utilise le header et le footer communs. Coordonnées, portrait, objets et formats sont centralisés dans `src/content/contact.ts`. Les invitations utilisent `contactLink()` et acceptent les objets `conference`, `podcast`, `litteraire` et `collaboration` dans l’URL. Les valeurs inconnues sont ignorées.
 
-Le formulaire envoie à `/api/contact`, avec le transport Resend déjà utilisé par les commandes de livres. Le destinataire est fixé côté serveur à `sd.mimouni@richmedia.ma`, et le Reply-To contient l’adresse validée du visiteur. Les formulaires de commande restent indépendants.
+Le formulaire envoie à `/api/contact`, puis le serveur transmet le message à [FormSubmit](https://formsubmit.co/documentation), comme demandé par l’auteur. Le destinataire est fixé côté serveur à `sd.mimouni@richmedia.ma`, et le Reply-To contient l’adresse validée du visiteur. Aucune clé Resend ni configuration SMTP n’est nécessaire pour Contact ou Newsletter. Les commandes de livres conservent leur intégration distincte.
 
-Pour activer les envois, renseigner localement, sans les publier dans le code :
+FormSubmit demande une confirmation par email lors de la première utilisation d’une nouvelle source. La source publique `/contact` a été activée le 27 septembre 2026. Définir `SITE_URL` sur l’origine publique exacte en cas de changement de domaine. Sans cette variable, l’origine de la requête est utilisée ; le nom d’hôte du navigateur est pris en compte dans l’aperçu local.
 
-- `RESEND_API_KEY` : clé du service Resend.
-- `CONTACT_FROM` : expéditeur autorisé sur un domaine vérifié ; à défaut, `BOOK_ORDERS_FROM` est réutilisé.
-- `SITE_URL` : origine exacte du site, par exemple `http://127.0.0.1:3009` pour l’aperçu local.
-
-Sans clé ou expéditeur valide, le formulaire affiche son indisponibilité et les liens de contact direct ; aucune confirmation fictive. La politique de confidentialité n’étant pas fournie, `privacyUrl` reste nul avec une mention explicite. Fournir le texte et une vraie URL avant publication.
+Le bouton d’envoi est actif. Un succès n’est affiché qu’après la réponse positive de FormSubmit ; un refus, une activation manquante ou un problème réseau conservent les champs et proposent le contact direct. La mention et le lien de politique de confidentialité ont été retirés à la demande de l’auteur. L’accord pour être recontacté demeure.
 
 Validation partagée client/serveur, honeypot, contrôle de l’origine, limite de corps de 32 Ko, limitation des soumissions et déduplication des requêtes. Les limites sont conservées en mémoire du processus (5 tentatives par adresse et 120 globales par heure) ; utiliser un stockage de limitation partagé pour un hébergement multi-instance. Aucun contenu de message ni coordonnées ne sont journalisés ou enregistrés dans localStorage.
 
-Vérification : `node --test tests/*.test.mjs` et `next build --webpack`. Le préchargement facultatif `tests/fixtures/mock-resend.cjs` permet de tester localement un échec puis une acceptation sans envoyer d’e-mail : il ne fait jamais partie de l’application normale. Captures et comparaison dans `output/contact/`, compte rendu dans `design-qa.md`.
+Vérification sans envois réels : `node --test tests/contact.test.mjs tests/newsletter.test.mjs tests/form-submit.test.mjs`, puis `npm run build`. Les simulations injectent un transport local ; aucun appel externe n’est effectué pendant les tests automatisés. Captures et comparaison initiales dans `output/contact/`, compte rendu dans `design-qa.md`.
 
 ## Podcasts — /podcasts (27 septembre 2026)
 
@@ -108,11 +104,9 @@ Les sept vidéos sont publiées et lisibles après clic. Les miniatures original
 
 Le bloc reste visible et recueille une adresse e-mail avec un accord explicite pour recevoir les nouveaux épisodes. `/api/newsletter` transmet chaque demande à `sd.mimouni@richmedia.ma`, destinataire fixé côté serveur. Le message contient l’adresse, le consentement et une référence de demande ; le Reply-To permet de répondre au visiteur. Aucune campagne ni liste de diffusion automatique n’est créée.
 
-L’envoi utilise le transport Resend existant : renseigner `RESEND_API_KEY`, un expéditeur vérifié dans `NEWSLETTER_FROM` (ou, à défaut, `CONTACT_FROM` puis `BOOK_ORDERS_FROM`) et l’origine publique exacte dans `SITE_URL`. Ces variables doivent être définies dans l’environnement de production, jamais commitées. La confirmation n’apparaît qu’après acceptation du message par le service d’envoi.
+L’envoi utilise le même transport FormSubmit que Contact, sans clé API. Le bouton « S’abonner » transmet la demande sans quitter la page. La confirmation n’apparaît qu’après acceptation du message par FormSubmit. Un lien de secours ouvre un email préparé en cas d’échec ; il nécessite alors un envoi manuel par le visiteur.
 
-Sans configuration mail, le bouton actif « S’inscrire par e-mail » ouvre la messagerie du visiteur avec une demande préparée. Le visiteur doit envoyer ce message ; le site ne simule pas de confirmation d’envoi. Ce même lien est proposé en secours après un échec du service.
-
-Validation partagée, contrôle d’origine, honeypot, corps limité à 4 Ko, déduplication et limites en mémoire (3 tentatives par adresse et 120 globales par heure). La clé d’idempotence est également transmise au fournisseur. Les limites locales nécessitent un stockage partagé pour une protection globale entre plusieurs instances. Aucune adresse n’est enregistrée dans localStorage ni journalisée. Vérification isolée sans e-mails réels : `node --test tests/newsletter.test.mjs`.
+Validation partagée, contrôle d’origine, honeypot, corps limité à 4 Ko, déduplication et limites en mémoire (3 tentatives par adresse et 120 globales par heure). La référence est incluse dans le message transmis. FormSubmit ne fournit pas de garantie d’idempotence : les limites et la déduplication locales nécessitent un stockage partagé pour une protection globale entre plusieurs instances. Aucune adresse n’est enregistrée dans localStorage ni journalisée par l’application. Vérification isolée sans e-mails réels : `node --test tests/newsletter.test.mjs tests/form-submit.test.mjs`.
 
 ### Vérification des lecteurs
 

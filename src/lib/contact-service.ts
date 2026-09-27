@@ -1,20 +1,14 @@
 import { createHash } from 'node:crypto';
 import { contact, hasEventDetails } from '../content/contact';
-import { sendOrderEmail, validEmail } from './book-order';
+import { sendFormEmail } from './form-submit';
 import { validateContactRequest, type ContactMessage } from './contact-request';
 
-type MailEnvironment = { [key: string]: string | undefined; RESEND_API_KEY?: string; CONTACT_FROM?: string; BOOK_ORDERS_FROM?: string; SITE_URL?: string };
-export function contactMailConfig(env: MailEnvironment) {
-  const key = env.RESEND_API_KEY?.trim() || '';
-  const sender = (env.CONTACT_FROM || env.BOOK_ORDERS_FROM || '').trim();
-  const mailbox = sender.match(/<([^<>]+)>$/)?.[1] || sender;
-  return { key, sender, available: !!key && !/[\r\n]/.test(sender) && validEmail(mailbox) };
-}
-export function contactEmail(message: ContactMessage, sender: string) {
+type MailEnvironment = Record<string, string | undefined>;
+export function contactEmail(message: ContactMessage) {
   const subject = contact.subjects.find(item => item.value === message.subject)!.label;
   const format = contact.formats.find(item => item.value === message.format)?.label || 'Non renseigné';
   return {
-    from: sender, to: [contact.email], reply_to: message.email,
+    to: [contact.email], reply_to: message.email,
     subject: `Contact — ${subject}`,
     text: [
       'Nouvelle demande depuis le site de Salah-Eddine MIMOUNI.', '', `Référence : ${message.requestId}`,
@@ -28,7 +22,7 @@ export function contactEmail(message: ContactMessage, sender: string) {
 
 // Scoped to this contact endpoint. No raw messages or contact details are retained
 // in the limiter/deduplication maps. Use a shared limiter for multi-instance hosting.
-export function createContactHandler({ env = process.env, send = sendOrderEmail, now = Date.now }: { env?: MailEnvironment; send?: typeof sendOrderEmail; now?: () => number } = {}) {
+export function createContactHandler({ env = process.env, send = sendFormEmail, now = Date.now }: { env?: MailEnvironment; send?: typeof sendFormEmail; now?: () => number } = {}) {
   const attempts = new Map<string, { count: number; until: number }>();
   const requests = new Map<string, { fingerprint: string; result: Promise<Response>; until: number }>();
   const hash = (text: string) => createHash('sha256').update(text).digest('hex');
@@ -43,10 +37,14 @@ export function createContactHandler({ env = process.env, send = sendOrderEmail,
   };
   return async function POST(request: Request): Promise<Response> {
     let origin: string;
-    try { origin = new URL(env.SITE_URL || request.url).origin; }
+    try {
+      const site = new URL(env.SITE_URL || request.url);
+      if (!env.SITE_URL && request.headers.get('host')) site.host = request.headers.get('host')!;
+      origin = site.origin;
+    }
     catch { return json({ error: 'Service temporairement indisponible.' }, 503); }
     if (request.headers.get('origin') !== origin) return json({ error: 'Origine de la demande non autorisée.' }, 403);
-    if (!request.headers.get('content-type')?.startsWith('application/json')) return json({ error: 'Format de demande invalide.' }, 415);
+    if (request.headers.get('content-type')?.split(';')[0].trim() !== 'application/json') return json({ error: 'Format de demande invalide.' }, 415);
     if (limited('global', 120)) return json({ error: 'Trop de demandes. Veuillez réessayer dans une heure.' }, 429);
     if (Number(request.headers.get('content-length') || 0) > 32_000) return json({ error: 'Message trop volumineux.' }, 413);
     let input: unknown;
@@ -64,16 +62,14 @@ export function createContactHandler({ env = process.env, send = sendOrderEmail,
     } catch { return json({ error: 'Demande invalide.' }, 400); }
     const result = validateContactRequest(input);
     if ('error' in result) return json(result, 400);
-    const config = contactMailConfig(env);
-    if (!config.available) return json({ error: `L’envoi en ligne est temporairement indisponible. Écrivez à ${contact.email} ou utilisez les coordonnées directes.` }, 503);
-    const payload = contactEmail(result.message, config.sender);
+    const payload = contactEmail(result.message);
     const fingerprint = hash(JSON.stringify(payload));
     const existing = requests.get(result.message.requestId);
     if (existing) return existing.fingerprint === fingerprint ? (await existing.result).clone() : json({ error: 'Cette référence a déjà été utilisée. Modifiez votre demande avant de réessayer.' }, 409);
     if (limited(hash(result.message.email), 5)) return json({ error: 'Trop de demandes. Veuillez réessayer dans une heure.' }, 429);
     const delivery = (async () => {
       try {
-        await send(payload, config.key, `contact-${fingerprint}`);
+        await send(payload, `${origin}/contact`, `contact-${result.message.requestId}`);
         return json({ ok: true, reference: result.message.requestId });
       } catch {
         requests.delete(result.message.requestId);

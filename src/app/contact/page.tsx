@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ArrowRight, BookOpen, Mail, MessageCircle, Mic, Phone, Sparkles } from 'lucide-react';
 import { contact, contactSubject } from '@/content/contact';
-import { contactMailConfig } from '@/lib/contact-service';
 import { ContactForm } from '@/components/contact/ContactForm';
 import s from './contact.module.css';
 
@@ -24,7 +23,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         </div>
         <p className={s.topics}><span>Conférences</span><span>Podcasts & médias</span><span>Collaborations</span></p>
       </div>
-      <ContactForm key={initialSubject} initialSubject={initialSubject} available={contactMailConfig(process.env).available}/>
+      <ContactForm key={initialSubject} initialSubject={initialSubject}/>
     </div></section>
     <section className={`${s.frame} ${s.direct}`} id="contact-direct" aria-labelledby="direct-title"><div className={s.directHeading}><h2 id="direct-title">Vous préférez un échange direct&nbsp;?</h2><p>Choisissez le canal qui vous convient.</p></div>
       <div className={s.channels}>

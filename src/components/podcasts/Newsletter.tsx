@@ -6,10 +6,10 @@ import { contact } from '@/content/contact';
 import { validateNewsletterFields, type NewsletterErrors, type NewsletterFields } from '@/lib/newsletter-request';
 import s from '@/app/podcasts/podcasts.module.css';
 
-export function Newsletter({ available }: { available: boolean }) {
+export function Newsletter() {
   const [values, setValues] = useState<NewsletterFields>({ email: '', consent: false, website: '' });
   const [errors, setErrors] = useState<NewsletterErrors>({});
-  const [state, setState] = useState<'idle' | 'sending' | 'success' | 'error' | 'email'>('idle');
+  const [state, setState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [notice, setNotice] = useState('');
   const form = useRef<HTMLFormElement>(null);
   const busy = useRef(false);
@@ -31,11 +31,6 @@ export function Newsletter({ available }: { available: boolean }) {
     if (busy.current || state === 'success') return;
     const next = validateNewsletterFields(values);
     if (Object.keys(next).length) { showErrors(next); return; }
-    if (!available) {
-      setState('email'); setNotice('Votre messagerie va s’ouvrir. Envoyez le message préparé pour transmettre votre demande d’inscription.');
-      window.location.href = mailto;
-      return;
-    }
     busy.current = true; setState('sending'); setNotice('Envoi de votre demande…');
     requestId.current ||= crypto.randomUUID();
     try {
@@ -63,10 +58,10 @@ export function Newsletter({ available }: { available: boolean }) {
         <label className={s.newsletterConsent}><input type="checkbox" name="consent" required checked={values.consent} onChange={event => update('consent', event.target.checked)} aria-invalid={!!errors.consent} aria-describedby={errors.consent ? 'newsletter-consent-error' : undefined}/><span>Je souhaite recevoir les nouveaux épisodes par e-mail.</span></label>
         {errors.consent && <span id="newsletter-consent-error" className={s.fieldError}>{errors.consent}</span>}
         <div className={s.newsletterTrap} aria-hidden="true"><label htmlFor="newsletter-website">Laissez ce champ vide</label><input id="newsletter-website" name="website" autoComplete="off" tabIndex={-1} value={values.website} onChange={event => update('website', event.target.value)}/></div>
-        <button className="button" type="submit">{state === 'sending' ? <><LoaderCircle size={16} aria-hidden="true"/>Envoi en cours…</> : state === 'success' ? <>Demande transmise<CheckCircle2 size={16} aria-hidden="true"/></> : <>{available ? 'S’abonner' : 'S’inscrire par e-mail'}<ArrowRight size={16} aria-hidden="true"/></>}</button>
+        <button className="button" type="submit">{state === 'sending' ? <><LoaderCircle size={16} aria-hidden="true"/>Envoi en cours…</> : state === 'success' ? <>Demande transmise<CheckCircle2 size={16} aria-hidden="true"/></> : <>S’abonner<ArrowRight size={16} aria-hidden="true"/></>}</button>
       </fieldset>
-      <p id="newsletter-status" role="status" aria-live="polite" aria-atomic="true" className={state === 'success' ? s.newsletterSuccess : s.unavailable}>{notice || (!available ? 'Votre messagerie s’ouvrira pour envoyer la demande.' : '')}</p>
-      {(state === 'error' || state === 'email') && <a className={s.newsletterDirect} href={mailto}>Envoyer ma demande par e-mail<ArrowRight size={13} aria-hidden="true"/></a>}
+      <p id="newsletter-status" role="status" aria-live="polite" aria-atomic="true" className={state === 'success' ? s.newsletterSuccess : s.unavailable}>{notice}</p>
+      {state === 'error' && <a className={s.newsletterDirect} href={mailto}>Envoyer ma demande par e-mail<ArrowRight size={13} aria-hidden="true"/></a>}
       <p id="newsletter-privacy" className={s.newsletterPrivacy}>Votre adresse est transmise à Salah-Eddine MIMOUNI pour suivre votre inscription. <a href={`mailto:${contact.email}?subject=${encodeURIComponent('Désinscription — Newsletter Podcasts')}`}>Me désinscrire ou supprimer mon adresse.</a></p>
     </form>
   </section>;
