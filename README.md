@@ -138,6 +138,10 @@ Le menu commun comprend désormais Articles entre À propos et Podcasts. Les ré
 
 Validation : 46 tests réussis, compilation webpack/TypeScript réussie, navigateur à 1440/768/390 px, recherche/catégories/tri/état vide/réinitialisation/clavier/liens vérifiés. Aucun script de lint disponible. Comparaisons visuelles dans `output/articles/` et rapport dans `design-qa.md`. Aucun déploiement ni modification du site source.
 
+## Navigation bilingue FR / EN
+
+Les routes françaises restent à la racine et disposent d’équivalents sous `/en` : `/en/about`, `/en/books`, `/en/podcasts`, etc. Le sélecteur du header conserve la page, les paramètres et l’ancre. Les liens internes suivent la langue choisie. La navigation est traduite ; les textes éditoriaux sont encore repris en français avec une indication visible, en attendant leur traduction. Voir [l’architecture bilingue et la suite de la traduction](docs/i18n.md).
+
 ## Dépôt GitHub et récupération des médias
 
 Le site possède son propre dépôt : https://github.com/sdmimouni-prog/site-salah-mimouni. Les fichiers de `public/videos/*.mp4` sont versionnés avec [Git LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage). Après un clone, installer Git LFS puis récupérer le média avant de lancer le site :

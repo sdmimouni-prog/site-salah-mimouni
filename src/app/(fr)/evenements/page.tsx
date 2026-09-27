@@ -1,10 +1,11 @@
+import { LocalizedLink } from '@/components/i18n/LocalizedLink';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ArrowRight, CalendarDays, Clock3, MapPin } from 'lucide-react';
 import { eventsPage as content } from '@/content/events';
 import { theBridge } from '@/content/agenda';
 import { VideoDialog } from '@/components/VideoDialog';
-import s from './events.module.css';
+import s from '@/app/evenements/events.module.css';
 
 export const metadata: Metadata = {
   title: content.title, description: content.description,
@@ -29,8 +30,8 @@ export default function EventsPage() {
             <li><Clock3 size={21} aria-hidden="true"/><span>{theBridge.hours}</span></li>
           </ul>
           <div className={s.actions}>
-            <a className="button" href={theBridge.registrationUrl} target="_blank" rel="noopener noreferrer">{content.hero.discover}<ArrowRight size={18}/></a>
-            <a className={s.textLink} href={content.contactHref}>{content.hero.invite}<ArrowRight size={19}/></a>
+            <LocalizedLink className="button" href={theBridge.registrationUrl} target="_blank" rel="noopener noreferrer">{content.hero.discover}<ArrowRight size={18}/></LocalizedLink>
+            <LocalizedLink className={s.textLink} href={content.contactHref}>{content.hero.invite}<ArrowRight size={19}/></LocalizedLink>
           </div>
         </div>
         <figure className={s.heroMedia}>
@@ -44,7 +45,7 @@ export default function EventsPage() {
     </section>
     <section className={s.contact} aria-labelledby="events-contact-title"><div className={s.frame}>
       <div><p className={s.eyebrow}>{content.cta.eyebrow}</p><h2 id="events-contact-title">{content.cta.title}</h2><p>{content.cta.description}</p></div>
-      <a className="button" href={content.contactHref}>{content.cta.action}<ArrowRight size={20}/></a>
+      <LocalizedLink className="button" href={content.contactHref}>{content.cta.action}<ArrowRight size={20}/></LocalizedLink>
     </div></section>
   </main>;
 }

@@ -1,3 +1,4 @@
+import { LocalizedLink } from '@/components/i18n/LocalizedLink';
 import Image from 'next/image';
 import { ArrowRight, CalendarDays } from 'lucide-react';
 import { home } from '@/content/home';
@@ -20,8 +21,8 @@ export function Hero() {
           <p className="hero-subtitle">{home.subtitle}<strong>{home.specialty}</strong></p>
           <p className="hero-intro">{introductionLines.map((line, i) => <span key={line}>{line}{i < introductionLines.length - 1 ? ' ' : ''}</span>)}</p>
           <div className="hero-actions">
-            <a className="button" href="/a-propos">Découvrir mon parcours<ArrowRight size={16} /></a>
-            <a className="button button-outline" href={contactLink('conference')}><CalendarDays size={18} />Invitez-moi à intervenir</a>
+            <LocalizedLink className="button" href="/a-propos">Découvrir mon parcours<ArrowRight size={16} /></LocalizedLink>
+            <LocalizedLink className="button button-outline" href={contactLink('conference')}><CalendarDays size={18} />Invitez-moi à intervenir</LocalizedLink>
           </div>
           <div className="stats" aria-label="Indicateurs à confirmer">
             {home.stats.map(stat => <div key={stat.value}><span className="stat-dot" /><div><strong>{stat.value}</strong><small>{stat.label}</small></div></div>)}

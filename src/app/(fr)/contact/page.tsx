@@ -1,9 +1,10 @@
+import { LocalizedLink } from '@/components/i18n/LocalizedLink';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ArrowRight, BookOpen, Mail, MessageCircle, Mic, Phone, Sparkles } from 'lucide-react';
 import { contact, contactSubject } from '@/content/contact';
 import { ContactForm } from '@/components/contact/ContactForm';
-import s from './contact.module.css';
+import s from '@/app/contact/contact.module.css';
 
 export const metadata: Metadata = {
   title: 'Contact — Salah-Eddine MIMOUNI',
@@ -26,9 +27,9 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     </div></section>
     <section className={`${s.frame} ${s.direct}`} id="contact-direct" aria-labelledby="direct-title"><div className={s.directHeading}><h2 id="direct-title">Vous préférez un échange direct&nbsp;?</h2><p>Choisissez le canal qui vous convient.</p></div>
       <div className={s.channels}>
-        <a href={`mailto:${contact.email}`} className={s.channel}><span className={s.channelIcon}><Mail size={23} aria-hidden="true"/></span><div><span className={s.channelLabel}>PAR E-MAIL</span><strong>{contact.email}</strong></div></a>
-        <a href={contact.phoneHref} className={s.channel}><span className={s.channelIcon}><Phone size={23} aria-hidden="true"/></span><div><span className={s.channelLabel}>PAR TÉLÉPHONE</span><strong>{contact.phone}</strong></div></a>
-        <a href={contact.whatsappHref} className={`${s.channel} ${s.whatsapp}`} target="_blank" rel="noopener noreferrer"><span className={s.channelIcon}><MessageCircle size={23} aria-hidden="true"/></span><div><span className={s.channelLabel}>SUR WHATSAPP</span><strong>Écrire un message<ArrowRight size={20} aria-hidden="true"/></strong></div></a>
+        <LocalizedLink href={`mailto:${contact.email}`} className={s.channel}><span className={s.channelIcon}><Mail size={23} aria-hidden="true"/></span><div><span className={s.channelLabel}>PAR E-MAIL</span><strong>{contact.email}</strong></div></LocalizedLink>
+        <LocalizedLink href={contact.phoneHref} className={s.channel}><span className={s.channelIcon}><Phone size={23} aria-hidden="true"/></span><div><span className={s.channelLabel}>PAR TÉLÉPHONE</span><strong>{contact.phone}</strong></div></LocalizedLink>
+        <LocalizedLink href={contact.whatsappHref} className={`${s.channel} ${s.whatsapp}`} target="_blank" rel="noopener noreferrer"><span className={s.channelIcon}><MessageCircle size={23} aria-hidden="true"/></span><div><span className={s.channelLabel}>SUR WHATSAPP</span><strong>Écrire un message<ArrowRight size={20} aria-hidden="true"/></strong></div></LocalizedLink>
       </div>
     </section>
     <section className={s.closing}><div className={s.frame}><div><h2>Une idée peut devenir une belle rencontre.</h2><p>Conférences, échanges et projets à imaginer ensemble.</p></div><ul><li><Mic size={18} aria-hidden="true"/>Prendre la parole</li><li><BookOpen size={18} aria-hidden="true"/>Partager un regard</li><li><Sparkles size={18} aria-hidden="true"/>Construire ensemble</li></ul></div></section>

@@ -1,3 +1,4 @@
+import { LocalizedLink } from '@/components/i18n/LocalizedLink';
 import { ArrowRight, ArrowUpRight, BookOpen, BrainCircuit, ChartNoAxesCombined, Code2, Mic2, Rocket } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import { SectionReveal } from './SectionReveal';
@@ -24,12 +25,12 @@ export function Expertise() {
             <div className={s.orbits} aria-hidden="true"><i /><i /><i /><span /></div>
             <p className={s.eyebrow}>Un parcours, plusieurs horizons</p>
             <p className={s.statement}>Relier les idées.<br /><em>Créer de l’impact.</em></p>
-            <a className={s.journey} href="/a-propos">Découvrir mon parcours <ArrowRight size={18} aria-hidden="true" /></a>
+            <LocalizedLink className={s.journey} href="/a-propos">Découvrir mon parcours <ArrowRight size={18} aria-hidden="true" /></LocalizedLink>
           </div>
         </div>
         {roles.map((role, index) => (
           <div key={role.theme} className={`${s.reveal} ${index === 4 ? s.wide : ''}`} data-reveal="visible" style={{ '--order': index + 1 } as CSSProperties}>
-            <a className={`${s.card} ${s[role.theme]}`} href={role.href}>
+            <LocalizedLink className={`${s.card} ${s[role.theme]}`} href={role.href}>
               <div className={s.cardTop}>
                 <span className={s.icon}><role.icon size={25} strokeWidth={1.6} aria-hidden="true" /></span>
                 <span className={s.label}>{role.label}</span>
@@ -45,7 +46,7 @@ export function Expertise() {
                 <span className={s.micSymbol}><Mic2 size={32} strokeWidth={1.4} /></span>
                 <i /><i />
               </div>}
-            </a>
+            </LocalizedLink>
           </div>
         ))}
       </SectionReveal>
