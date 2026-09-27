@@ -124,19 +124,19 @@
  .hero .quote-icon{left:12px;top:16px;width:27px;height:27px}
 }
 @media(min-width:1400px) and (max-width:1699px){.hero{height:720px}.hero .hero-copy{padding-top:48px}}
-/* Navigation principale : six entrées, lecture plus confortable. */
+/* Navigation principale : liens lisibles et légèrement plus compacts. */
 @media(min-width:1400px){
  .site-header{height:124px}
- .site-header .main-nav{font-size:20px;font-weight:500;gap:30px}
+ .site-header .main-nav{font-size:18px;font-weight:500;gap:26px}
  .site-header .main-nav a::after,.site-header .main-nav .current::after{bottom:30px}
- .site-header .header-cta{font-size:16px;min-height:54px;padding:14px 24px}
+ .site-header .header-cta{font-size:15px;min-height:54px;padding:14px 24px}
 }
 @media(min-width:601px) and (max-width:1399px){
  .site-header{height:108px}.site-header .main-nav{top:108px}
- .site-header .main-nav a{font-size:19px;min-height:56px}
+ .site-header .main-nav a{font-size:18px;min-height:56px}
 }
 @media(max-width:600px){
  .site-header{height:96px}.site-header .main-nav{top:96px}
- .site-header .main-nav a{font-size:18px;font-weight:500;min-height:54px}
+ .site-header .main-nav a{font-size:17px;font-weight:500;min-height:54px}
  .site-header .menu-toggle{width:48px;height:48px}
 }
