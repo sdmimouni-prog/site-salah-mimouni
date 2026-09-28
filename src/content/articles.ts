@@ -2,6 +2,8 @@ import catalog from './articles.generated.json';
 export type Article = {
   id: string;
   title: string;
+  originalTitle?: string;
+  originalExcerpt?: string | null;
   sourceUrl: string;
   category: string | null;
   excerpt: string | null;

@@ -1,5 +1,5 @@
 export type PodcastEpisode = {
-  id: string; title: string; showName: string | null; channelName: string; channelUrl: string; description: string;
+  id: string; title: string; originalTitle?: string; showName: string | null; channelName: string; channelUrl: string; description: string;
   guests: string[] | null; role: 'host' | 'guest' | null;
   publishedAt: string | null; episodeNumber: number | null; duration: number | null;
   thumbnail: string; topics: string[]; sourceUrl: string | null;

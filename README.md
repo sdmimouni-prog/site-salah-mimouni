@@ -140,7 +140,7 @@ Validation : 46 tests réussis, compilation webpack/TypeScript réussie, navigat
 
 ## Navigation bilingue FR / EN
 
-Les routes françaises restent à la racine et disposent d’équivalents sous `/en` : `/en/about`, `/en/books`, `/en/podcasts`, etc. Le sélecteur du header conserve la page, les paramètres et l’ancre. Les liens internes suivent la langue choisie. L’accueil `/en`, la navigation, le footer et le lecteur partagé sont traduits en anglais. Les pages intérieures reprennent encore leur contenu français avec une indication visible, en attendant leur traduction. Voir [l’architecture bilingue et la suite de la traduction](docs/i18n.md).
+Les routes françaises restent à la racine et disposent d’équivalents sous `/en` : `/en/about`, `/en/books`, `/en/podcasts`, etc. Le sélecteur du header conserve la page, les paramètres et l’ancre. Les liens internes suivent la langue choisie. L’accueil et toutes les pages intérieures, les formulaires, la navigation, le footer et le lecteur partagé sont traduits en anglais. Les titres des livres restent dans leur langue originale. Des mentions précisent la langue des ouvrages, des articles complets et des enregistrements. Chaque page traduite possède une canonique et des liens `hreflang` réciproques. Voir [l’architecture bilingue](docs/i18n.md).
 
 ## Dépôt GitHub et récupération des médias
 

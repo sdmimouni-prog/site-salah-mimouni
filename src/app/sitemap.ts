@@ -1,13 +1,13 @@
 import type { MetadataRoute } from 'next';
 import { articlesImportedAt } from '@/content/articles';
+import { siteRoutes } from '@/lib/i18n';
 import { siteUrl } from '@/lib/seo';
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = ['/', '/en', '/a-propos', '/articles', '/podcasts', '/livres', '/evenements', '/contact', '/livres/lancien-pauvre', '/livres/quand-les-marques-pensent', '/livres/pour-un-like-de-plus'];
-  return routes.map(route => ({
-    url: new URL(route, siteUrl).href,
-    ...(route === '/articles' ? { lastModified: articlesImportedAt } : {}),
-    ...(['/', '/en'].includes(route) ? { alternates: { languages: {
-      fr: siteUrl.href, en: new URL('/en', siteUrl).href, 'x-default': siteUrl.href,
-    } } } : {}),
-  }));
+  return siteRoutes.filter(route => route.id !== 'entre-deux-vols').flatMap(route => (['fr', 'en'] as const).map(locale => ({
+    url: new URL(route[locale], siteUrl).href,
+    ...(route.id === 'articles' ? { lastModified: articlesImportedAt } : {}),
+    alternates: { languages: {
+      fr: new URL(route.fr, siteUrl).href, en: new URL(route.en, siteUrl).href, 'x-default': new URL(route.fr, siteUrl).href,
+    } },
+  })));
 }

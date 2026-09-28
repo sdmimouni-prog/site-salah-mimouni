@@ -1,36 +1,8 @@
-import { LocalizedLink } from '@/components/i18n/LocalizedLink';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { ArrowRight, ArrowDown, BookOpen, Check, Mail } from 'lucide-react';
-import { books,getBook } from '@/content/books';
-import { SectionReveal } from '@/components/SectionReveal';
-import { BookCover } from '@/components/books/BookCover';
-import { OrderForm } from '@/components/books/OrderForm';
-import '@/app/livres/books.css';
-import { InfluenceLanding } from '@/components/influence/InfluenceLanding';
-export function generateStaticParams(){return books.filter(book=>book.slug!=='quand-les-marques-pensent').map(book=>({slug:book.slug}));}
+import { pageMetadata } from '@/lib/page-metadata';
+import Content, { generateMetadata as frenchMetadata, generateStaticParams } from '@/components/pages/BookContent';
+export { generateStaticParams };
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }) {
+  return pageMetadata(await frenchMetadata(props), `/livres/${(await props.params).slug}`, 'fr');
+}
 export const dynamicParams = false;
-export async function generateMetadata({params}: {params:Promise<{slug:string}>}): Promise<Metadata> {
-  const book=getBook((await params).slug); return {title:book ? `${book.title} — Salah-Eddine MIMOUNI` : 'Livre introuvable',description:book?.description};
-}
-export default async function BookPage({params}: {params:Promise<{slug:string}>}) {
-  const book=getBook((await params).slug);if(!book)notFound();
-  if(book.slug==='pour-un-like-de-plus')return <InfluenceLanding book={book} orderingEnabled={Boolean(process.env.RESEND_API_KEY && process.env.BOOK_ORDERS_FROM)}/>;
-  return <div className={`book-landing theme-${book.theme}`}>
-    <main id="book-main">
-      <section className="book-hero"><div className="book-page-frame"><nav className="book-breadcrumb" aria-label="Fil d’Ariane"><LocalizedLink href="/">Accueil</LocalizedLink><span>/</span><LocalizedLink href="/#livres">Les livres</LocalizedLink><span>/</span><span aria-current="page">{book.title}</span></nav>
-        <div className="book-hero-grid"><div className="book-hero-copy"><p className="book-eyebrow">Salah-Eddine MIMOUNI · {book.category}</p>{book.alias && <p className="book-alias">{book.alias}</p>}<h1>{book.title}</h1><p className="book-subtitle">{book.subtitle}</p><p className="book-hero-intro">{book.description}</p><div className="book-price"><strong>{book.price}<span> Dhs</span></strong><span>l’exemplaire<br/>hors frais de livraison</span></div><div className="book-hero-actions"><LocalizedLink href="#commander" className="book-primary">Commander le livre<ArrowRight size={19}/></LocalizedLink><LocalizedLink href="#decouvrir" className="book-secondary">Découvrir le livre<ArrowDown size={17}/></LocalizedLink></div><p className="book-publisher">Les Éditions Actuelles · Édition en français</p></div><div className="book-display"><BookCover book={book} priority/><span className="book-display-caption">{book.category}</span></div></div>
-      </div></section>
-      <div className="book-page-frame">
-        <section className="book-overview" id="decouvrir"><div><p className="book-eyebrow">À propos du livre</p><h2>Un livre.<br/>Une autre perspective.</h2></div><p>{book.introduction}</p></section>
-        <SectionReveal className="book-themes">{book.themes.map((theme,index)=><article className="section-reveal-item" data-reveal="visible" key={theme.title}><span>0{index+1}</span><h3>{theme.title}</h3><p>{theme.text}</p></article>)}</SectionReveal>
-        {book.editorialPreviews ? <section className="book-editorial" id="extraits"><div className="book-editorial-heading"><p className="book-eyebrow">Pour prolonger la réflexion</p><h2>Ce que l’influence nous coûte.</h2><p className="book-editorial-note">Aperçus éditoriaux proposés pour cette page, rédigés à partir des thèmes indiqués par l’auteur. Ces textes ne sont pas des extraits du manuscrit.</p></div><SectionReveal className="book-editorial-grid">{book.editorialPreviews.map((preview,index)=><article className="section-reveal-item" data-reveal="visible" key={preview.title}><span className="book-editorial-number">0{index+1}</span><h3>{preview.title}</h3>{preview.paragraphs.map(paragraph=><p key={paragraph}>{paragraph}</p>)}</article>)}</SectionReveal></section> : (
-<section className="book-excerpts" id="extraits"><div><p className="book-eyebrow">Avant de tourner la première page</p><h2>{book.excerpt ? 'Un premier regard.' : 'Les extraits du livre.'}</h2></div>{book.excerpt ? <figure><BookOpen size={27} aria-hidden="true"/><blockquote>« {book.excerpt.text} »</blockquote><figcaption>{book.excerpt.source}</figcaption></figure> : <div className="book-excerpt-pending"><BookOpen size={30} aria-hidden="true"/><h3>Les premières pages arrivent bientôt.</h3><p>Les extraits de cet ouvrage seront disponibles ici. En attendant, vous pouvez demander un aperçu dans votre message de commande.</p></div>}{book.excerptPdf && <LocalizedLink href={book.excerptPdf} className="book-secondary" download>Télécharger l’extrait<ArrowDown size={17}/></LocalizedLink>}</section>
-        )}
-        <section className="book-author"><img src="/assets/photos/portrait.jpeg" alt="Salah-Eddine MIMOUNI" loading="lazy"/><div><p className="book-eyebrow">L’auteur</p><h2>Salah-Eddine MIMOUNI</h2><p>Entrepreneur, auteur et conférencier. À travers ses livres, il ouvre un espace de réflexion sur le parcours humain, le marketing et l’influence.</p><LocalizedLink href="/a-propos" className="book-secondary">Découvrir son parcours<ArrowRight size={17}/></LocalizedLink></div></section>
-        <section className="book-order-section" id="commander"><div className="book-order-copy"><p className="book-eyebrow">Votre prochain livre</p><h2>La lecture commence<br/>par une rencontre.</h2><p>Recevez les informations nécessaires pour commander votre exemplaire de <strong>{book.title}</strong>.</p><ul><li><Check size={18}/>145 Dhs par exemplaire</li><li><Check size={18}/>Quantité au choix, de 1 à 10 exemplaires</li><li><Check size={18}/>Livraison et règlement confirmés par email</li></ul><div className="book-contact" id="contact"><Mail size={20}/><div>Une question sur votre commande ?<LocalizedLink href={`mailto:sd.mimouni@richmedia.ma?subject=${encodeURIComponent(`À propos du livre ${book.title}`)}`}>sd.mimouni@richmedia.ma</LocalizedLink></div></div></div><OrderForm slug={book.slug} title={book.title} price={book.price}/></section>
-        <section className="book-faq"><h2>Avant de commander.</h2><div><details><summary>Comment se passe la commande ?</summary><p>Envoyez votre demande. Nous vous recontacterons par email pour confirmer la disponibilité du livre, la livraison et le mode de règlement. Aucun paiement n’est demandé sur cette page.</p></details><details><summary>Quel est le prix de livraison ?</summary><p>Le prix du livre est de 145 Dhs. Les frais de livraison dépendent de la destination et seront précisés avant confirmation de votre commande.</p></details><details><summary>Puis-je commander plusieurs exemplaires ?</summary><p>Oui, vous pouvez demander jusqu’à 10 exemplaires par formulaire. Pour une quantité plus importante ou plusieurs titres, écrivez à sd.mimouni@richmedia.ma.</p></details><details id="donnees-commande"><summary>Comment sont utilisées mes coordonnées ?</summary><p>Votre nom, email, ville, pays, téléphone éventuel et message sont transmis à sd.mimouni@richmedia.ma pour traiter votre demande et vous répondre. Ils ne servent pas à vous inscrire à une newsletter. Vous pouvez demander leur suppression en écrivant à cette même adresse. L’envoi du formulaire passe par notre prestataire d’email transactionnel.</p></details></div></section>
-        <section className="book-related"><div className="book-related-heading"><h2>Continuer la découverte.</h2><LocalizedLink href="/#livres">Tous les livres<ArrowRight size={16}/></LocalizedLink></div><div className="book-related-grid">{books.filter(other=>other.slug!==book.slug).map(other=><LocalizedLink href={`/livres/${other.slug}`} key={other.slug}><BookCover book={other}/><div><p className="book-eyebrow">{other.category}</p><h3>{other.title}</h3><p>{other.subtitle}</p><span>Découvrir · {other.price} Dhs<ArrowRight size={16}/></span></div></LocalizedLink>)}</div></section>
-      </div>
-    </main></div>;
-}
+export default function Page(props: {params: Promise<{slug: string}>}) {return <Content {...props}/>;}

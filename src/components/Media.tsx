@@ -1,3 +1,7 @@
+import { getTranslator } from '@/lib/translate';
+import { ContentLanguage } from '@/components/i18n/ContentLanguage';
+import { podcastAudioLanguages } from '@/content/media-languages';
+import { youtubeId } from '@/lib/podcasts';
 import { Brain, ChartNoAxesColumnIncreasing, Lightbulb, UserRound, Orbit, Play, ArrowRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import { getHomeContent, homeCopy } from '@/content/home-localized';
@@ -6,7 +10,7 @@ import { SectionHeading } from './primitives';
 import { SectionReveal } from './SectionReveal';
 const icons = [Brain, ChartNoAxesColumnIncreasing, Lightbulb, UserRound, Orbit];
 export function Media({ locale = 'fr' }: { locale?: Locale }) {
-  const home = getHomeContent(locale), copy = homeCopy[locale];
+  const home = getHomeContent(locale), copy = homeCopy[locale], t = getTranslator(locale);
   return <div className="media-columns">
     <section id="interventions">
       <SectionHeading title={copy.talks}/>
@@ -32,10 +36,10 @@ export function Media({ locale = 'fr' }: { locale?: Locale }) {
       <SectionReveal className="episodes card">{home.episodes.map((item, index) =>
         <div className="section-reveal-item" data-reveal="visible" style={{ '--order': index + 2 } as CSSProperties} key={item.title}>
           <article className="episode">
-            <div className="episode-image"><img src={item.image} alt={`${copy.thumbnail} — ${item.title}`} loading="lazy"/></div>
-            {item.sourceUrl ? <a className="play" href={item.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`${copy.listen} — ${item.title}`}><Play size={18} fill="currentColor"/></a> : <button className="play" type="button" disabled title={copy.audioMissing} aria-label={`${copy.playbackUnavailable}: ${item.title}`}><Play size={18} fill="currentColor"/></button>}
-            <div className="episode-copy"><h3 dir="auto">{item.title}</h3><p>{item.show}<span>·</span>{item.duration}</p></div>
-            {item.sourceUrl ? <a className="episode-action" href={item.sourceUrl} target="_blank" rel="noopener noreferrer">{copy.listen}<ArrowRight size={13}/></a> : <button className="episode-action" disabled title={copy.audioMissing} aria-label={`${copy.listen} — ${item.title} — ${copy.audioMissing}`}>{copy.listen}<ArrowRight size={13}/></button>}
+            <div className="episode-image"><img src={item.image} alt={`${copy.thumbnail} — ${t(item.title)}`} loading="lazy"/></div>
+            {item.sourceUrl ? <a className="play" href={item.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={`${copy.listen} — ${t(item.title)}`}><Play size={18} fill="currentColor"/></a> : <button className="play" type="button" disabled title={copy.audioMissing} aria-label={`${copy.playbackUnavailable}: ${t(item.title)}`}><Play size={18} fill="currentColor"/></button>}
+            <div className="episode-copy"><h3 dir="auto">{t(item.title)}</h3><p>{item.show}<span>·</span>{item.duration}</p><ContentLanguage locale={locale} kind="podcast" audioLanguage={podcastAudioLanguages[youtubeId(item.sourceUrl) || '']}/></div>
+            {item.sourceUrl ? <a className="episode-action" href={item.sourceUrl} target="_blank" rel="noopener noreferrer">{copy.listen}<ArrowRight size={13}/></a> : <button className="episode-action" disabled title={copy.audioMissing} aria-label={`${copy.listen} — ${t(item.title)} — ${copy.audioMissing}`}>{copy.listen}<ArrowRight size={13}/></button>}
           </article>
         </div>
       )}</SectionReveal>

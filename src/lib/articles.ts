@@ -20,7 +20,7 @@ export function articleCategories(articles: Article[]) {
 }
 export function filterArticles(articles: Article[], query: string, category: string) {
   const terms = normalizeArticleSearch(query).split(/\s+/).filter(Boolean);
-  return articles.filter(article => (!category || article.category === category) && terms.every(term => normalizeArticleSearch([article.title,article.excerpt || '',article.category || ''].join(' ')).includes(term)));
+  return articles.filter(article => (!category || article.category === category) && terms.every(term => normalizeArticleSearch([article.title,article.originalTitle || '',article.originalExcerpt || '',article.excerpt || '',article.category || ''].join(' ')).includes(term)));
 }
 export function articleView(articles: Article[], query = '', category = '', order: ArticleOrder = 'newest') {
   const filtering = !!query.trim() || !!category;
@@ -28,7 +28,7 @@ export function articleView(articles: Article[], query = '', category = '', orde
   const matching = sortArticles(filterArticles(articles,query,category),order);
   return {filtering,featured,matching,grid:matching.filter(article => article.sourceUrl !== featured?.sourceUrl)};
 }
-export function articleDate(value: string | null) {
+export function articleDate(value: string | null, locale: 'fr' | 'en' = 'fr') {
   if (!value || !Number.isFinite(Date.parse(value))) return null;
-  return new Intl.DateTimeFormat('fr-FR',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value));
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'fr-FR',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(value));
 }

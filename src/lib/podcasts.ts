@@ -4,7 +4,7 @@ export const normalizeSearch = (value: string) => value.normalize('NFD').replace
 export function filterEpisodes(episodes: PodcastEpisode[], query: string, topic: string) {
   const terms = normalizeSearch(query).split(/\s+/).filter(Boolean);
   return episodes.filter(episode => {
-    const haystack = normalizeSearch([episode.title, episode.showName || '', episode.description, ...(episode.guests || []), ...episode.topics].join(' '));
+    const haystack = normalizeSearch([episode.title, episode.originalTitle || '', episode.showName || '', episode.description, ...(episode.guests || []), ...episode.topics].join(' '));
     return (!topic || episode.topics.includes(topic)) && terms.every(term => haystack.includes(term));
   });
 }
@@ -48,9 +48,9 @@ export function durationLabel(seconds: number | null) {
   const whole = Math.floor(seconds), minutes = Math.floor(whole / 60), remainder = String(whole % 60).padStart(2, '0');
   return minutes >= 60 ? `${Math.floor(minutes / 60)}:${String(minutes % 60).padStart(2, '0')}:${remainder}` : `${minutes}:${remainder}`;
 }
-export function dateLabel(date: string | null) {
+export function dateLabel(date: string | null, locale: 'fr' | 'en' = 'fr') {
   if (!date || !Number.isFinite(Date.parse(date))) return null;
-  return new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(date));
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : 'fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(date));
 }
 export function platformUrl(value: string | null) {
   const safe = safeMediaUrl(value);

@@ -3,15 +3,18 @@ import { notFound } from 'next/navigation';
 import { siteRoutes, findRoute } from '@/lib/i18n';
 import { HomeContent } from '@/components/HomeContent';
 import { englishHomeSeo, isIndexable, siteName } from '@/lib/seo';
-import AboutPage from '@/app/(fr)/a-propos/page';
-import ArticlesPage from '@/app/(fr)/articles/page';
-import PodcastsPage from '@/app/(fr)/podcasts/page';
-import BooksPage from '@/app/(fr)/livres/page';
-import EventsPage from '@/app/(fr)/evenements/page';
-import ContactPage from '@/app/(fr)/contact/page';
-import AncienPauvrePage from '@/app/(fr)/livres/lancien-pauvre/page';
-import MarquesPage from '@/app/(fr)/livres/quand-les-marques-pensent/page';
-import BookPage from '@/app/(fr)/livres/[slug]/page';
+import AboutContent from '@/components/pages/AboutContent';
+import ArticlesContent from '@/components/pages/ArticlesContent';
+import { PodcastsPage } from '@/components/podcasts/PodcastsPage';
+import { podcastEpisodes } from '@/content/podcasts';
+import { visibleEpisodes } from '@/lib/podcasts';
+import { englishPageMetadata } from '@/lib/page-metadata';
+import LibraryContent from '@/components/pages/LibraryContent';
+import EventsContent from '@/components/pages/EventsContent';
+import ContactContent from '@/components/pages/ContactContent';
+import AncienPauvreContent from '@/components/pages/AncienPauvreContent';
+import MarquesContent from '@/components/pages/MarquesContent';
+import BookContent from '@/components/pages/BookContent';
 
 type Props = {
   params: Promise<{ path?: string[] }>;
@@ -48,11 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [{ url: englishHomeSeo.image, alt: englishHomeSeo.imageAlt }],
     },
   };
-  return {
-    title: `${route.label.en} — Salah-Eddine MIMOUNI`,
-    // These are French-content fallbacks, not finished translations.
-    alternates: { canonical: route.fr },
-  };
+  return englishPageMetadata(route);
 }
 
 export default async function EnglishPage({ params, searchParams }: Props) {
@@ -61,16 +60,16 @@ export default async function EnglishPage({ params, searchParams }: Props) {
   let content: React.ReactNode;
   switch (route.id) {
     case 'home': return <HomeContent locale="en"/>;
-    case 'about': content = <AboutPage/>; break;
-    case 'articles': content = <ArticlesPage/>; break;
-    case 'podcasts': content = <PodcastsPage/>; break;
-    case 'books': content = <BooksPage/>; break;
-    case 'events': content = <EventsPage/>; break;
-    case 'contact': content = <ContactPage searchParams={searchParams}/>; break;
-    case 'ancien-pauvre': content = <AncienPauvrePage/>; break;
-    case 'marques': content = <MarquesPage/>; break;
-    case 'entre-deux-vols': content = <BookPage params={Promise.resolve({ slug: 'entre-deux-vols' })}/>; break;
-    case 'like': content = <BookPage params={Promise.resolve({ slug: 'pour-un-like-de-plus' })}/>; break;
+    case 'about': content = <AboutContent locale="en"/>; break;
+    case 'articles': content = <ArticlesContent locale="en"/>; break;
+    case 'podcasts': content = <PodcastsPage preview={process.env.PODCASTS_PREVIEW === 'true'} episodes={visibleEpisodes(podcastEpisodes, process.env.PODCASTS_PREVIEW === 'true')}/>; break;
+    case 'books': content = <LibraryContent locale="en"/>; break;
+    case 'events': content = <EventsContent locale="en"/>; break;
+    case 'contact': content = <ContactContent locale="en" searchParams={searchParams}/>; break;
+    case 'ancien-pauvre': content = <AncienPauvreContent locale="en"/>; break;
+    case 'marques': content = <MarquesContent locale="en"/>; break;
+    case 'entre-deux-vols': content = <BookContent locale="en" params={Promise.resolve({ slug: 'entre-deux-vols' })}/>; break;
+    case 'like': content = <BookContent locale="en" params={Promise.resolve({ slug: 'pour-un-like-de-plus' })}/>; break;
   }
-  return <><aside className="translation-notice">This page’s content is currently available in French. English translations are coming soon.</aside><div lang="fr">{content}</div></>;
+  return content;
 }
