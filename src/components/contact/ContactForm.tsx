@@ -41,7 +41,7 @@ export function ContactForm({ initialSubject }: { initialSubject: ContactSubject
     busy.current = true; setState('sending'); setNotice(t("Envoi de votre message en cours…"));
     requestId.current ||= crypto.randomUUID();
     try {
-      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, requestId: requestId.current }), signal: AbortSignal.timeout(20_000) });
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, locale, requestId: requestId.current }), signal: AbortSignal.timeout(20_000) });
       const result = await response.json();
       if (response.ok && result.ready === true && result.delivery && validRequestId(result.reference) && result.reference === requestId.current) {
         const delivery = result.delivery as PreparedDelivery;

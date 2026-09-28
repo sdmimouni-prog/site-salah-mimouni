@@ -142,6 +142,8 @@ Validation : 46 tests réussis, compilation webpack/TypeScript réussie, navigat
 
 Les routes françaises restent à la racine et disposent d’équivalents sous `/en` : `/en/about`, `/en/books`, `/en/podcasts`, etc. Le sélecteur du header conserve la page, les paramètres et l’ancre. Les liens internes suivent la langue choisie. L’accueil et toutes les pages intérieures, les formulaires, la navigation, le footer et le lecteur partagé sont traduits en anglais. Les titres des livres restent dans leur langue originale. Des mentions précisent la langue des ouvrages, des articles complets et des enregistrements. Chaque page traduite possède une canonique et des liens `hreflang` réciproques. Voir [l’architecture bilingue](docs/i18n.md).
 
+Les validations natives des commandes suivent aussi la langue de la page, indépendamment de celle du navigateur. Les notifications Contact et Newsletter indiquent la langue du formulaire (`fr` ou `en`), tout en conservant les sources FormSubmit déjà utilisées. Le destinataire reste `sd.mimouni@richmedia.ma`, y compris pour le service de commandes : il est défini dans `src/content/contact.ts` et ne dépend pas d’un champ visiteur ni de `BOOK_ORDERS_TO`. Les modes de démonstration des pages livres restent explicites ; une traduction ne les active pas.
+
 ## Dépôt GitHub et récupération des médias
 
 Le site possède son propre dépôt : https://github.com/sdmimouni-prog/site-salah-mimouni. Les fichiers de `public/videos/*.mp4` sont versionnés avec [Git LFS](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage). Après un clone, installer Git LFS puis récupérer le média avant de lancer le site :

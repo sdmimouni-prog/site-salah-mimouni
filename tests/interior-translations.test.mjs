@@ -99,13 +99,20 @@ test('translated templates preserve inserted book titles, whitespace and French 
 });
 
 test('all completed English interiors use distinct canonicals and reciprocal hreflang metadata',()=>{
+ const titles=new Set();
  for(const route of siteRoutes.filter(r=>r.id!=='home')) {
   const english=englishPageMetadata(route),french=pageMetadata({title:'French page'},route.fr,'fr');
+  assert.ok(!titles.has(english.title));titles.add(english.title);
+  if(route.section==='books' && !route.navigation) {
+   assert.ok(english.title.includes(route.label.en));
+   assert.ok(english.title.includes('French edition'));
+  }
   assert.equal(english.alternates.canonical,route.en);
   assert.equal(french.alternates.canonical,route.fr);
   assert.deepEqual(english.alternates.languages,french.alternates.languages);
   assert.equal(english.openGraph.url,route.en);
   assert.equal(english.openGraph.locale,'en_GB');
   assert.ok(english.description.length>60);
+  assert.equal(pageMetadata({},route.en+'?utm_source=test#commander','en').alternates.canonical,route.en);
  }
 });

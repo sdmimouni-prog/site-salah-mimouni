@@ -9,7 +9,7 @@ import { sendFormEmail, type PreparedDelivery } from '@/lib/form-submit';
 import s from '@/app/podcasts/podcasts.module.css';
 
 export function Newsletter() {
- const {t,locale,localize}=useTranslation();
+ const {t,locale}=useTranslation();
   const [values, setValues] = useState<NewsletterFields>({ email: '', consent: false, website: '' });
   const [errors, setErrors] = useState<NewsletterErrors>({});
   const [state, setState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -37,7 +37,7 @@ export function Newsletter() {
     busy.current = true; setState('sending'); setNotice(t("Envoi de votre demande…"));
     requestId.current ||= crypto.randomUUID();
     try {
-      const response = await fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, requestId: requestId.current }), signal: AbortSignal.timeout(20_000) });
+      const response = await fetch('/api/newsletter', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...values, locale, requestId: requestId.current }), signal: AbortSignal.timeout(20_000) });
       const result = await response.json();
       if (response.ok && result.ready === true && result.delivery && result.reference === requestId.current) {
         const delivery = result.delivery as PreparedDelivery;

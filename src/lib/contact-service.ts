@@ -12,6 +12,7 @@ export function contactEmail(message: ContactMessage) {
     subject: `Contact — ${subject}`,
     text: [
       'Nouvelle demande depuis le site de Salah-Eddine MIMOUNI.', '', `Référence : ${message.requestId}`,
+      `Langue du formulaire : ${message.locale === 'en' ? 'anglais' : 'français'}`,
       `Objet : ${subject}`, `Nom : ${message.name}`, `E-mail : ${message.email}`, `Téléphone : ${message.phone || 'Non renseigné'}`,
       `Organisation : ${message.organization || 'Non renseignée'}`,
       ...(hasEventDetails(message.subject) ? ['', `Date envisagée : ${message.date || 'Non renseignée'}`, `Lieu : ${message.location || 'Non renseigné'}`, `Format : ${format}`] : []),

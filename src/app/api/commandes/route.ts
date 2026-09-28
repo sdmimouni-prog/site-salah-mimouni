@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { books, getBook } from '@/content/books';
+import { contact } from '@/content/contact';
 import { orderEmail, sendOrderEmail, validEmail, validateOrder } from '@/lib/book-order';
 export const runtime = 'nodejs';
 const attempts = new Map<string,{count:number;until:number}>();
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
   const order = checked.order, book = getBook(order.book)!;
   const key = process.env.RESEND_API_KEY;
   const sender = process.env.BOOK_ORDERS_FROM;
-  const recipient = process.env.BOOK_ORDERS_TO || 'sd.mimouni@richmedia.ma';
+  const recipient = contact.email;
   if (!key || !sender || /[\r\n]/.test(sender) || !validEmail(recipient)) return reply('L’envoi en ligne n’est pas encore activé. Contactez sd.mimouni@richmedia.ma pour commander.',503);
   // Single-process abuse guard. Add an edge/shared rate limiter before a multi-instance deployment.
   const readerKey = createHash('sha256').update(order.email).digest('hex');

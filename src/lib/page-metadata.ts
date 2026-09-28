@@ -29,8 +29,18 @@ const descriptions: Record<string, string> = {
   like: 'Discover Pour un like de plus… by Salah-Eddine MIMOUNI, a look at the social cost of influence and the pursuit of popularity. Available in French only.',
 };
 
+const englishTitles: Partial<Record<SiteRoute['id'], string>> = {
+  about: 'About the Author',
+  articles: 'Articles & Insights',
+  podcasts: 'Podcasts & Conversations',
+  books: 'Books & Publications',
+  events: 'Events & Speaking',
+  contact: 'Contact & Collaborations',
+};
+
 export function englishPageMetadata(route: SiteRoute): Metadata {
-  const title = `${route.label.en} — ${siteName}`;
+  const pageTitle = englishTitles[route.id] || (route.section === 'books' ? `${route.label.en} (French edition)` : route.label.en);
+  const title = `${pageTitle} — ${siteName}`;
   const description = descriptions[route.id] || englishHomeSeo.description;
   return pageMetadata({
     title, description,

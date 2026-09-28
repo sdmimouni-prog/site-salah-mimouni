@@ -6,7 +6,7 @@ export type ContactFields = {
   message: string; date: string; location: string; format: string; consent: boolean; website: string;
 };
 export type ContactErrors = Partial<Record<keyof ContactFields, string>>;
-export type ContactMessage = Omit<ContactFields, 'subject' | 'website' | 'consent'> & { subject: ContactSubject; consent: true; requestId: string };
+export type ContactMessage = Omit<ContactFields, 'subject' | 'website' | 'consent'> & { subject: ContactSubject; consent: true; requestId: string; locale: 'fr' | 'en' };
 export const emptyContactFields: ContactFields = { name: '', email: '', phone: '', organization: '', subject: '', message: '', date: '', location: '', format: '', consent: false, website: '' };
 export const validRequestId = (value: unknown): value is string => typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(value);
 
@@ -42,13 +42,13 @@ export function validateContactFields(input: unknown): ContactErrors {
 export function validateContactRequest(input: unknown): { message: ContactMessage } | { errors: ContactErrors; error: string } {
   const errors = validateContactFields(input);
   if (Object.keys(errors).length) return { errors, error: 'Vérifiez les champs indiqués.' };
-  const fields = { ...emptyContactFields, ...(input as object) } as ContactFields & { requestId?: unknown };
+  const fields = { ...emptyContactFields, ...(input as object) } as ContactFields & { requestId?: unknown; locale?: unknown };
   if (!validRequestId(fields.requestId)) return { errors: {}, error: 'Rechargez la page avant de réessayer.' };
   const details = hasEventDetails(fields.subject);
   return { message: {
     name: fields.name.trim(), email: fields.email.trim().toLowerCase(), phone: fields.phone.trim(), organization: fields.organization.trim(),
     subject: contactSubject(fields.subject) as ContactSubject, message: fields.message.trim(),
     date: details ? fields.date.trim() : '', location: details ? fields.location.trim() : '', format: details ? fields.format : '',
-    consent: true, requestId: fields.requestId,
+    consent: true, requestId: fields.requestId, locale: fields.locale === 'en' ? 'en' : 'fr',
   } };
 }

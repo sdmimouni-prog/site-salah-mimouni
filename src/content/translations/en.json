@@ -752,5 +752,9 @@
   "Bonjour, Je souhaite recevoir les nouveaux épisodes du podcast de Salah-Eddine MIMOUNI par e-mail. Mon adresse : {0} Merci !": "Hello, I would like to receive new podcast episodes from Salah-Eddine MIMOUNI by email. My email address: {0}. Thank you!",
   "Fermer le menu": "Close menu",
   "Ouvrir le menu": "Open menu",
-  "Partager pour aller plus loin.": "Sharing ideas to move forward."
+  "Partager pour aller plus loin.": "Sharing ideas to move forward.",
+  "Veuillez remplir ce champ.": "Please fill in this field.",
+  "Saisissez au moins {0} caractères.": "Please enter at least {0} characters.",
+  "Saisissez au maximum {0} caractères.": "Please enter no more than {0} characters.",
+  "Veuillez vérifier la valeur de ce champ.": "Please check the value in this field."
 }

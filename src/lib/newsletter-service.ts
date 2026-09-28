@@ -12,6 +12,7 @@ export function newsletterEmail(subscription: NewsletterRequest) {
     text: [
       'Nouvelle demande d’inscription à la newsletter Podcasts de Salah-Eddine MIMOUNI.',
       '', `Adresse e-mail : ${subscription.email}`, 'Source : formulaire de la page /podcasts',
+      `Langue du formulaire : ${subscription.locale === 'en' ? 'anglais' : 'français'}`,
       'Consentement : je souhaite recevoir les nouveaux épisodes par e-mail.',
       `Référence : ${subscription.requestId}`, '',
       'Cette adresse est transmise pour le suivi de l’inscription. Aucun envoi de campagne automatique n’a été déclenché.',

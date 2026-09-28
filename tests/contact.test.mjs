@@ -27,6 +27,18 @@ test('contact URL selection ignores unknown, arrays and injected values', () => 
   assert.equal(contactLink('litteraire'), '/contact?objet=litteraire#formulaire');
   assert.equal(contactLink(), '/contact');
 });
+test('contact records a supported form language without changing the recipient or activated mail source', async () => {
+  for (const locale of ['en', 'fr', undefined, 'en\r\nBcc: forged@example.com']) {
+    const message = validateContactRequest({ ...valid(), locale }).message;
+    assert.equal(message.locale, locale === 'en' ? 'en' : 'fr');
+    const response = await createContactHandler({ env, browserDelivery: true })(request({ ...valid(), locale }));
+    const { delivery } = await response.json();
+    assert.deepEqual(delivery.payload.to, ['sd.mimouni@richmedia.ma']);
+    assert.equal(delivery.source, env.SITE_URL + '/contact');
+    assert.match(delivery.payload.text, locale === 'en' ? /Langue du formulaire : anglais/ : /Langue du formulaire : français/);
+    assert.doesNotMatch(delivery.payload.text, /Bcc:/);
+  }
+});
 test('contact validation reports individual errors and requires consent', () => {
   const errors = validateContactFields(emptyContactFields);
   assert.deepEqual(Object.keys(errors), ['name', 'email', 'subject', 'message', 'consent']);

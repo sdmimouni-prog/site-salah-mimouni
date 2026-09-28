@@ -1,4 +1,4 @@
-# SEO de l’accueil
+# SEO du site bilingue
 
 ## Métadonnées et indexation
 
@@ -8,10 +8,16 @@
 - La canonique de l’accueil est définie uniquement sur sa page pour éviter de la transmettre aux autres routes.
 - Open Graph et carte X/Twitter avec titre, description et image 1200 × 630.
 - JSON-LD `Person`, `WebSite`, `WebPage` reliés entre eux. Aucun avis, score, chiffre non confirmé ni profil social inventé.
-- HTML en français, titre H1 unique conservé, portrait d’accueil optimisé avec Next Image et préchargement responsive.
+- HTML en français à la racine et en anglais sous `/en`, titre H1 unique conservé, portrait d’accueil optimisé avec Next Image et préchargement responsive.
 - Production : `index, follow`, aperçu large des images autorisé. `robots.txt` permet les pages publiques et référence `sitemap.xml`, avec exclusion des API.
 - Développement et déploiements Vercel Preview : `noindex, nofollow` et exploration interdite dans `robots.txt`. Les protections HTTP de Vercel restent indépendantes.
-- Le sitemap expose les dix routes canoniques. Les redirections courtes des livres n’y figurent pas. Les pages secondaires héritent de la même origine publique.
+- Le sitemap expose vingt URL : dix pages en français et leurs dix équivalents en anglais. Les redirections courtes et l’ancienne route `entre-deux-vols` n’y figurent pas. Les pages secondaires héritent de la même origine publique.
+
+## Pages françaises et anglaises
+
+Chaque page utilise un titre et une description propres à son contenu et à sa langue. `src/lib/page-metadata.ts` associe les pages intérieures aux routes de `src/lib/i18n.ts`. Les titres originaux des ouvrages sont conservés, et les descriptions anglaises précisent la langue des contenus d’origine.
+
+Les canoniques sont propres à chaque version et ne contiennent ni paramètres de recherche ni ancre. Les liens `hreflang="fr"`, `hreflang="en"` et `hreflang="x-default"` sont réciproques ; `x-default` désigne la version française. Ces mêmes correspondances sont déclarées dans le sitemap. Les métadonnées de partage utilisent `fr_MA` et `en_GB`, avec la locale alternative correspondante.
 
 Pour un futur domaine personnalisé, configurer ce domaine sur Vercel, modifier `NEXT_PUBLIC_SITE_URL`, redéployer et rediriger les anciens domaines vers le domaine principal. `SITE_URL` reste indépendant et sert notamment à la validation d’origine des formulaires.
 

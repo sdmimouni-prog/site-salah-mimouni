@@ -20,6 +20,18 @@ const env = { SITE_URL: 'http://localhost:3009' };
 const valid = () => ({ email: ' ABONNE@example.com ', consent: true, website: '', requestId: randomUUID() });
 const request = (body, headers = {}) => new Request(env.SITE_URL + '/api/newsletter', { method: 'POST', headers: { Origin: env.SITE_URL, 'Content-Type': 'application/json', ...headers }, body: JSON.stringify(body) });
 
+test('newsletter records English subscriptions and normalizes unsupported locale values', async () => {
+  for (const locale of ['en', 'fr', undefined, { en: true }]) {
+    const subscription = validateNewsletterRequest({ ...valid(), locale }).subscription;
+    assert.equal(subscription.locale, locale === 'en' ? 'en' : 'fr');
+    const result = await (await createNewsletterHandler({ env, browserDelivery: true })(request({ ...valid(), locale }))).json();
+    assert.deepEqual(result.delivery.payload.to, ['sd.mimouni@richmedia.ma']);
+    assert.equal(result.delivery.source, env.SITE_URL + '/podcasts');
+    assert.match(result.delivery.payload.text, locale === 'en' ? /Langue du formulaire : anglais/ : /Langue du formulaire : français/);
+    assert.equal(result.ok, undefined);
+  }
+});
+
 test('newsletter validates consent, email, honeypot and request id', () => {
   const result = validateNewsletterRequest(valid());
   assert.equal(result.subscription.email, 'abonne@example.com');

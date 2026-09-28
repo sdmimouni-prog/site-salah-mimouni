@@ -3,7 +3,7 @@ import { validRequestId } from './contact-request';
 
 export type NewsletterFields = { email: string; consent: boolean; website: string };
 export type NewsletterErrors = Partial<Record<keyof NewsletterFields, string>>;
-export type NewsletterRequest = { email: string; consent: true; requestId: string };
+export type NewsletterRequest = { email: string; consent: true; requestId: string; locale: 'fr' | 'en' };
 
 export function validateNewsletterFields(input: NewsletterFields): NewsletterErrors {
   const errors: NewsletterErrors = {};
@@ -15,9 +15,9 @@ export function validateNewsletterFields(input: NewsletterFields): NewsletterErr
 
 export function validateNewsletterRequest(input: unknown): { subscription: NewsletterRequest } | { error: string; errors?: NewsletterErrors } {
   if (!input || typeof input !== 'object' || Array.isArray(input)) return { error: 'Demande invalide.' };
-  const values = input as NewsletterFields & { requestId?: unknown };
+  const values = input as NewsletterFields & { requestId?: unknown; locale?: unknown };
   const errors = validateNewsletterFields(values);
   if (Object.keys(errors).length) return { error: 'Vérifiez les champs indiqués.', errors };
   if (!validRequestId(values.requestId)) return { error: 'Rechargez la page avant de réessayer.' };
-  return { subscription: { email: values.email.trim().toLowerCase(), consent: true, requestId: values.requestId } };
+  return { subscription: { email: values.email.trim().toLowerCase(), consent: true, requestId: values.requestId, locale: values.locale === 'en' ? 'en' : 'fr' } };
 }
